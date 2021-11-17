@@ -1,0 +1,26 @@
+import pandas as pd
+
+
+def df_unixtime_filter(df, date_col, s, e):
+    df = df[(df[date_col] >= s) & (df[date_col] <= e)]
+    df.reset_index(drop=True,inplace=True)
+    return df
+
+
+def df_general_time_filter(df, date_col, s, e):
+    df = df[(df[date_col] >= s) & (df[date_col] <= e)]
+    df.reset_index(drop=True,inplace=True)
+    return df
+
+
+def df_normalize(df, normalize_col):
+    # normalize_col must be numerical and not null
+    factor = df.loc[0, normalize_col]
+    for i in range(0, len(df)):
+        df.loc[i, normalize_col] = df.loc[i, normalize_col] / factor
+        
+        
+def df_multiply_factor(df, normalize_col, factor):
+    # normalize_col must be numerical and not null
+    for i in range(0, len(df)):
+        df.loc[i, normalize_col] = df.loc[i, normalize_col] * factor

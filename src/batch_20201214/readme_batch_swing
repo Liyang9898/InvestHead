@@ -1,0 +1,7 @@
+step1:ticker_meta resolve all ticker info
+step2:batch_format
+step3:batch_add_indicator
+step4:batch comupute trade, batch_trade_lib is just a lib, different strat execuation instance is in folder batch_trade_execuation
+step5:merge_trade_results
+step6:filter stock
+step7:cash history

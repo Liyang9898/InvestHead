@@ -1,0 +1,39 @@
+    # we discovered that 50% of the lose are between 0.2%-0.25% PNL
+    so we don't trade when stop loss gap is <0.3%
+        
+        conclusion
+        reduce win trades count 16%-18%
+        reduce lose trades count 29%
+        
+        All entry trade summary
+        win 72.64%->75.41%   2.77%
+        lose 22.60%->19.86%
+        
+         Consecutive trade summary
+         win 74.14%->76.31%  2.17%
+         lose 21.40%->19.19%
+        
+ Consecutive trade summary
+
+    win trades:648(74.14%), lose trades:187(21.40%), neutral trades:39(4.46%), total trades:874
+    win_pnl:480.95%, lose_pnl:-103.99%  380
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:1160(72.64%), lose trades:361(22.60%), neutral trades:76(4.76%), total trades:1597
+    win_pnl:908.27%, lose_pnl:-237.83%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+
+
+Consecutive trade summary
+
+    win trades:525(76.31%), lose trades:132(19.19%), neutral trades:31(4.51%), total trades:688
+    win_pnl:425.62%, lose_pnl:-100.74%   320
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:972(75.41%), lose trades:256(19.86%), neutral trades:61(4.73%), total trades:1289
+    win_pnl:818.08%, lose_pnl:-228.11%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,

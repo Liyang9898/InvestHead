@@ -1,0 +1,95 @@
+cuttrendend
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -88   lose_cnt_change: -67
+win_cnt_change: -11.96%   lose_cnt_change: -26.38% effective_ratio: 2.2061560486757332
+trade cut: -16.20%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 3.58% lose_rate_change: -2.96%
+
+pnl: 429.43%
+pnl_change: -52.46%
+=======================================================================================================
+cutnarrowstoploss 
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -97   lose_cnt_change: -57
+win_cnt_change: -13.18%   lose_cnt_change: -22.44% effective_ratio: 1.7027356116567902
+trade cut: -15.44%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 1.88% lose_rate_change: -2.02%
+
+pnl: 429.43%
+pnl_change: -40.00%
+=======================================================================================================
+cutslowvolicity [2]
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -64   lose_cnt_change: -63
+win_cnt_change: -8.70%   lose_cnt_change: -24.80% effective_ratio: 2.8523622047244097
+trade cut: -12.75%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 3.28% lose_rate_change: -3.36%
+
+pnl: 429.43%
+pnl_change: -23.22%
+=======================================================================================================
+cutslowvolicity [3]-----best approach
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -90   lose_cnt_change: -87
+win_cnt_change: -12.23%   lose_cnt_change: -34.25% effective_ratio: 2.801049868766404
+trade cut: -17.83%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 4.81% lose_rate_change: -4.87%
+
+pnl: 429.43%
+pnl_change: -26.07%
+=======================================================================================================
+cutslowvolicity  [4]
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -138   lose_cnt_change: -115
+win_cnt_change: -18.75%   lose_cnt_change: -45.28% effective_ratio: 2.4146981627296586
+trade cut: -25.31%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 6.20% lose_rate_change: -6.51%
+
+pnl: 429.43%
+pnl_change: -43.90%
+=======================================================================================================
+cuttrendend_narrowstoploss
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -211   lose_cnt_change: -122
+win_cnt_change: -28.67%   lose_cnt_change: -48.03% effective_ratio: 1.675411426652237
+trade cut: -34.04%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 5.74% lose_rate_change: -5.17%
+
+pnl: 429.43%
+pnl_change: -104.54%
+=======================================================================================================
+cuttrendend_narrowstoploss_lowv
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -226   lose_cnt_change: -132
+win_cnt_change: -30.71%   lose_cnt_change: -51.97% effective_ratio: 1.6924256149397254
+trade cut: -36.43%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 6.36% lose_rate_change: -5.95%
+
+pnl: 429.43%
+pnl_change: -109.25%
+=======================================================================================================
+trade_cuttrendend_slowv  [3]
+win_cnt: 736   lose_cnt: 254
+win_cnt_change: -148   lose_cnt_change: -111
+win_cnt_change: -20.11%   lose_cnt_change: -43.70% effective_ratio: 2.173228346456693
+trade cut: -26.65%
+
+win_rate: 70.57% lose_rate: 24.35%
+win_rate_change: 6.30% lose_rate_change: -5.66%
+
+pnl: 429.43%
+pnl_change: -72.16%

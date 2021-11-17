@@ -1,0 +1,90 @@
+spy
+neutral out
+    win trades:25(43.10%), lose trades:4(6.90%), 
+    neutral trades:29(50.00%), win-lose: 36.21%
+    --------------------------------------------------------------------------
+    win_pnl:268.12%, lose_pnl:-38.43%, total_pnl:229.69%, snowball_pnl:308.93%
+    --------------------------------------------------------------------------
+    win_points:221,lose_points: -90,all_points_mades: 130
+    --------------------------------------------------------------------------
+    total trades:58,bar_count: 1422
+
+no neutral out
+    win trades:27(84.38%), lose trades:5(15.62%), 
+    neutral trades:0(0.00%), win-lose: 68.75%
+    --------------------------------------------------------------------------
+    win_pnl:285.87%, lose_pnl:-29.08%, total_pnl:256.80%, snowball_pnl:443.46%
+    --------------------------------------------------------------------------
+    win_points:252,lose_points: -37,all_points_mades: 214
+    --------------------------------------------------------------------------
+    total trades:32,bar_count: 1422
+
+FB
+neutral out
+    win trades:13(33.33%), lose trades:4(10.26%), 
+    neutral trades:22(56.41%), win-lose: 23.08%
+    --------------------------------------------------------------------------
+    win_pnl:72.09%, lose_pnl:-31.98%, total_pnl:40.11%, snowball_pnl:40.57%
+    --------------------------------------------------------------------------
+    win_points:114,lose_points: -62,all_points_mades: 52
+    --------------------------------------------------------------------------
+    total trades:39,bar_count: 1115
+
+no neutral out
+    win trades:16(72.73%), lose trades:6(27.27%), 
+    neutral trades:0(0.00%), win-lose: 45.45%
+    --------------------------------------------------------------------------
+    win_pnl:91.78%, lose_pnl:-38.61%, total_pnl:53.17%, snowball_pnl:58.78%
+    --------------------------------------------------------------------------
+    win_points:146,lose_points: -71,all_points_mades: 74
+    --------------------------------------------------------------------------
+    total trades:22,bar_count: 1115
+
+GOOG
+neutral out
+    win trades:13(27.66%), lose trades:6(12.77%), 
+    neutral trades:28(59.57%), win-lose: 14.89%
+    --------------------------------------------------------------------------
+    win_pnl:48.30%, lose_pnl:-36.77%, total_pnl:11.53%, snowball_pnl:9.38%
+    --------------------------------------------------------------------------
+    win_points:537,lose_points: -372,all_points_mades: 165
+    --------------------------------------------------------------------------
+    total trades:47,bar_count: 1115
+
+no neutral out
+    win trades:18(75.00%), lose trades:6(25.00%), 
+    neutral trades:0(0.00%), win-lose: 50.00%
+    --------------------------------------------------------------------------
+    win_pnl:66.44%, lose_pnl:-36.47%, total_pnl:29.96%, snowball_pnl:31.03%
+    --------------------------------------------------------------------------
+    win_points:703,lose_points: -369,all_points_mades: 333
+    --------------------------------------------------------------------------
+    total trades:24,bar_count: 1115
+
+AMZN
+neutral out
+    win trades:20(54.05%), lose trades:4(10.81%), 
+    neutral trades:13(35.14%), win-lose: 43.24%
+    --------------------------------------------------------------------------
+    win_pnl:116.13%, lose_pnl:-35.29%, total_pnl:80.84%, snowball_pnl:103.36%
+    --------------------------------------------------------------------------
+    win_points:1493,lose_points: -582,all_points_mades: 911
+    --------------------------------------------------------------------------
+    total trades:37,bar_count: 1115
+
+no neutral out
+    win trades:22(84.62%), lose trades:4(15.38%), 
+    neutral trades:0(0.00%), win-lose: 69.23%
+    --------------------------------------------------------------------------
+    win_pnl:121.68%, lose_pnl:-35.29%, total_pnl:86.39%, snowball_pnl:114.79%
+    --------------------------------------------------------------------------
+    win_points:1569,lose_points: -582,all_points_mades: 987
+    --------------------------------------------------------------------------
+    total trades:26,bar_count: 1115
+    
+ experiment on 3662 stock:
+ fix pnl 1350 drop 1930 rise
+ roll over pnl 1408 drop  1874 rise
+ win lose rate diff  455 drop 2804 rise
+ 
+ looking at price, fix,rollover 3 line chart. Observse gain, no draw back

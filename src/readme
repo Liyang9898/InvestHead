@@ -1,0 +1,28 @@
+2020 June
+started another swing trade attempt
+related package:indicator_master, trading_floor, strategy_lib, datacleaning
+
+20200616 experiment result
+
+946 ticker above 0.5 M daily avg volume
+total stock: 946
+total stock has trades: 941
+total stock has positive win rate: 536
+total stock has positive win pnl %(makes money): 939
+
+after param sweep
+found 946 ticker with indicator files
+911 ticker satisfy the condition, win rate-lose rate>0 lose_rate<0.5
+898 ticker satisfy the condition, win rate-lose rate>0 lose_rate<0.1
+894 ticker satisfy the condition, win rate-lose rate>0.1 lose_rate<0.1
+430 ticker satisfy the condition, win rate-lose rate>0.2 lose_rate<0.1
+23 ticker satisfy the condition, win rate-lose rate>0.3 lose_rate<0.1
+
+890 ticker satisfy the condition, win rate-lose rate>0 lose_rate<0.05
+870 ticker satisfy the condition, win rate-lose rate>0 lose_rate<0.02
+846 ticker satisfy the condition, win rate-lose rate>0 lose_rate<0.01
+
+best set up
+416 ticker satisfy the condition, win rate-lose rate>0.2 lose_rate<0.01
+
+conclusion, very low lose rate guaranteed by entry price out risk management

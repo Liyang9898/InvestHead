@@ -1,0 +1,10 @@
+enter: if bar_yesterday['ema21'] > bar_yesterday['ma50']:
+exit:bar_yesterday['ema21'] <= bar_yesterday['ma50']     (bar_duration > 4 neutral out enable)
+win trades:6(30.00%), lose trades:2(10.00%), neutral trades:12(60.00%), total trades:20
+win_pnl:309.80%, lose_pnl:-16.04%
+
+
+enter: if bar_yesterday['ema21'] > bar_yesterday['ma50'] and bar_yesterday['ema21_delta'] > 0:
+exit:bar_yesterday['ema21'] <= bar_yesterday['ma50']     (bar_duration > 4 neutral out enable)
+win trades:6(27.27%), lose trades:0(0.00%), neutral trades:16(72.73%), total trades:22
+win_pnl:278.29%, lose_pnl:0.00%

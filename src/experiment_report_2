@@ -1,0 +1,348 @@
+old future strategy
+
+runner.single_run
+runner.single_run_big_bar
+
+
+new ma strategy:
+trading_floor._test....
+
+2020/12/03
+how to test individual stock:
+step1:format->datacleaning/formatting.py
+step2:indicator ->indicator_master/_make_indicator_onetime.py
+step3:backtest->trading floor/_test_stratrgy_run_single_st.py
+you can select ma8_21 or 21_50 in step 3
+
+
+2020/12/14
+where you download stock
+https://stackoverflow.com/questions/25338608/download-all-stock-symbol-list-of-a-market
+need to download all of them
+
+2020/12/24
+all swing trade all stock sweep in folder batch_20201214
+
+
+2020-12/27
+if it already dropped half of the best price, and the MA hasn't turned, most likely it will turn later
+the more you trade, the more over head you will have
+
+if not breach profit management threshold or sstop loss, you are still the same situation as as in. That's horizontal move. In your current strat, you enter immediately after a neutral out. That's the same effect
+
+2020-12/17 todo next:
+if ema8>ema 21, observe next month: 1. price in +/-8%, 2.price move above +8% before -8%  3.price move below -8% before +8%
+step:
+1.scan a stock, see signal, list(event)  event:{signal time, result, result,time}, event distribution,cnt.->csv
+2.merge all stock csv
+
+write down momentton adds on for current floor performanced
+pick stock->
+
+2021-01-15
+big 10
+{'positive_rate': 0.6653225806451613, 'window_pnl_p_avg': 0.017953729772484366}
+{'positive_rate': 0.8175, 'window_pnl_p_avg': 0.05768437283639873}
+{'positive_rate': 0.9719298245614035, 'window_pnl_p_avg': 0.12148687665405301}
+{'positive_rate': 1.0, 'window_pnl_p_avg': 0.2711946379092427}
+big 45
+{'positive_rate': 0.7725806451612903, 'window_pnl_p_avg': 0.02306273822032806}
+{'positive_rate': 0.9283333333333333, 'window_pnl_p_avg': 0.07236151200936429}
+{'positive_rate': 0.9982456140350877, 'window_pnl_p_avg': 0.1497988304216562}
+{'positive_rate': 1.0, 'window_pnl_p_avg': 0.3412463370072498}
+
+iwf 200
+{'positive_rate': 0.7298387096774194, 'window_pnl_p_avg': 0.015860946837835174}
+{'positive_rate': 0.8891666666666667, 'window_pnl_p_avg': 0.04975715269747747}
+{'positive_rate': 0.9842105263157894, 'window_pnl_p_avg': 0.1028643031625085}
+{'positive_rate': 1.0, 'window_pnl_p_avg': 0.22834924062612882}
+
+2021-01-28
+with trading channel-trading time reduce 10%-50% major 25%
+ni impart on win rate
+
+fix -20%
+roll over -12%
+
+2021-2-27
+ma exit 8-21 has reduce loss in drop down, but increased losing chance during horizontal movement even more
+in 2021 late Feb market adjustment, you are blinded by reduce loss cases only.
+
+2021-03-02
+trend start strat cut down win and lose case at the same time. It does not increase win rate. 
+and it cut down opportunity greatly, so , it decrease pnl
+
+2021-03-14
+channel enter (ema8 based channel) do not affect win rate, because the scope of channel is too small to compare with larger trend
+but it shows slight gain in pnl of each trade, it's probably came from channel's width
+also, when it's breaking the channel, it's actually increasing win rate due to a out break starting point
+
+2021-mar
+Spy adjustment period: still need to go in. Man, don't waste profit
+
+2021-03-14
+gap:
+1.channel enter, check if in stable channel and enter position can take advantage
+2.check over all, if it's up
+3.check if its a flat up
+
+3in-2out
+in:all ma up, ma sequence, macd
+out:half profit manage, ma sequence
+stock select:iwf, ma50 60% up
+
+2021-04-03
+1. reason for active manage: if there is no down trend, only have pull back, why are you doing this?
+2.why using strategy on 50 st in iwf can out perform trading iwf only? 
+may be because strategy is finding the best increasing part of iwf in each period
+
+2021-04-03 
+stop loss margin
+threshold, limit stop loss below a range, this is not helping, but lowering win rate
+threshold: 0.1  ( 0.6025267791227312 ) rate:  0.7648649898280008  win pnl: 0.04962532717944405  lose pnl -0.06780054069535231
+threshold: 0.15  ( 0.7987491468289897 ) rate:  0.7794674153776399  win pnl: 0.04862795810336442  lose pnl -0.07405638496005541
+threshold: 0.2  ( 0.8814057472385118 ) rate:  0.7870790334560741  win pnl: 0.04796887484431622  lose pnl -0.07729430029212667
+threshold: 0.25  ( 0.9194327979830341 ) rate:  0.790234369082067  win pnl: 0.047789253959925254  lose pnl -0.07924976808729088
+threshold: 0.3  ( 0.9392960120349347 ) rate:  0.7920602672282117  win pnl: 0.04764558480577205  lose pnl -0.08025934721057817
+threshold: 0.4  ( 0.9557604713682774 ) rate:  0.7937477228011368  win pnl: 0.0475999429040051  lose pnl -0.08100850547242221
+threshold: 0.5  ( 0.9599810561212408 ) rate:  0.7939580370875533  win pnl: 0.047624045304632955  lose pnl -0.08142100349697641
+threshold: 99999  ( 0.9629897898065217 ) rate:  0.7942112419359505  win pnl: 0.04762136136618098  lose pnl -0.08184470757532478
+conclusion: no smaller than 25%, cut 9% opportunit, larger than 10% gap is has 80% win rate, 4% gap->75% win rate(solid trend)
+
+2021-04-04
+channel is useless or you didn't program the channel correctly
+
+2021-04-18
+2,5,10 fold validation shows for entry with ema21 ma50 gap > 3.9%, win rate is 82.9%
+
+2021-04-20
+why uniform threshold is performing as good as per ticker threshold on ema21-ma50?
+there a piece of unrealistic gain from uniform threshold method:
+although uniform ticket retain 50% of stock, but individual stock can go as low as 10%, which is not realistic
+so, realistically, 82.9% is the best we can get when we retain 50% trade for each stock ticker
+
+2021-04-25
+########################################
+#### study on 4% out ###################
+########################################
+########################################################################################################################
+conclusion: 
+[++] [long term pnl]  1.major advantage in roll over long term benefit, must have
+                         -it's out performing on every single metric after 3 rounds of run (moving window win rate and pnl)
+     [operation cost] 2.30% less holding time, 50% more trade
+                            [-] more frequent buy action
+                            [++] night time is gone, no need for adjusting exit take profit bar, only set once during entry
+                            [-] more documentation
+                            [slight-] need to remove order if it's lose out
+[++] [option gain]    3.good for option (4p)96% 2 month win vs (major) 89% 2 month win
+                         -higher leverage
+                         -lower holding time means lower time value loss
+########################################################################################################################
+    
+
+check:temp_shrink_70p_excel
+We try to neutral exit when shrink of macd > 70% holding period. But it lower the win rate.
+The fact is, for those macd > 70% holding period, which can be exited neutrally, they have higher win rate
+
+2021-04-29
+lose:0.17244208494208493 
+win 0 to 4%:0.5896001356293443
+win above 4%: 0.23732713313473322
+
+although it looks negative, but it's all entry, it's not the real trades
+0-4 % profit         >4% profit      total profit
+625.042338920607 891.479156284408 1516.521495205015
+1348.8816758153312 5.478311946237105 1354.3599877615682
++723                -886
+
+trading count 50%
+holding days 30->20days
+                     1 month            2 month             3 month
+major holding days  0.6032841676959965 0.8930950131996416 0.9566470488507836
+4 %   holding days  0.716554054054054 0.965226833976834 0.997442084942085
+
+alt_up_rate_1_m	alt_up_rate_3_m	alt_up_rate_6_m	alt_up_rate_12_m	alt_window_pnl_p_1_m	alt_window_pnl_p_3_m	alt_window_pnl_p_6_m	alt_window_pnl_p_12_m	max_dip_time	max_dip
+0.687402799	0.802568218	0.838954469	0.934034417	0.012509017	0.037819894	0.076911155	0.167483832	156	0.222044586
+0.716174184	0.861958266	0.889544688	0.992351816	0.014907845	0.04549924	0.092698787	0.204107043	119	0.170685024
+
+alt_up_rate_1_m	alt_up_rate_3_m	alt_up_rate_6_m	alt_up_rate_12_m	alt_window_pnl_p_1_m	alt_window_pnl_p_3_m	alt_window_pnl_p_6_m	alt_window_pnl_p_12_m	max_dip_time	max_dip
+0.686625194	0.806581059	0.86846543	0.944550669	0.013075921	0.039724863	0.080733645	0.173468927	133	0.208129828
+0.732503888	0.865168539	0.89544688	0.989483748	0.015315349	0.046940339	0.096186899	0.210617835	119	0.168487311
+
+alt_up_rate_1_m	alt_up_rate_3_m	alt_up_rate_6_m	alt_up_rate_12_m	alt_window_pnl_p_1_m	alt_window_pnl_p_3_m	alt_window_pnl_p_6_m	alt_window_pnl_p_12_m	max_dip_time	max_dip	max_dip_exit_ts	max_dip_bottom_ts
+0.688958009	0.796950241	0.855817875	0.935946463	0.013389249	0.041024643	0.082613801	0.175100467	128	0.201023394	3/14/2019	3/16/2020
+0.714618974	0.853130016	0.897976391	0.97418738	0.014476558	0.044478893	0.089782288	0.193026388	109	0.17630757	2/15/2019	3/16/2020
+
+
+       roll  fix
+major  2.93  2.2
+4p     4.88  2.6
+
+
+       roll  fix
+major  3.2  2.3
+4p     5.4  2.7
+
+
+       roll  fix
+major  3.4  2.3
+4p     4.6  2.5
+
+2021-05-02
+best pnl profit analysis.
+accordint to sandbox/best_pnl.py 52% the stock has p83 profit between 4%-4.5%. That means there is not much room for moving up the profit taking x% threshold
+according to 
+
+2021-05-08   optional related
+after computing 5 different option on 7 stock,(35 combinations) for 3 month. The leverage is usually 4-5x, increase with time. 
+Some stock like tsla only has 1.8x leverage. some stock has 8x 
+all data results (leverage) are stored in /src/blake_shore/data/options.py
+
+2021-05-09   optional related
+big discovery:
+leverage has most to do with IV!!!!!!!!!!!!!!!!!!!!!!!!! worry less about every thing else
+leverage   IV
+2x is      40%
+4x         30%   
+5x         25%,   
+6-7x       20%    
+
+data:
+   ticker  expire_month      iv_0  leverage_0    iv_avg  leverage_avg
+6    morn             4  0.217881    7.177622  0.223947      6.799469
+4     ttc             2  0.234896    7.439535  0.232952      6.730759
+10    ttc             6  0.255156    5.213952  0.230740      5.860953
+5    pool             3  0.274490    5.252235  0.279148      4.823497
+1    amzn             3  0.282278    5.032342  0.283760      4.832962
+0      fb             3  0.302346    4.366614  0.307524      4.066911
+7      fb             5  0.312601    4.212607  0.311352      4.205038
+2     amd             3  0.373908    3.013837  0.390784      2.743767
+3    tsla             2  0.564406   -0.272189  0.566239     -0.357095
+8    tsla             4  0.585700    1.164407  0.586124      1.109280
+9    tsla             7  0.603833    1.453598  0.603921      1.441538
+
+
+2021-05-09
+option both way price simulation shows:
+if you lose, the initial leverage is greater----another reason for not doing option
+
+option trade off:
+[-]spread gap too large/not enough opportunity
+[-]if you lose, the initial leverage is greater
+[?]another layer of dynamic leverage on top of you strategy, uncertainty added
+[+]some stock has larger than 4x leverage
+
+data:
+positive stock growth leverage
+   ticker  expire_month      iv_0  leverage_0    iv_avg  leverage_avg
+6    morn             4  0.217881    7.177622  0.223947      6.799469
+4     ttc             2  0.234896    7.439535  0.232952      6.730759
+10    ttc             6  0.255156    5.213952  0.230740      5.860953
+5    pool             3  0.274490    5.252235  0.279148      4.823497
+1    amzn             3  0.282278    5.032342  0.283760      4.832962
+0      fb             3  0.302346    4.366614  0.307524      4.066911
+7      fb             5  0.312601    4.212607  0.311352      4.205038
+2     amd             3  0.373908    3.013837  0.390784      2.743767
+3    tsla             2  0.564406   -0.272189  0.566239     -0.357095
+8    tsla             4  0.585700    1.164407  0.586124      1.109280
+9    tsla             7  0.603833    1.453598  0.603921      1.441538
+
+negative stock growth leverage
+   ticker  expire_month      iv_0  leverage_0    iv_avg  leverage_avg
+6    morn             4  0.217881   12.449563  0.223947     12.570442
+4     ttc             2  0.234896   17.001861  0.232952     18.372014
+10    ttc             6  0.255156    8.795459  0.230740      9.625013
+5    pool             3  0.274490   12.468375  0.279148     12.779999
+1    amzn             3  0.282278   12.105983  0.283760     12.324661
+0      fb             3  0.302346   12.231140  0.307524     12.419979
+7      fb             5  0.312601    8.191519  0.311352      8.290445
+2     amd             3  0.373908   10.156535  0.390784      9.977940
+3    tsla             2  0.564406   11.571700  0.566239     11.613047
+8    tsla             4  0.585700    6.859317  0.586124      6.949463
+9    tsla             7  0.603833    4.893605  0.603921      4.913069
+
+
+2021-05-18
+fit_and_eval/eval/eval_take_profit_at_p.py
+conclusion 1: as take profit threshold increase, the pnl increase, win rate decrease to 50%
+conclusion 2: we need relatively high win rate to stack up high profit for a roll up cash line, 4  percent is still the best:
+===========================data ===========================
+testing take profit threshold 3% 4% 6% 8% 10% 12% no_threshold
+
+==============================================================
+take profit _percent	all_u_win%	alt_up_rate_1_m	alt_up_rate_3_m	alt_up_rate_6_m	alt_up_rate_12_m		max_dip_time	max_dip	max_dip_exit_ts	max_dip_bottom_ts
+3	0.865402183	0.725505443	0.866773676	0.883642496	0.980879541		129	0.170648024	3/15/2019	3/16/2020
+4	0.827557915	0.730171073	0.863563403	0.891231029	0.973231358		133	0.186550948	3/21/2019	3/16/2020
+6	0.751512207	0.716174184	0.861958266	0.880269815	0.988527725		130	0.169058409	3/18/2019	3/16/2020
+8	0.692875293	0.695956454	0.833065811	0.880269815	0.966539197		119	0.202117734	3/1/2019	3/16/2020
+10	0.645136722	0.702954899	0.831460674	0.892074199	0.972275335		115	0.192634311	2/22/2019	3/16/2020
+12	0.611889492	0.707620529	0.829855538	0.892074199	0.970363289		117	0.194532376	2/27/2019	3/16/2020
+no	0.501378127	0.65318818	0.742375602	0.801011804	0.96749522		201	0.224496725	5/29/2020	3/16/2020
+
+================================================================
+take profit _percent	5 year fix	5 year roll	alt_window_pnl_p_1_m	alt_window_pnl_p_3_m	alt_window_pnl_p_6_m	alt_window_pnl_p_12_m
+3	2.67	5.12	0.014935471	0.045967464	0.093884291	0.206193895
+4	2.74	5.19	0.015038692	0.046121117	0.094047415	0.204149736
+6	2.74	5.02	0.015214334	0.046356928	0.094993581	0.206606411
+8	2.66	4.52	0.014942587	0.045018602	0.090449741	0.188795265
+10	2.63	4.27	0.014705544	0.044341835	0.089196053	0.192463985
+12	2.7	4.64	0.01524752	0.046253484	0.093797106	0.200016815
+no	2.46	3.27	0.014679027	0.04875396	0.105487602	0.231965495
+
+
+
+2021-05-19
+perf eval:
+1.line roll up last point
+2.moving window pnl
+
+smooth:
+1.drop in adjustment
+2.moving window winrate
+3.max hole, max time no growth
+4.voletility index
+=======================why we are doing this? why your work can beat market?===================
+===short answer: perf -> stock pick (black rock + self pick), smooth -> stop loss (trend line) ===============
+
+source of perf:
+[+]1.iwf-blackrock
+[+]2.high perf in iwf-self?
+[=]3.get out with small profit? (->win rate->perf)  <----bullshit (you break down one trade into several win and one lose)
+
+2021-05-28
+operation: do not open indicator csv manually, date format will be changed by csv
+
+source of smooth:
+[+]1.get out in down  (major)
+[?]2.more even stock distribution
+
+5/27 BTC
+1.win rate
+2.pnl
+3. win vs loss avg histogram?
+4.max dip avg histagram?
+5.trade chart
+
+6.download trade
+7.apply signal
+
+
+7/12 - ma crossing causal effect
+8 cross 21 only has 41% chance of leading to 21 cross 50, close to 60% of them are fluaction
+
+2021/9/5
+crtl+alt+g, find a seleected text in project
+crtl + h FIND A text in project
+2 yellow arrow in package explore->go to currrent opened file
+
+20210911
+update github connection
+eclipse connect username is wingman989898
+
+
+2021-09-16
+drop line seems fine
+return line seems fine
+return is ok
+alpha / max_drop is better
+

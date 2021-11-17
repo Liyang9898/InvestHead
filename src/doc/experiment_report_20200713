@@ -1,0 +1,73 @@
+on 20200713, we discovered 3 failure case of 4h BTC delta algo
+1.when trend ends and MA 8 & 21 converge, lose
+2.when the price goes horizontal, MA 8 & 21 converge, lose
+3.when price surge, it is too far away from MA8, never get a chance to enter
+(optional) 4. in your feeling, sometime, you win consecutively, sometime, lose consecutively, doubt life 
+
+
+as a result, we modify strategy to handle 1 & 2, here is result, success rate improved mainly by killing 1. 
+Unable to fully address 1 because volicity detection is terrible
+
+one year:
+Consecutive trade summary
+
+    win trades:387(71.93%), lose trades:125(23.23%), neutral trades:26(4.83%), total trades:538
+    win_pnl:262.11%, lose_pnl:-75.88%---190%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:771(71.26%), lose trades:251(23.20%), neutral trades:60(5.55%), total trades:1082
+    win_pnl:520.93%, lose_pnl:-179.89% ---340%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+#use cut 1 only 
+Consecutive trade summary
+
+    win trades:335(75.28%), lose trades:91(20.45%), neutral trades:19(4.27%), total trades:445
+    win_pnl:206.17%, lose_pnl:-62.10%---140%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:580(73.70%), lose trades:172(21.86%), neutral trades:35(4.45%), total trades:787
+    win_pnl:382.72%, lose_pnl:-127.58%  -- 250%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+
+#use all
+Consecutive trade summary
+
+    win trades:308(75.12%), lose trades:85(20.73%), neutral trades:17(4.15%), total trades:410
+    win_pnl:192.67%, lose_pnl:-62.28%---130%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:538(74.31%), lose trades:153(21.13%), neutral trades:33(4.56%), total trades:724
+    win_pnl:361.98%, lose_pnl:-126.07%  ---240%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+#####one month improvement 
+Consecutive trade summary
+
+    win trades:30(62.50%), lose trades:17(35.42%), neutral trades:1(2.08%), total trades:48
+    win_pnl:15.00%, lose_pnl:-6.26%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:49(55.68%), lose trades:35(39.77%), neutral trades:4(4.55%), total trades:88
+    win_pnl:24.50%, lose_pnl:-11.64%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+
+#use all
+Consecutive trade summary
+
+    win trades:25(69.44%), lose trades:10(27.78%), neutral trades:1(2.78%), total trades:36
+    win_pnl:12.50%, lose_pnl:-4.57%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
+    
+All entry trade summary
+
+    win trades:37(61.67%), lose trades:21(35.00%), neutral trades:2(3.33%), total trades:60
+    win_pnl:18.50%, lose_pnl:-8.82%
+    strategy_params:exit_duration_threshiold:3,exit_profit_threshiold:0.005,neutual_exit_enable:1,stop_profit_enable:1,stop_profit_percent:0.005,
