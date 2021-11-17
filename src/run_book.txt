@@ -3,8 +3,8 @@ How to install new python lib?
 2.click manage with pip, enter your package name. click run. 
 
 
-how to play with git
+how to play with git (git user name:Liyang9898)
 1. remove git: https://stackoverflow.com/questions/35589209/remove-git-repository-from-eclipse
 2. add security token:https://www.youtube.com/watch?v=-CbcAHLWOpM
 3. set up git:https://tools.jboss.org/documentation/howto/git_import_projects.html
-4. security 2
+4. security storage to store git user name and password(keep UI prompt checked):https://openwritings.net/pg/eclipse/eclipse-failed-write-credentials-your-git-repo-url-secure-store-no-password-provided
