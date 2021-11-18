@@ -38,12 +38,9 @@ def func(t):
 
 def download_format_2csv(ticker, start, end, path_out, interval):
     stock_df =  download_stock(ticker, start, end, interval)
-#     print(stock_df['ma50'])
     if len(stock_df) == 0:
-        print('done')
         return
     stock_df.to_csv(path_out, columns =['unixtime','Open','High','Low','Close','ma200','ma50','ema21','ema8'], index=False)
-    print('done')
 
 
 def batch_download_stock(list_tickers, start_time, end_time, folder, interval):
