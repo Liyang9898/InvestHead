@@ -4,6 +4,7 @@ Created on Jul 20, 2020
 '''
 
 
+from api.api import api_gen_trades
 from batch_20201214.batch_trade_lib import gen_trades_based_on_price_with_indicator
 from global_constant.constant import folder_path_price_with_indicator, file_type_postfix, folder_path_trades_csv
 from indicator_master.indicator_caching_lib import csv2df_indicator
@@ -41,7 +42,6 @@ from strategy_lib.stratage_param import (
 from trade_analysis_lib.cash_position_tool import genPositionHistory
 from trading_floor.TradeInterface import merge_trade_summary, genTradingBundleFromCSV, merged_result_to_csv, print_merged_result
 from trading_floor.TradePlot import plot_trades, plot_win_lose_trade_size
-from trading_floor.api.api import api_gen_trades
 from util.util import plot_hist_from_df_col
 from util.util_finance import trade_distribution_plot
 from util.util_temp import ts_position_dict_to_csv, \
@@ -66,7 +66,7 @@ file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "AMZN_1D_fmt" 
 # file_name = "TSLA_1D_fmt"  # 1993.3 start
 
-# file_name = "V_1D_fmt"  
+file_name = "V_1D_fmt"  
 # file_name = "IWF_1D_fmt"
 # file_name = "IWF_1W_fmt"
 # file_name = "AMD_1D_fmt"
@@ -100,11 +100,12 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 # strategy_param_bundle=strat_param_20211006_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
-strategy_param_bundle=strat_param_20211006_ma_only_exit
+# strategy_param_bundle=strat_param_20211006_ma_only_exit
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
+strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
 
 
-start_time="2018-01-01"
+start_time="2006-01-01"
 
 # start_time="2019-09-01 20:00:00"
 end_time="2022-01-31"

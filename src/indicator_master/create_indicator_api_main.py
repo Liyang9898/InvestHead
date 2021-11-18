@@ -8,6 +8,7 @@ Created on Jun 4, 2020
 
 @author: leon
 '''
+import pandas as pd
 # input file must follow interface: see global_constant file
 # output structure: see global_constant file
 
@@ -17,6 +18,10 @@ from indicator_master.plot_indicator_lib import plot_indicator
 from indicator_master.raw_stock_reader_lib import load_df_from_csv 
 from util.util_pandas import df_unixtime_filter
 from util.util_time import date_to_unixtime
+
+def plot_indicator_from_csv(indicator_path):
+    df = pd.read_csv(indicator_path)
+    plot_indicator(df, 'sequence_8_21_50', indicator_path)
 
 
 def price_csv_append_indicator(input_file_path, output_file_path, start_time, end_time, plot_chart):

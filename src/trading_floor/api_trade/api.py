@@ -4,7 +4,7 @@ from trading_floor.TradeInterface import genTradingBundleFromCSV
 from util.util_time import df_filter_dy_date
 
 
-def api_gen_trades(
+def gen_trades_to_csv(
     ticker,
     start_date, 
     end_date, 

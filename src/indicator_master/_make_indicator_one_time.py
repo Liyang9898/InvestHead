@@ -3,6 +3,7 @@ Created on Jun 4, 2020
 
 @author: leon
 '''
+from api.api import api_gen_indicator, api_plot_indicator_from_csv
 from global_constant.constant import (
     folder_path_raw_downloaded,
     folder_path_raw_price_formated,
@@ -52,11 +53,11 @@ print('writing to',output_file)
 
 # input_file='D:/f_data/price_asset/2021-09-17/format/SPY_downloaded_raw.csv'
 
-price_csv_append_indicator(
-    input_file_path=input_file, 
-    output_file_path=output_file,
-    start_time="1991-04-01", 
-    end_time="2022-01-26",
-    plot_chart=True
+api_gen_indicator(
+    input_file, 
+    output_file,
+    "1991-04-01", 
+    "2022-01-26",
 )
+api_plot_indicator_from_csv(output_file)
 print('output finished: ' + output_file + '  done')
