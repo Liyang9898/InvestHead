@@ -1,0 +1,1 @@
+TICKERS_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step1_ticker_collection/russell1000_ticker_of_all_time.csv'
