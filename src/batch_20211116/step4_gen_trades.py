@@ -24,7 +24,7 @@ for file_path in raw_price_files:
     print(f'{cnt} Generating trades {ticker}')
     output_path_all_entry = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_all_entry.csv'
     output_path_consecutive = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_consecutive.csv'
-     
+    
     if os.path.isfile(output_path_all_entry) and os.path.isfile(output_path_consecutive):
         print('already done, skip')
     else:

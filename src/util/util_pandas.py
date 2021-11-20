@@ -24,3 +24,11 @@ def df_multiply_factor(df, normalize_col, factor):
     # normalize_col must be numerical and not null
     for i in range(0, len(df)):
         df.loc[i, normalize_col] = df.loc[i, normalize_col] * factor
+        
+        
+def dict_to_one_row_df(dict_input):
+    d = {}
+    for k, v in dict_input.items():
+        d[k] = [v]
+    df = pd.DataFrame(data=d)
+    return df

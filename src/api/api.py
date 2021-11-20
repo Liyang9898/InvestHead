@@ -2,7 +2,8 @@
 from indicator_master.create_indicator_api_main import price_csv_append_indicator, \
     plot_indicator_from_csv
 from price_asset_master.lib.api.api import download_ticker
-from trading_floor.api_trade.api import gen_trades_to_csv
+from trading_floor.api_trade.api import gen_trades_to_csv, \
+    gen_trades_summary_from_csv
 
 
 def api_download_ticker(ticker, start, end, path_out, interval):
@@ -58,5 +59,23 @@ def api_gen_trades(
         trade_result_all_entry_path, 
         trade_result_consecutive_entry_path, 
     )
-# api_gen_trades()
-# api_download_ticker()
+    
+    
+def api_gen_trade_summary(
+        trade_result_all_entry_path,
+        trade_result_consecutive_entry_path,
+        trade_summary_path,
+        start_date, 
+        end_date, 
+):
+    """
+    Input: 2 trades file (consecutive & all_entry) CSV
+    Output: trade summary output file CSV
+    """        
+    gen_trades_summary_from_csv(
+        trade_result_all_entry_path,
+        trade_result_consecutive_entry_path,
+        trade_summary_path,
+        start_date, 
+        end_date, 
+    )

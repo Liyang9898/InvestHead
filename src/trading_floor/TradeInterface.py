@@ -3,17 +3,20 @@ Created on Jun 7, 2020
 
 @author: leon
 '''
-import pandas as pd
-from indicator_master.constant import trade_summary_interface
-from util import util
-from global_constant.constant import folder_path_trade_ml_sample,trade_feature
-# import plotly.express as px
-from plotting_lib.simple import plotTimeSerisDic,plotTimeSerisDic3
-from pandas._libs import index
 from numpy import average
+from pandas._libs import index
+
+from global_constant.constant import folder_path_trade_ml_sample, trade_feature
+from indicator_master.constant import trade_summary_interface
+import pandas as pd
+from plotting_lib.simple import plotTimeSerisDic, plotTimeSerisDic3
+from util import util
+from util.util_time import days_gap_date_str
+
+
+# import plotly.express as px
 # from builtins import None
 # from trade_analysis_lib._all_sweep_result_analysis import total_rate
-
 class Trade:
     def __init__(self, entry_price, entry_ts, exit_price, exit_ts, direction, bar_duration,best_potential_pnl_percent,complete=True):
         self.entry_price = entry_price
@@ -162,6 +165,10 @@ class TradeBundle:
         # other stats
         self.win_lose_pnl_ratio = 0
         
+        # time
+        self.start_time = '9999-01-01'
+        self.end_time = '1000-01-01'
+        
 
     def setBarCount(self, count):
         self.bar_count = count
@@ -175,7 +182,11 @@ class TradeBundle:
     def genTradesSummary(self):
         
         for trade in self.trades:
-
+            if trade.entry_ts < self.start_time:
+                self.start_time = trade.entry_ts
+            if trade.exit_ts > self.end_time:
+                self.end_time = trade.exit_ts
+            
             if trade.pnl>0:
                 self.win = self.win + 1
                 self.win_pnl = self.win_pnl + trade.pnl
@@ -190,12 +201,22 @@ class TradeBundle:
                 self.neutral = self.neutral + 1
 
         self.total_trades = self.win+self.lose+self.neutral
-        if self.total_trades>0:
-            self.win_rate = self.win/self.total_trades
-            self.lose_rate = self.lose/self.total_trades
-            self.neutral_rate = self.neutral/self.total_trades
-            self.win_average_pnl = self.win_pnl_p / self.win
-            self.lose_average_pnl = self.lose_pnl_p / self.lose
+        
+        if self.total_trades > 0:
+            self.win_rate = 0
+            self.lose_rate = 0
+            self.neutral_rate = 0
+            if self.total_trades != 0:
+                self.win_rate = self.win/self.total_trades
+                self.lose_rate = self.lose/self.total_trades
+                self.neutral_rate = self.neutral/self.total_trades
+            
+            self.win_average_pnl = 0
+            self.lose_average_pnl = 0
+            if self.win != 0:
+                self.win_average_pnl = self.win_pnl_p / self.win
+            if self.lose != 0:
+                self.lose_average_pnl = self.lose_pnl_p / self.lose
             
         for trade in self.trades:
             if trade.pnl>0:
@@ -258,7 +279,10 @@ class TradeBundle:
             
             'bar_count':[self.bar_count],
             'total_trades': [self.total_trades],
-            'trading_params': [util.encode_dict(self.strategy_params)]
+            'trading_params': [util.encode_dict(self.strategy_params)],
+            
+            'start_time': self.start_time,
+            'end_time': self.end_time,
         }
         return d
 
@@ -348,6 +372,11 @@ def genTradingBundleFromCSV(path):
         df = pd.read_csv(path)
     except:
         return None
+    trades = genTradingBundleFromDataframe(df)   
+    return trades
+
+
+def genTradingBundleFromDataframe(df):
     trades = TradeBundle()
     for i in range(0, len(df)):
         trade = Trade(
@@ -383,6 +412,17 @@ def merge_trade_summary(consecutive, all_entry):
     each_trade_win_lose_rate=0 
     if average_trade_lose_pnl_p:
         each_trade_win_lose_rate = average_trade_win_pnl_p/average_trade_lose_pnl_p*-1
+    win_lose_pnl_ratio = (all_entry['win_rate'][0] * average_trade_win_pnl_p) / (all_entry['lose_rate'][0] * average_trade_lose_pnl_p) * -1
+    
+    start_time = all_entry['start_time'] # ex:2020-01-07 00:00:00
+    end_time = all_entry['end_time']
+    start_date = start_time.split(' ')[0]
+    end_date = end_time.split(' ')[0]
+    
+    days = days_gap_date_str(start_date, end_date)
+    years = days / 365
+    anual_return_avg = pow((consecutive['total_pnl_fix'][0]+1), 1/years)-1
+    
     d = {
         'win_rate': consecutive['win_rate'][0], 
         'lose_rate': consecutive['lose_rate'][0],
@@ -417,7 +457,15 @@ def merge_trade_summary(consecutive, all_entry):
         
         'average_trade_win_pnl_p': average_trade_win_pnl_p,
         'average_trade_lose_pnl_p': average_trade_lose_pnl_p,
-        'each_trade_win_lose_rate': each_trade_win_lose_rate
+        'each_trade_win_lose_rate': each_trade_win_lose_rate,
+        
+        # win_lose_pnl_ratio
+        'win_lose_pnl_ratio': win_lose_pnl_ratio,
+        
+        # total natural days duration
+        'days':days,
+        'anual_return_avg':anual_return_avg
+        
     }
     return d
 
