@@ -18,6 +18,19 @@ from util.util_time import days_gap_date_str
 # from builtins import None
 # from trade_analysis_lib._all_sweep_result_analysis import total_rate
 class Trade:
+    TRADE_SCHEMA = [
+        "entry_price",
+        "entry_ts",
+        "exit_price",
+        "exit_ts",
+        "direction",
+        "bar_duration",
+        "pnl",
+        "pnl_percent",
+        "best_potential_pnl_percent",
+        "complete"
+    ]
+    
     def __init__(self, entry_price, entry_ts, exit_price, exit_ts, direction, bar_duration,best_potential_pnl_percent,complete=True):
         self.entry_price = entry_price
         self.entry_ts = entry_ts
@@ -33,7 +46,7 @@ class Trade:
 
     
     def trade2dic(self):
-        return {
+        res = {
             'entry_price':self.entry_price,
             'entry_ts':self.entry_ts,
             'exit_price':self.exit_price,
@@ -45,6 +58,8 @@ class Trade:
             'best_potential_pnl_percent':self.best_potential_pnl_percent,
             'complete': self.complete
         }
+        assert res.keys() == self.TRADE_SCHEMA
+        return res
     
     def print_trade(self):
         trade_str=util.print_trade(
@@ -203,20 +218,14 @@ class TradeBundle:
         self.total_trades = self.win+self.lose+self.neutral
         
         if self.total_trades > 0:
-            self.win_rate = 0
-            self.lose_rate = 0
-            self.neutral_rate = 0
-            if self.total_trades != 0:
-                self.win_rate = self.win/self.total_trades
-                self.lose_rate = self.lose/self.total_trades
-                self.neutral_rate = self.neutral/self.total_trades
+            self.win_rate = self.win/self.total_trades
+            self.lose_rate = self.lose/self.total_trades
+            self.neutral_rate = self.neutral/self.total_trades
             
-            self.win_average_pnl = 0
-            self.lose_average_pnl = 0
-            if self.win != 0:
-                self.win_average_pnl = self.win_pnl_p / self.win
-            if self.lose != 0:
-                self.lose_average_pnl = self.lose_pnl_p / self.lose
+        if self.win != 0:
+            self.win_average_pnl = self.win_pnl_p / self.win
+        if self.lose != 0:
+            self.lose_average_pnl = self.lose_pnl_p / self.lose
             
         for trade in self.trades:
             if trade.pnl>0:
@@ -229,10 +238,14 @@ class TradeBundle:
         self.win_lose_diff_rate=self.win_rate-self.lose_rate
         self.total_pnl = self.win_pnl+self.lose_pnl
         self.total_pnl_fixed = self.win_pnl_p + self.lose_pnl_p
-        if self.lose_pnl != 0:
+        
+        if self.lose_pnl == 0 and self.win_pnl == 0:
+            self.win_lose_pnl_ratio = 0
+        elif self.lose_pnl == 0 and self.win_pnl > 0: 
+            self.win_lose_pnl_ratio = 0
+        elif self.lose_pnl > 0:
             self.win_lose_pnl_ratio = self.win_pnl / self.lose_pnl * -1
-        else:
-            self.win_pnl = 9999
+
         
         
     def printTradesSummary(self):
@@ -296,10 +309,13 @@ class TradeBundle:
         
     def trades2CSV(self, path_out):
         trade_dic_list = []
-        for trade in self.trades:
+        for trade in self.trades: # it's possible that there is no trades and we won't enter this loop
             trade_dic = trade.trade2dic()
             trade_dic_list.append(trade_dic)
-        trades_df = pd.DataFrame(trade_dic_list)
+            
+        trades_df = pd.DataFrame(columns=Trade.TRADE_SCHEMA)
+        if len(trade_dic_list) != 0:
+            trades_df = pd.DataFrame(trade_dic_list)
         trades_df.to_csv(path_out, index=False)
     
     
@@ -412,7 +428,17 @@ def merge_trade_summary(consecutive, all_entry):
     each_trade_win_lose_rate=0 
     if average_trade_lose_pnl_p:
         each_trade_win_lose_rate = average_trade_win_pnl_p/average_trade_lose_pnl_p*-1
-    win_lose_pnl_ratio = (all_entry['win_rate'][0] * average_trade_win_pnl_p) / (all_entry['lose_rate'][0] * average_trade_lose_pnl_p) * -1
+        
+        
+    win_factor = all_entry['win_rate'][0] * average_trade_win_pnl_p
+    lose_factor = all_entry['lose_rate'][0] * average_trade_lose_pnl_p
+    
+    if win_factor == 0 and lose_factor == 0:
+        win_lose_pnl_ratio = 0
+    elif win_factor > 0 and lose_factor == 0:
+        win_lose_pnl_ratio = 9999
+    elif lose_factor != 0 :
+        win_lose_pnl_ratio = win_factor / lose_factor * -1
     
     start_time = all_entry['start_time'] # ex:2020-01-07 00:00:00
     end_time = all_entry['end_time']

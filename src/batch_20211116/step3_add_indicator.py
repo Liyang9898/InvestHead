@@ -1,8 +1,10 @@
+import os
+
 from api.api import api_gen_indicator
 from batch_20211116.batch_20211116_lib.constant import TICKERS_PRICE_FOLDER_RUSSLL1000_OF_ALL_TIME, \
-    INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME
+    INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME, indicator_path
 from util.util_file import get_all_csv_file_in_folder
-import os
+
 
 raw_price_files = get_all_csv_file_in_folder(TICKERS_PRICE_FOLDER_RUSSLL1000_OF_ALL_TIME)
 print(len(raw_price_files))
@@ -18,7 +20,7 @@ for file_path in raw_price_files:
     ticker = file_name.split('.')[0]
     
     print(f'{cnt} Adding indicator {ticker}')
-    output_path = f'{INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}.csv'
+    output_path = indicator_path(ticker)
     
     if os.path.isfile(output_path):
         print('already done, skip')

@@ -1,6 +1,6 @@
 
 import os
-
+import pandas as pd
 from api.api import api_gen_trades
 from batch_20211116.batch_20211116_lib.constant import RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME, \
     INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME
@@ -25,8 +25,23 @@ for file_path in raw_price_files:
     output_path_all_entry = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_all_entry.csv'
     output_path_consecutive = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_consecutive.csv'
     
+    
+    
     if os.path.isfile(output_path_all_entry) and os.path.isfile(output_path_consecutive):
-        print('already done, skip')
+        try:
+            pd.read_csv(output_path_all_entry)
+            print('already done, skip')
+        except:
+            print('pandas can not be opened')
+            api_gen_trades(
+                ticker=file_name,
+                start_date=start_date, 
+                end_date=end_date, 
+                strategy=strat_param_swing_2150in_2150out_ma_gap,
+                indicator_file_path=file_path, 
+                trade_result_all_entry_path=output_path_all_entry, 
+                trade_result_consecutive_entry_path=output_path_consecutive, 
+            )
     else:
         api_gen_trades(
             ticker=file_name,

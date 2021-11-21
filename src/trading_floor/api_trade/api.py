@@ -40,7 +40,7 @@ def df_filter_trades_dy_date(df,s,e):
     # create a copy of input df and filter by date range, and return
     s = s + ' 00:00:00'
     e = e + ' 00:00:00'
-    df = df.loc[(df['entry_ts']>=s) & (df['exit_ts']<=e)]
+    df = df.loc[(df['entry_ts']>=s) & (df['entry_ts']<=e)]
     df_filtered = df.copy()
     df_filtered.reset_index(inplace=True,drop=True)
     return df_filtered
