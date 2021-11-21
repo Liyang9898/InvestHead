@@ -480,6 +480,7 @@ def merge_trade_summary(consecutive, all_entry):
         
         'all_universe_win_pnl_p': all_entry['win_pnl_p'][0],
         'all_universe_lose_pnl_p': all_entry['lose_pnl_p'][0],
+        'all_universe_total_trades': all_entry['total_trades'][0],
         
         'average_trade_win_pnl_p': average_trade_win_pnl_p,
         'average_trade_lose_pnl_p': average_trade_lose_pnl_p,

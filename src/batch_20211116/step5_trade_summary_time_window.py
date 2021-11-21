@@ -85,15 +85,18 @@ def all_tickers_trade_summary_in_time_window(
             'ma50_up_rate': ma50_up_rate,
             'win_rate': dict_summary['key_metric_win_rate'],
             'annual_avg_return': dict_summary['key_metric_annual_avg_return'],
-            'win_lose_pnl_ratio': dict_summary['key_metric_win_lose_pnl_ratio']
+            'win_lose_pnl_ratio': dict_summary['key_metric_win_lose_pnl_ratio'],
+            'total_trades_all_entry': dict_summary['all_universe_total_trades']
         }
         rows.append(row)
         
         cnt += 1
+#         if cnt > 5:
+#             break
 
     
     df_all_ticker_perf = pd.DataFrame(rows)
-    df_all_ticker_perf.to_csv(summary_path_all_ticker)
+    df_all_ticker_perf.to_csv(summary_path_all_ticker, index=False)
     return
 
 
