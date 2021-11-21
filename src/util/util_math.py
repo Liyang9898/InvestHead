@@ -55,3 +55,16 @@ def max_pct_drop_positive_list(l):
         'max_recover_period_start':max_recover_period_start,
         'below_max_array':below_max_array
     }
+    
+    
+def intersection(lst1, lst2):
+    lst3 = [value for value in lst1 if value in lst2]
+    return lst3
+
+
+def intersection_of_k_list(lists):
+    main = lists[0].copy()
+    for i in range(1,len(lists)):
+        cur = lists[i]
+        main = intersection(main, cur)
+    return main

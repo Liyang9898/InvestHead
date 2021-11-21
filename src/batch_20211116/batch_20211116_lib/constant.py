@@ -5,6 +5,8 @@ RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step4_gen_
 TIME_RANGE_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trades_time_ranged/'
 TRADE_SUMMARY_PER_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_per_ticker/'
 TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_all_ticker/'
+TICKER_RANK_FOLDER = 'D:/f_data/batch_20211116/step6_ticker_rank/'
+
 START_DATE = '2006-01-01'
 END_DATE = '2022-01-01'
 START_YEAR = int(START_DATE.split('-')[0])
@@ -30,6 +32,9 @@ def trade_summary_per_ticker_path(ticker,start_date,end_date):
 def trade_summary_all_ticker_path(start_date,end_date):
     return f'{TRADE_SUMMARY_ALL_TICKER}{start_date}_{end_date}.csv'
 
+
+def ranked_ticker_path(filename):
+    return f'{TICKER_RANK_FOLDER}{filename}'
 
 def gen_time_window(window_size, start_year, end_year):
     window = []
