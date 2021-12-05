@@ -8,24 +8,25 @@ from util.util import df_date_filter, df_date_index_mapping, PX_PERCENT_HIST
 
 
 st_path = 'D:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
-col_names = [
-    'p_delta_oc_pct',
-    'p_delta_1d_pct',
-    'p_delta_2d_pct',
-    'p_delta_3d_pct',
-    'p_delta_5d_pct',
-    'p_delta_10d_pct',
-    'p_delta_20d_pct',  
-]
+# col_names = [
+#     'p_delta_oc_pct',
+#     'p_delta_1d_pct',
+#     'p_delta_2d_pct',
+#     'p_delta_3d_pct',
+#     'p_delta_5d_pct',
+#     'p_delta_10d_pct',
+#     'p_delta_20d_pct',  
+# ]
 
 
 df = pd.read_csv(st_path)
+print(df.columns)
 df = df_date_filter(df, 'date', '2016-05-16', '2021-05-16')
 df.reset_index(inplace=True, drop=True)
 
-signal = 'p_delta_1d_pct'
-threshold_causal = -0.017 # down of the signal
-threshold_effect = -0.005 # down of the effect
+signal = 'price_delta_1bar_pct'
+threshold_causal = -0.0226 # down of the signal
+threshold_effect = -0.001 # down of the effect
 
 observe_range = 20 # number of days to cover in observing what will happen
 date_idx_map = df_date_index_mapping(df)
