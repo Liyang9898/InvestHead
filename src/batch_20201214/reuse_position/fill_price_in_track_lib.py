@@ -26,6 +26,10 @@ def getAllEntryCSV(path):
 
 # this function merge all trades into one data structure
 def mergeAllEntryTrade(files):
+    """
+    input: a list of files with entry
+    output: dict<date, dict<ticker, Trade Object>>
+    """
     all_entry_trades = {}
     total_trade_cnt = 0
     for ticker, file in files.items():
@@ -68,6 +72,16 @@ def mergeAllEntryTrade(files):
     print('merge from csv complete, number match:', cnt, total_trade_cnt)    
     return all_entry_trades
 
+
+def filter_by_historical_best_ticker(all_entry_trades, yearly_ticker_pool):
+    """
+    for each date, we filter the ticker by the yearly_ticker_pool
+    to get the best tickers for that time period
+    yearly_ticker_pool has the best ticker for the past x years perf
+    input: dict<date, dict<ticker, Trade Object>>
+    output: dict<date, dict<ticker, Trade Object>>
+    """
+    all_entry_trades
 
 
 def get_date_list(start_time, end_time):
@@ -154,6 +168,7 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=Fa
         
         # start buying      
         all_entry_today = all_entry_trades[date] # all option
+        
         # rule out existing position
         trade_opportunity_today = all_entry_today.copy()
         for _room_i, room_v in room.items():
@@ -272,6 +287,11 @@ def get_ticker_list_from_track(tracks):
 
 # track fill in price
 def gen_price_seq(tracks, price_book, track_summary_path):
+    """
+    output: 
+        price and ticker on each day for each track
+        dict<track_id, dict<data, {ticker:?,price?}>>
+    """
     price_in_tracks = {}
     rows = []
     for idx, track in tracks.items():

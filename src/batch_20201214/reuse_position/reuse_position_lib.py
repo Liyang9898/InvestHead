@@ -37,6 +37,12 @@ def reuse_position_cash_history(
     indicator_folder,
     capacity=50,
 ):
+    """
+    input: time range, trades file, indicator file
+    output: 
+        track DataFrame with trades
+        track DataFrame with ticker and price for each date
+    """
 #     print(start_date,end_date,trade_folder,indicator_folder)
     path_trades = trade_folder+'detail/'
     
@@ -68,6 +74,10 @@ def reuse_position_cash_history(
     # track to csv, each row is one trade
     tracks_df = track_trades_to_df(tracks)
     tracks_df.to_csv(trades_in_track_path, index = False)
+    """
+    Until here, we got a CSV with all trades happened in all tracks
+        col: ticker, track_id, trade.to_dic
+    """
     ############################################trades get end###################################################
      
     ############################################price get start##################################################  
@@ -82,14 +92,25 @@ def reuse_position_cash_history(
     
     # track fill in price - return value has all price and ticker on all timestamp in all tracks
     price_in_tracks = gen_price_seq(tracks, price_book, track_summary_path)
+    """
+    Until here, we got a data structure of price and ticker on each day for each track
+        dict<track_id, dict<data, {ticker:?,price?}>>
+    """
     
     # write to csv
     price_in_tracks_to_csv(price_in_tracks, price_in_track_path)
+    """
+    Until here, we got a csv of price and ticker on each day for each track
+        date, track_id, ticker, price
+    """
     get_daily_position_cnt(price_in_track_path, daily_position_cnt_path)
-    
+    """
+    Until here, we got a csv of daily stock count
+        date, total number of stock
+    """
      
     df = pd.read_csv(price_in_track_path)
-    price_in_tracks = price_in_track_df_to_dic(df)
+    price_in_tracks = price_in_track_df_to_dic(df) # dict<track_id, dict<data, {ticker:?,price?}>>
      
     # print validation
     print('get total track:', len(price_in_tracks))
@@ -105,10 +126,16 @@ def reuse_position_cash_history(
     )    
     all_position_df.to_csv(positions_in_track_path, index=False)
     ############################################position get end#################################################
-     
+    """
+    until here we get a csv of positions in all tracks
+        col: track_id, date, ticker(include cash), ticker price, fix position, roll position
+    """
     cash_fix_roll_df = aggregate_to_dic(all_position_df)
     cash_fix_roll_df.to_csv(reuse_cash_line_csv_path, index=False) 
-     
+    """
+    until here we get a csv of positions sum up all tracks
+        col: date, fix position, roll position
+    """     
     # plot 
 #     fig = px.line(cash_fix_roll_df, x="date", y="roll", title='roll')
 #     fig.show()
@@ -168,6 +195,9 @@ def reuse_position_cash_history(
     
     moving_window_df = pd.DataFrame([res])
     moving_window_df.to_csv(moving_window_res_path,index=False)
+    """
+    until here: we get the performance stat of the Portfolio overtime
+    """
 #     print(res)
     
 #     moving_window_res_path = trade_folder + """merge/cash_history_reuse_moving_window.csv"""
