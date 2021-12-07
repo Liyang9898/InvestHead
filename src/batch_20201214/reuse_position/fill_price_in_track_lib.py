@@ -240,7 +240,7 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=Fa
 def build_price_history_collection(ticker_list, indicator_folder):
     price_book = {}
     for ticker in ticker_list:
-        path = indicator_folder + ticker + '_downloaded_raw.csv'
+        path = indicator_folder + ticker.upper() + '.csv'
         df = pd.read_csv(path)
         date_price_dic = {}
         

@@ -8,7 +8,15 @@ import pandas as pd
 from util.util_file import get_all_csv_file_in_folder
 from util.util_time import df_filter_dy_date
 
-
+"""
+This process does this:
+For each year, we do compute the historical trade perf of the past 2 year for all stock
+Input:
+    trades
+Output:
+    each file is a year. Each file has all stock's perf in past 3 years.
+    file name is the perf's observation time rage
+"""
 
 def gen_ma50_up_date(
     indicator_file,
