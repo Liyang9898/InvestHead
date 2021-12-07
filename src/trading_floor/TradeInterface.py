@@ -58,7 +58,9 @@ class Trade:
             'best_potential_pnl_percent':self.best_potential_pnl_percent,
             'complete': self.complete
         }
-        assert res.keys() == self.TRADE_SCHEMA
+#         print(res.keys())
+#         print(self.TRADE_SCHEMA)
+        assert list(res.keys()) == self.TRADE_SCHEMA
         return res
     
     def print_trade(self):

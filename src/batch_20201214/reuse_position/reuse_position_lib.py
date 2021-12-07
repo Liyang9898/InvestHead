@@ -74,6 +74,7 @@ def reuse_position_cash_history(
     # track to csv, each row is one trade
     tracks_df = track_trades_to_df(tracks)
     tracks_df.to_csv(trades_in_track_path, index = False)
+    print('Until here, we got a CSV with all trades happened in all tracks')
     """
     Until here, we got a CSV with all trades happened in all tracks
         col: ticker, track_id, trade.to_dic
@@ -99,6 +100,7 @@ def reuse_position_cash_history(
     
     # write to csv
     price_in_tracks_to_csv(price_in_tracks, price_in_track_path)
+    print('Until here, we got a csv of price and ticker on each day for each track')
     """
     Until here, we got a csv of price and ticker on each day for each track
         date, track_id, ticker, price
@@ -126,10 +128,12 @@ def reuse_position_cash_history(
     )    
     all_position_df.to_csv(positions_in_track_path, index=False)
     ############################################position get end#################################################
+    print('until here we get a csv of positions in all tracks')
     """
     until here we get a csv of positions in all tracks
         col: track_id, date, ticker(include cash), ticker price, fix position, roll position
     """
+    all_position_df = pd.read_csv(positions_in_track_path)
     cash_fix_roll_df = aggregate_to_dic(all_position_df)
     cash_fix_roll_df.to_csv(reuse_cash_line_csv_path, index=False) 
     """

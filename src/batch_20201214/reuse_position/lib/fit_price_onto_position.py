@@ -1,9 +1,9 @@
-from datetime import datetime
-from unittest.mock import inplace
-
-from batch_20201214.analysis.extract_summary import fix
+# from datetime import datetime
+# from unittest.mock import inplace
+# 
+# from batch_20201214.analysis.extract_summary import fix
 import pandas as pd
-import plotly.express as px
+# import plotly.express as px
 from util.util import get_all_weekdays  
 from version_master.version import (
 #     trade_swing_2150in_2150out_20210302_iwf_channel,
@@ -195,8 +195,10 @@ def gen_single_track_position_history(track_id, start_date, end_date, price_df, 
 def aggregate_to_dic(df):
     df['fix'] = df['fix_position']
     df['roll'] = df['roll_position']
+    df.reset_index(drop=True, inplace=True)
     # todo
-    gp = df.groupby('date')['roll','fix'].mean()
+    gp = df.groupby('date')[['roll','fix']].mean()
+#     print(gp)
     df = gp.reset_index()
     return df
 
