@@ -4,6 +4,7 @@ INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step3_add_in
 RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step4_gen_trades/'
 HIGH_PERF_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step7_high_perf_trades/'
 TIME_RANGE_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trades_time_ranged/'
+PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000 = 'D:/f_data/batch_20211116/step8_portfolio_time_series/'
 TRADE_SUMMARY_PER_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_per_ticker/'
 TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_all_ticker/'
 TICKER_RANK_FOLDER = 'D:/f_data/batch_20211116/step6_ticker_rank/'

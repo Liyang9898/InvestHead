@@ -27,7 +27,7 @@ trade_path = trade_swing_2150in_2150out_20210302_iwf_channel + 'detail/'
 reuse_position_cash_history(
     start_date='2006-01-01',
     end_date='2022-01-01',
-    trade_folder = "D:/f_data/batch_20211116/step4_gen_trades/",
-    output_folder = 'D:/f_data/temp/re/',
+    trade_folder = "D:/f_data/batch_20211116/step7_high_perf_trades/",
     indicator_folder = "D:/f_data/batch_20211116/step3_add_indicator/",
+    output_folder = 'D:/f_data/temp/re/',
 )

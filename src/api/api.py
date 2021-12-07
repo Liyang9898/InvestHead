@@ -1,4 +1,5 @@
 
+from batch_20201214.reuse_position.reuse_position_lib import reuse_position_cash_history
 from indicator_master.create_indicator_api_main import price_csv_append_indicator, \
     plot_indicator_from_csv
 from price_asset_master.lib.api.api import download_ticker
@@ -78,4 +79,26 @@ def api_gen_trade_summary(
         trade_summary_path,
         start_date, 
         end_date, 
+    )
+
+
+def api_build_portfolio_time_series(
+    start_date,
+    end_date,
+    trade_folder,
+    indicator_folder,
+    output_folder,
+):
+    """
+    this function insert all available trades into a n track portfolio
+    automatically insert new trades when there is vacancy
+    input: time range, trades files, price files
+    output: portfolio time series
+    """
+    reuse_position_cash_history(
+        start_date,
+        end_date,
+        trade_folder,
+        indicator_folder,
+        output_folder,
     )

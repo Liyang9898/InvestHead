@@ -108,4 +108,4 @@ def rank_stock_by_top_k_win_lose_ratio(k):
 # rank_stock_by_intersection()
 
 # Method 2
-rank_stock_by_top_k_win_lose_ratio(k=100)
+rank_stock_by_top_k_win_lose_ratio(k=200)
