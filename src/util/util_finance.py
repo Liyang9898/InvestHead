@@ -378,7 +378,7 @@ def get_position_perf(df, date_col, position_col):
         'max_below_max_pct': round(perf_max_drop['max_below_max_pct'], 4),
         'max_drop_date': perf_max_drop['max_drop_date'],
         'max_drop_sharpe_ratio:': round(max_drop_sharpe_ratio, 4),
-        'max_recover': round(perf_max_drop['max_recover'], 4),
+        'max_recover_days': round(perf_max_drop['max_recover'], 4),
         'drop_range': perf_max_drop['drop_range']
     }
     

@@ -8,12 +8,15 @@ PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000 = 'D:/f_data/batch_20211116/step8_portfo
 TRADE_SUMMARY_PER_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_per_ticker/'
 TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20211116/step5_trade_summary_time_window/trade_summary_all_ticker/'
 TICKER_RANK_FOLDER = 'D:/f_data/batch_20211116/step6_ticker_rank/'
+CONCLUSION_FOLDER = 'D:/f_data/batch_20211116/step9_conclusion/'
 
 START_DATE = '2006-01-01'
+ANALYSIS_START_DATE = '2009-01-01' # DUE TO 3 YEARS OF HISTORICAL PERF COLLECTION 
 END_DATE = '2022-01-01'
 START_YEAR = int(START_DATE.split('-')[0])
 END_YEAR = int(END_DATE.split('-')[0])
 WINDOW_SIZE = 3 # YEARS
+BENCHMARK_TICKER = 'SPY'
 
 def trade_all_entry_path(ticker):
     return f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_all_entry.csv'

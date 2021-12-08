@@ -2,9 +2,12 @@
 from batch_20201214.reuse_position.reuse_position_lib import reuse_position_cash_history
 from indicator_master.create_indicator_api_main import price_csv_append_indicator, \
     plot_indicator_from_csv
+import pandas as pd
 from price_asset_master.lib.api.api import download_ticker
 from trading_floor.api_trade.api import gen_trades_to_csv, \
     gen_trades_summary_from_csv
+from util.util_finance import get_position_perf
+from util.util_time import df_filter_dy_date
 
 
 def api_download_ticker(ticker, start, end, path_out, interval):
@@ -102,3 +105,28 @@ def api_build_portfolio_time_series(
         indicator_folder,
         output_folder,
     )
+    
+    
+def api_position_perf_from_csv(
+    position_path, 
+    start_date, 
+    end_date, 
+    date_col, 
+    position_col,
+    perf_output_path
+):
+    """
+    input:
+        file with position time series(date_col, position_col) , time range
+    output:
+        position perf: return, std, sharpe ratio, down down
+    """
+    df = pd.read_csv(position_path)
+    df_filter = df_filter_dy_date(df,date_col,start_date,end_date)
+    perf = get_position_perf(df_filter, date_col, position_col)
+    perf['start_date'] = start_date
+    perf['end_date'] = end_date
+    #  convert to df
+    rows = [perf]
+    df = pd.DataFrame(rows)   
+    df.to_csv(perf_output_path, index=False)
