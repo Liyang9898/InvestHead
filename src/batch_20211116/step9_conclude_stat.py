@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from api.api import api_download_ticker, api_position_perf_from_csv
+from api.api import api_download_ticker, api_position_perf_from_csv, \
+    api_compuate_alpha_beta_to_csv_img
 from batch_20211116.batch_20211116_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
 import pandas as pd
@@ -61,6 +62,36 @@ df_perf_bench['ticker'] = BENCHMARK_TICKER
 df_merge = pd.concat([df_perf_main, df_perf_bench])
 perf_merge_output_path = CONCLUSION_FOLDER + 'position_perf.csv'
 df_merge.to_csv(perf_merge_output_path, index=False)
+"""
+until here we have position perf: return, sharpe
+"""
+
+# alpha beta monthly yearly
+api_compuate_alpha_beta_to_csv_img(
+    position_csv=result_position_path, 
+    date_col='date', 
+    position_col='roll', 
+    start_date=ANALYSIS_START_DATE, 
+    end_date=END_DATE, 
+    benchmark_ticker=BENCHMARK_TICKER,
+    period='month',
+    result_path=CONCLUSION_FOLDER
+)
+api_compuate_alpha_beta_to_csv_img(
+    position_csv=result_position_path, 
+    date_col='date', 
+    position_col='roll', 
+    start_date=ANALYSIS_START_DATE, 
+    end_date=END_DATE, 
+    benchmark_ticker=BENCHMARK_TICKER,
+    period='year',
+    result_path=CONCLUSION_FOLDER
+)
+"""
+until here, we have alpha beta for monthly and yearly 
+"""
+
+
 
 # x_list = m_result['date'].to_list()
 # y_list = {'roll':m_result['roll'].to_list(),'spy':m_result['spy'].to_list()}

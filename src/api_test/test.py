@@ -2,7 +2,7 @@
 
 from api.api import api_gen_trades, api_gen_trade_summary, \
     api_build_portfolio_time_series, \
-    api_position_perf_from_csv
+    api_position_perf_from_csv, api_compuate_alpha_beta_to_csv_img
 from strategy_lib.stratage_param import strat_param_20211006_ma_only_exit
 from trading_floor.api_trade.api import gen_trades_summary_from_csv, \
     gen_trades_to_csv
@@ -50,19 +50,41 @@ trade_summary_path = 'D:/f_data/temp/trade_fb/trade_summary.csv'
 # )
 
 
-position_path = 'D:/f_data/batch_20211116/step8_portfolio_time_series/position.csv'
-start_date = '2009-01-01'
-end_date = '2022-01-01'
+# position_path = 'D:/f_data/batch_20211116/step8_portfolio_time_series/position.csv'
+# start_date = '2009-01-01'
+# end_date = '2022-01-01'
+# date_col = 'date'
+# position_col = 'roll'
+# perf_output_path = 'D:/f_data/temp/xxxx.csv'
+# 
+#         
+# api_position_perf_from_csv(
+#     position_path, 
+#     start_date, 
+#     end_date, 
+#     date_col, 
+#     position_col,
+#     perf_output_path
+# )        
+
+
+position_csv = 'D:/f_data/batch_20211116/step8_portfolio_time_series/position.csv'
 date_col = 'date'
 position_col = 'roll'
-perf_output_path = 'D:/f_data/temp/xxxx.csv'
+START_DATE = '2006-01-01'
+ANALYSIS_START_DATE = '2009-01-01' # DUE TO 3 YEARS OF HISTORICAL PERF COLLECTION 
+END_DATE = '2022-01-01'
+result_path = 'D:/f_data/temp/ab/'
+benchmark_ticker = 'SPY'
+period = 'year'
 
-        
-api_position_perf_from_csv(
-    position_path, 
+api_compuate_alpha_beta_to_csv_img(
+    position_csv, 
+    date_col, 
+    position_col, 
     start_date, 
     end_date, 
-    date_col, 
-    position_col,
-    perf_output_path
-)        
+    benchmark_ticker,
+    period,
+    result_path=result_path
+)

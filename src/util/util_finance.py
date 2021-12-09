@@ -1,3 +1,4 @@
+import datetime
 from statistics import (
     mean,
     pstdev
@@ -6,6 +7,7 @@ from statistics import (
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 
+from price_asset_master.lib.api.api import download_ticker
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -15,8 +17,9 @@ from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list, \
 from util.util import plot_hist_from_df_col, \
     extract_sub_df_single_st_based_on_period
 from util.util_math import moving_window_pct_diff, max_pct_drop_positive_list
-from util.util_time import days_gap_date_str, mark_year_month_week_start
-
+from util.util_time import days_gap_date_str, mark_year_month_week_start, \
+    df_filter_dy_date
+from datetime import datetime
 
 # from util.util_time import period_str_mark
 def get_discrete_fix_roll(df):
@@ -369,7 +372,7 @@ def get_position_perf(df, date_col, position_col):
     perf_year_return = get_year_return_from_position_df(df, date_col, position_col)
     perf_max_drop = get_max_drop_from_position_df(df, date_col, position_col)
     
-    max_drop_sharpe_ratio = - perf_year_return['total_return_divide_years'] / perf_max_drop['max_below_max_pct']
+    max_drop_sharpe_ratio = - perf_year_return['equivalent_annual_return'] / perf_max_drop['max_below_max_pct']
     
     info = {
         'total_return': round(perf_year_return['total_return'], 4),
@@ -377,7 +380,7 @@ def get_position_perf(df, date_col, position_col):
         'compound_annual_return': round(perf_year_return['equivalent_annual_return'], 4),
         'max_below_max_pct': round(perf_max_drop['max_below_max_pct'], 4),
         'max_drop_date': perf_max_drop['max_drop_date'],
-        'max_drop_sharpe_ratio:': round(max_drop_sharpe_ratio, 4),
+        'max_drop_sharpe_ratio': round(max_drop_sharpe_ratio, 4),
         'max_recover_days': round(perf_max_drop['max_recover'], 4),
         'drop_range': perf_max_drop['drop_range']
     }
@@ -388,10 +391,23 @@ def get_position_perf(df, date_col, position_col):
         df_period_return = compute_return_compared_with_previous_row(df=df_period, date_col=date_col, position_col='position')
         info[period] = get_return_perf(df_period_return)
     
-    return info
+    # info has a complete set of information
+#     print(info)
+#     print(info['max_drop_sharpe_ratio'])
+    info_major_metric = {
+        'ticker': 'default',
+        'major_compound_annual_return': info['compound_annual_return'],
+        'major_max_drop': info['max_below_max_pct'],
+        'major_return_drop_ratio':info['max_drop_sharpe_ratio'],
+        'major_yearly_return': info['year']['ret_avg'],
+        'major_yearly_return_std': info['year']['ret_std'],
+        'major_yearly_sharpe': info['year']['ret_sharpe'],
+    }
+    info_major_metric.update(info)
+    return info_major_metric
 
 
-def compute_alpha_beta_from_position(df, date_col, base_col, exp_col, period, plot=False):
+def compute_alpha_beta_from_position(df, date_col, base_col, exp_col, period, img_path, plot=True):
     df = mark_year_month_week_start(df, date_col)
 
     df_period_base = extract_sub_df_single_st_based_on_period(df=df, date_col=date_col, position_col=base_col, period=period)
@@ -465,7 +481,9 @@ def compute_alpha_beta_from_position(df, date_col, base_col, exp_col, period, pl
         )
         fig.update_xaxes(title_text='baseline return')
         fig.update_layout(title=title)
-        fig.show()   
+        # save image to file
+        fig.write_image(img_path)
+ 
         
 #         
 #         plt.scatter(x, y,  color='black')
@@ -525,3 +543,39 @@ def perf_vs_benchmark(
     result_folder
 ):
     return
+
+
+def compuate_alpha_beta_to_csv_img(
+    position_csv, 
+    date_col, 
+    position_col, 
+    start_date, 
+    end_date, 
+    benchmark_ticker,
+    period,
+    result_path
+):
+    """
+    period: year, month date
+    """
+    result_path_csv = f'{result_path}{period}_alpha_beta.csv'
+    result_path_img = f'{result_path}{period}_alpha_beta.png'
+    
+    # prepare benchmark
+    interval = '1d'
+    path = 'D:/f_data/temp/temp_benchmark.csv'
+    download_ticker(benchmark_ticker, start_date, end_date, path, interval)
+    df = pd.read_csv(path)
+    df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['unixtime'])).strftime('%Y-%m-%d')), axis = 1)
+    df['benchmark'] = df['Close']
+    
+    # process position
+    df_pos = pd.read_csv(position_csv)
+    df_pos['date'] = df_pos[date_col]
+    df_pos_filtered = df_filter_dy_date(df_pos,'date',start_date,end_date)
+    
+    # merge all results
+    merged_df = pd.merge(df_pos_filtered, df, how="inner", on="date")
+    alpha_beta = compute_alpha_beta_from_position(merged_df, 'date', 'benchmark', position_col, period, result_path_img)
+    df_ab = pd.DataFrame([alpha_beta])
+    df_ab.to_csv(result_path_csv, index=False)

@@ -6,7 +6,7 @@ import pandas as pd
 from price_asset_master.lib.api.api import download_ticker
 from trading_floor.api_trade.api import gen_trades_to_csv, \
     gen_trades_summary_from_csv
-from util.util_finance import get_position_perf
+from util.util_finance import get_position_perf, compuate_alpha_beta_to_csv_img
 from util.util_time import df_filter_dy_date
 
 
@@ -130,3 +130,30 @@ def api_position_perf_from_csv(
     rows = [perf]
     df = pd.DataFrame(rows)   
     df.to_csv(perf_output_path, index=False)
+    
+
+def api_compuate_alpha_beta_to_csv_img(
+    position_csv, 
+    date_col, 
+    position_col, 
+    start_date, 
+    end_date, 
+    benchmark_ticker,
+    period,
+    result_path
+):
+    """
+    input: time range, position data, benchmark
+    output: alpha beta r-square of stat in csv and png
+    """
+    compuate_alpha_beta_to_csv_img(
+        position_csv, 
+        date_col, 
+        position_col, 
+        start_date, 
+        end_date, 
+        benchmark_ticker,
+        period,
+        result_path
+    )
+
