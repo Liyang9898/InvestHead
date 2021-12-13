@@ -420,6 +420,7 @@ def compute_alpha_beta_from_position(df, date_col, base_col, exp_col, period, im
     df_period_exp_return = compute_return_compared_with_previous_row(df=df_period_exp, date_col=date_col, position_col='position')
     df_period_exp_return.dropna(inplace=True)
     return_exp = df_period_exp_return['return'].to_list()
+
     
     x = np.array(return_base).reshape(-1, 1)
     y = np.array(return_exp).reshape(-1, 1)
@@ -556,7 +557,7 @@ def compuate_alpha_beta_to_csv_img(
     result_path
 ):
     """
-    period: year, month date
+    period: year, month, week
     """
     result_path_csv = f'{result_path}{period}_alpha_beta.csv'
     result_path_img = f'{result_path}{period}_alpha_beta.png'
@@ -579,3 +580,33 @@ def compuate_alpha_beta_to_csv_img(
     alpha_beta = compute_alpha_beta_from_position(merged_df, 'date', 'benchmark', position_col, period, result_path_img)
     df_ab = pd.DataFrame([alpha_beta])
     df_ab.to_csv(result_path_csv, index=False)
+    
+    
+def get_trade_perf_from_trades_csv(trades_csv, output_perf_csv):
+    df = pd.read_csv(trades_csv)
+    df_complete = df[df['complete']==True]
+    df_win = df_complete[df_complete['pnl_percent'] > 0]
+    df_lose = df_complete[df_complete['pnl_percent'] < 0]
+    
+    total_trade = len(df_complete)
+    win_cnt = len(df_win)
+    lose_cnt = len(df_lose)
+    
+    win_pnl_avg = df_win['pnl_percent'].mean()
+    lose_pnl_avg = df_lose['pnl_percent'].mean()
+    win_rate = win_cnt / total_trade
+    lose_rate = lose_cnt / total_trade
+    
+    win_lose_pnl_ratio = (win_rate * win_pnl_avg) / (lose_rate * lose_pnl_avg) * -1
+    
+    stat = {
+        'ticker': 'portfolio',
+        'win_rate':round(win_rate,4),
+        'lose_rate':round(lose_rate,4),
+        'win_pnl_avg':round(win_pnl_avg,4),
+        'lose_pnl_avg':round(lose_pnl_avg,4),
+        'win_lose_pnl_ratio':round(win_lose_pnl_ratio,4),
+        'total_trades':round(total_trade,4),
+    }
+    df_stat = pd.DataFrame([stat])
+    df_stat.to_csv(output_perf_csv, index=False)

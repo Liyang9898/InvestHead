@@ -7,6 +7,13 @@ from strategy_lib.strategy_constant import EXIT_STRATEGY_LEGACY, \
     EXIT_STRATEGY_MA_ONLY, EXIT_STRATEGY_MA_MAX_DRAWDOWN_CUT, \
     EXIT_STRATEGY_MA_MACD, EXIT_STRATEGY_MA_MAX_DRAWDOWN_CUT_NEUTRAL_OUT
 
+"""
+strat_param_swing_2150in_2150out_ma_gap -> current swing prod
+strat_param_20211006_ma_max_drawdown_cut -> spy
+strat_param_20211006_ma_macd -> btc
+"""
+
+
 
 strat_param_swing = {
     "enter_ma_signal": "21_50",
@@ -195,6 +202,7 @@ strat_param_swing_2150in_2150out_4percent_out = {
 }
 
 # ema21 ma50 gap - prod since 2021/04
+# profit managment = half best out
 strat_param_swing_2150in_2150out_ma_gap = {
     "enter_ma_signal": "21_50",
     "exit_ma_signal":"21_50",
@@ -209,6 +217,39 @@ strat_param_swing_2150in_2150out_ma_gap = {
     "enable_channel_exit":0,
     "ema21_ma50_gap_percent_threshold": 0.039
 }
+
+
+strat_param_swing_2150in_2150out_ma_gap_4p_profit = {
+    "enter_ma_signal": "21_50",
+    "exit_ma_signal":"21_50",
+    "exit_duration_threshiold": 4, # after x bar, allow neutral exit
+    "exit_profit_threshiold": 0.001, # no specific meaning
+    "neutual_exit_enable":0,
+    "profit_management_enable":0,
+    "profit_management_enable_threshold":0.04,
+    "take_profit_above_x":1,
+    "take_profit_above_x_threshold":0.04,    
+    "enable_channel_enter":0,
+    "enable_channel_exit":0,
+    "ema21_ma50_gap_percent_threshold": 0.039
+}
+
+# ema21 ma50 gap - prod since 2021/04
+strat_param_swing_2150in_2150out_ma_gap_no_take_profit = {
+    "enter_ma_signal": "21_50",
+    "exit_ma_signal":"21_50",
+    "exit_duration_threshiold": 4, # after x bar, allow neutral exit
+    "exit_profit_threshiold": 0.001, # no specific meaning
+    "neutual_exit_enable":0,
+    "profit_management_enable":0,
+    "profit_management_enable_threshold":0.04,
+    "take_profit_above_x":0,
+    "take_profit_above_x_threshold":0.04,    
+    "enable_channel_enter":0,
+    "enable_channel_exit":0,
+    "ema21_ma50_gap_percent_threshold": 0.039
+}
+
 
 # ema21 ma50 gap + 4% out
 strat_param_swing_2150in_2150out_ma_gap_4p_out = {

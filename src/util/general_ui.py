@@ -252,7 +252,7 @@ def plot_points_from_xy_list(x_list, y_list_map, title='default', path=None):
             go.Scatter(
                 x=x_list, 
                 y=y_list,
-                mode='markers',
+                mode='markers',#??
                 name=k
             )
         )

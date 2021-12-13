@@ -55,6 +55,7 @@ def gen_exit_legacy(
             
             
     if stop_profit_enable:
+        print('stop profit========================================')
         ################### take profit ###################################
         best_profit_p = best_price_in_market / entry_price - 1
         current_profit_low = bar['low'] / entry_price - 1
@@ -66,6 +67,7 @@ def gen_exit_legacy(
         take_profit= 0 # questionable?
 
         if best_profit_p > profit_management_threshold:
+            print(best_profit_p, profit_management_threshold)
             breaching_profit_threshold = True
             take_profit = best_profit_p / 2
           

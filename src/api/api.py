@@ -6,7 +6,8 @@ import pandas as pd
 from price_asset_master.lib.api.api import download_ticker
 from trading_floor.api_trade.api import gen_trades_to_csv, \
     gen_trades_summary_from_csv
-from util.util_finance import get_position_perf, compuate_alpha_beta_to_csv_img
+from util.util_finance import get_position_perf, compuate_alpha_beta_to_csv_img, \
+    get_trade_perf_from_trades_csv
 from util.util_time import df_filter_dy_date
 
 
@@ -75,7 +76,7 @@ def api_gen_trade_summary(
     """
     Input: 2 trades file (consecutive & all_entry) CSV
     Output: trade summary output file CSV
-    """        
+    """
     gen_trades_summary_from_csv(
         trade_result_all_entry_path,
         trade_result_consecutive_entry_path,
@@ -132,6 +133,14 @@ def api_position_perf_from_csv(
     df.to_csv(perf_output_path, index=False)
     
 
+def api_trade_perf_from_trades_csv(trades_csv, output_perf_csv):
+    """
+    input: trades csv, each row is a trade
+    output: trades perf, win lose rate, avg pnl, win_lose_pnl ratio
+    """
+    get_trade_perf_from_trades_csv(trades_csv, output_perf_csv)
+
+
 def api_compuate_alpha_beta_to_csv_img(
     position_csv, 
     date_col, 
@@ -145,6 +154,7 @@ def api_compuate_alpha_beta_to_csv_img(
     """
     input: time range, position data, benchmark
     output: alpha beta r-square of stat in csv and png
+    period: year, month, week
     """
     compuate_alpha_beta_to_csv_img(
         position_csv, 
@@ -156,4 +166,5 @@ def api_compuate_alpha_beta_to_csv_img(
         period,
         result_path
     )
+
 

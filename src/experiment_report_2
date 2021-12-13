@@ -346,3 +346,8 @@ return line seems fine
 return is ok
 alpha / max_drop is better
 
+2021-12-13
+spy: strat_param_20211006_ma_max_drawdown_cut
+btc: strat_param_20211006_ma_macd
+(swing, half best profit out): strat_param_swing_2150in_2150out_ma_gap   
+(swing, 4% profit out): strat_param_swing_2150in_2150out_ma_gap_4p_profit

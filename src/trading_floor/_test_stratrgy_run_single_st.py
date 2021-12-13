@@ -13,6 +13,8 @@ from indicator_master.plot_indicator_lib import plot_indicator
 import pandas as pd
 from plotting_lib.simple import plotTimeSerisDic, plotTimeSerisDic3
 from strategy_lib.stratage_param import (
+    strat_param_swing_2150in_2150out_ma_gap_no_take_profit,
+    strat_param_swing_2150in_2150out_ma_gap_4p_profit,
     strat_param_swing,
     strat_param_swing_2150in_821out,
     strat_param_swing_2150in_850out,
@@ -51,9 +53,9 @@ from util.util_time import df_filter_dy_date
 
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
-# file_name = "SPY_1W_fmt"  # 1993.3 start
+file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "BTC_1W_fmt"   # 2017.1 start
-file_name = "BTC_1D_fmt"   # 2017.1 start
+# file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
 # file_name = "BTC_2H_fmt" # 2017.1 start
 
@@ -66,7 +68,7 @@ file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "AMZN_1D_fmt" 
 # file_name = "TSLA_1D_fmt"  # 1993.3 start
 
-file_name = "V_1D_fmt"  
+# file_name = "V_1D_fmt"  
 # file_name = "IWF_1D_fmt"
 # file_name = "IWF_1W_fmt"
 # file_name = "AMD_1D_fmt"
@@ -102,10 +104,12 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
 # strategy_param_bundle=strat_param_20211006_ma_only_exit
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
-strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
+# strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
+# strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
+strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
 
 
-start_time="2006-01-01"
+start_time="2016-01-01"
 
 # start_time="2019-09-01 20:00:00"
 end_time="2022-01-31"
@@ -128,6 +132,9 @@ api_gen_trades(
     trade_result_all_entry_path=trade_result_all_entry_path, 
     trade_result_consecutive_entry_path=trade_result_consecutive_entry_path, 
 )
+print('trades all entry in: ', trade_result_all_entry_path)
+print('trades consecutive in: ', trade_result_consecutive_entry_path)
+
  
 print('getting generated trades')
 trades_all_entry = genTradingBundleFromCSV(trade_result_all_entry_path)
@@ -150,14 +157,14 @@ print('Consecutive trade summary')
 trades_consecutive.printTradesSummary()
 print('All entry trade summary')
 trades_all_entry.printTradesSummary()
- 
+
 print(over_all_summary)
 merged_result_to_csv(over_all_summary, "D:/f_data/dump/result.csv")
  
 
 
 cash_position = genPositionHistory(price_with_indicator, trades_consecutive.trades, start_time, end_time)
-
+print(cash_position)
 
 # dic to df
 strategy_name = 'temp'
@@ -172,14 +179,14 @@ path_position_record = f'D:/f_data/temp/position_list_{strategy_name}.csv'
 # path2 = 'D:/f_data/temp/price_cash_line.csv'
 # ts_position_dict_to_csv(cash_position['price_position'], path2) 
 # print(cash_position['price_position'].keys())
-
+print(path_position_record)
 ts_position_dicts_to_dataframe(
     price_dict = cash_position['price_position'], 
     position_dict = cash_position['cash_rollover_position'],
     path=path_position_record
 )
 
- 
+
 plotTimeSerisDic3(cash_position['price_position'],cash_position['cash_fixed_base_position'],cash_position['cash_rollover_position'])
  
  

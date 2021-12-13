@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from api.api import api_download_ticker, api_position_perf_from_csv, \
-    api_compuate_alpha_beta_to_csv_img
+    api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
 from batch_20211116.batch_20211116_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
 import pandas as pd
@@ -91,7 +91,9 @@ api_compuate_alpha_beta_to_csv_img(
 until here, we have alpha beta for monthly and yearly 
 """
 
-
+trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000}intermediate_per_track_trades.csv'
+output_perf_csv = f'{CONCLUSION_FOLDER}/trade_perf.csv'
+api_trade_perf_from_trades_csv(trades_csv, output_perf_csv)
 
 # x_list = m_result['date'].to_list()
 # y_list = {'roll':m_result['roll'].to_list(),'spy':m_result['spy'].to_list()}
