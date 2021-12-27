@@ -126,6 +126,9 @@ def extract_track_time_seq(track):
 
 # this function insert all trades into N track
 def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=False):
+    """
+    this function insert all trades into N track
+    """
     room = {}
     track = {} # trade is room history, list of <ticker, trade>
     for idx in range(0, capacity):
@@ -177,12 +180,24 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=Fa
                 del trade_opportunity_today[room_v]
         
         opportunity_cnt = len(trade_opportunity_today)
+        
+        # pick x opportunity out of y possible trades for today
         drawed_id = draw_x_card_out_of_y(slot,opportunity_cnt)
+        # leonyan: need to convert this id list into a ticker list
+        # leonyan: need to implement foo for method 2
+        """
+        method 1: randomly draw x card out of y: foo(x,y)
+        method 2: pick x ticker out of y ticker according to ranking
+        foo(top_x_ticker[list], available_ticker_today[list], ticker_ranking[dict<ticker, rank>])
+        
+        
+        until here the trade has been selected
+        """
         
         idx = 0
         room_idx = 0
         for ticker, trade in trade_opportunity_today.items():
-            if idx not in drawed_id:
+            if idx not in drawed_id: # leonyan: need to change this id list into a ticker list
                 idx = idx + 1
                 continue
             open_trades[ticker]=trade

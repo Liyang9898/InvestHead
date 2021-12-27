@@ -232,10 +232,10 @@ class StrategySimpleMABase:
                 self.enable_channel_exit,
                 self.optional_channel_exit_condition,
                 self.stop_profit_enable,
-                self.profit_management_enable_threshold,
+                self.profit_management_enable_threshold, # over this one, half gain is stop los
                 self.neutual_exit_enable,
                 self.exit_duration_threshiold,
-                self.take_profit_above_x,
+                self.take_profit_above_x, # take profit when it reach 'take_profit_above_x_threshold'
                 self.take_profit_above_x_threshold  
             )
         

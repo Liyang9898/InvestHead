@@ -351,3 +351,20 @@ spy: strat_param_20211006_ma_max_drawdown_cut
 btc: strat_param_20211006_ma_macd
 (swing, half best profit out): strat_param_swing_2150in_2150out_ma_gap   
 (swing, 4% profit out): strat_param_swing_2150in_2150out_ma_gap_4p_profit
+(swing, exit on ma cross): strat_param_swing_2150in_2150out_ma_gap_no_take_profit
+
+2021-12-27
+strategy param explain
+    "enter_ma_signal": "21_50",
+    "exit_ma_signal":"21_50",
+    "exit_duration_threshiold": 4, # after x bar, allow neutral exit
+    "exit_profit_threshiold": 0.001, # no specific meaning
+    "neutual_exit_enable":0,
+    "profit_management_enable":0, # over profit_management_enable_threshold, set stop order to profit_management_enable_threshold
+    "profit_management_enable_threshold":0.04,
+    "take_profit_above_x":0, # take profit when gain is over take_profit_above_x_threshold
+    "take_profit_above_x_threshold":0.04,    
+    "enable_channel_enter":0,
+    "enable_channel_exit":0,
+    "ema21_ma50_gap_percent_threshold": 0.039
+

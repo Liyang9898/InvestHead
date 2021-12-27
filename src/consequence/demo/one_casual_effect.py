@@ -25,8 +25,8 @@ df = df_date_filter(df, 'date', '2016-05-16', '2021-05-16')
 df.reset_index(inplace=True, drop=True)
 
 signal = 'price_delta_1bar_pct'
-threshold_causal = -0.0226 # down of the signal
-threshold_effect = -0.001 # down of the effect
+threshold_causal = -0.014 # down of the signal
+threshold_effect = -0.02 # down of the effect
 
 observe_range = 20 # number of days to cover in observing what will happen
 date_idx_map = df_date_index_mapping(df)
