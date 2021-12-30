@@ -1,7 +1,10 @@
 from util.util_math import draw_x_card_out_of_y
+import pandas as pd
 
 METHOD_RANDOM = 'random'
 METHOD_TOP_RETURN = 'top_return'
+METHOD_TOP_WIN_RATE = 'win_rate'
+METHOD_TOP_WIN_LOSE_PNL_RATIO = 'win_lose_pnl_ratio'
 # METHOD_RANDOM = 'random'
 
 def select_trades_from_available_opportunity(
@@ -31,6 +34,20 @@ def select_trades_from_available_opportunity(
         )
     elif method == METHOD_TOP_RETURN:
         trades = select_trades_top_return(
+            trade_opportunity,
+            needed_trade_cnt,
+            today_date,
+            ticker_ranking_artifact,
+        )
+    elif method == METHOD_TOP_WIN_RATE:
+        trades = select_trades_top_win_rate(
+            trade_opportunity,
+            needed_trade_cnt,
+            today_date,
+            ticker_ranking_artifact,
+        )
+    elif method == METHOD_TOP_WIN_LOSE_PNL_RATIO:
+        trades = select_trades_top_win_lose_pnl_ratio(
             trade_opportunity,
             needed_trade_cnt,
             today_date,
@@ -78,6 +95,40 @@ def select_trades_top_return(
     return res
 
 
+def select_trades_top_win_rate(
+    trade_opportunity,
+    needed_trade_cnt,
+    today_date,
+    ticker_ranking_artifact,
+):
+    metric = 'win_rate'
+    res = select_trades_top_perf_metric(
+        trade_opportunity,
+        needed_trade_cnt,
+        today_date,
+        ticker_ranking_artifact,
+        metric
+    )
+    return res
+
+
+def select_trades_top_win_lose_pnl_ratio(
+    trade_opportunity,
+    needed_trade_cnt,
+    today_date,
+    ticker_ranking_artifact,
+):
+    metric = 'win_lose_pnl_ratio'
+    res = select_trades_top_perf_metric(
+        trade_opportunity,
+        needed_trade_cnt,
+        today_date,
+        ticker_ranking_artifact,
+        metric
+    )
+    return res
+
+
 def select_trades_top_perf_metric(
     trade_opportunity,
     needed_trade_cnt,
@@ -92,6 +143,12 @@ def select_trades_top_perf_metric(
     year = today_date.split('-')[0]
     rank_artifact_df=ticker_ranking_artifact[year].copy()
     
+    # filter ranking list by trade_opportunity tickers
+    # some ticker already in opened positions, some ticker does not have enter opportunity today
+    d = {'ticker': list(trade_opportunity.keys())}
+    trade_opportunity_df = pd.DataFrame(data=d)
+    rank_artifact_df = pd.merge(rank_artifact_df, trade_opportunity_df, on="ticker")
+
     # filter out ranking record with too less samples
     trade_cnt_col = 'total_trades_all_entry'
     rank_artifact_df = rank_artifact_df[rank_artifact_df[trade_cnt_col] > 10].copy()

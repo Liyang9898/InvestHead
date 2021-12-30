@@ -323,7 +323,6 @@ def gen_price_seq(tracks, price_book, track_summary_path):
     price_in_tracks = {}
     rows = []
     for idx, track in tracks.items():
-        
         price_in_track = gen_price_seq_one_track(track, price_book)
         position_open_days = len(price_in_track)
         

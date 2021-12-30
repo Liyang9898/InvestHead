@@ -100,6 +100,8 @@ def reuse_position_cash_history(
     # this function insert all trades into N track
     ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
     tracks = fill_position(all_entry_trades, start_date, end_date, capacity,ticker_rank_artifact)        
+#     for k, v in tracks.items():
+#         print(k,len(v))
     # track to csv, each row is one trade
     tracks_df = track_trades_to_df(tracks)
     tracks_df.to_csv(per_track_trades_path, index = False)
@@ -122,13 +124,14 @@ def reuse_position_cash_history(
     
     # track fill in price - return value has all price and ticker on all timestamp in all tracks
     price_in_tracks = gen_price_seq(tracks, price_book, per_track_summary_path)
+
     """
     Until here, we got a data structure of price and ticker on each day for each track
         dict<track_id, dict<data, {ticker:?,price?}>>
     """
     
     # write to csv
-    price_in_tracks_to_csv(price_in_tracks, per_track_ticker_price_path)
+    price_in_tracks_to_csv(price_in_tracks, per_track_ticker_price_path)#? 38 is 0 for price
     print('Until here, we got a csv of price and ticker on each day for each track')
     """
     Until here, we got a csv of price and ticker on each day for each track
