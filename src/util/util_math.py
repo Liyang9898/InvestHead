@@ -2,6 +2,7 @@ from statistics import (
     mean,
     pstdev
 )
+import random
 
 def moving_window_pct_diff(l, window):
     # window = 1 len = 2,   len >= window + 1
@@ -68,3 +69,15 @@ def intersection_of_k_list(lists):
         cur = lists[i]
         main = intersection(main, cur)
     return main
+
+
+def draw_x_card_out_of_y(x, y):
+
+    res = []
+    for i in range(0,min(x,y)):
+        r = random.randint(1, y)
+        while r in res:
+            r = random.randint(1, y)
+
+        res.append(r)
+    return res

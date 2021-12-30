@@ -5,7 +5,7 @@ from api.api import api_download_ticker, api_position_perf_from_csv, \
     api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
 from batch_20211116.batch_20211116_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
-from batch_20211116.batch_20211116_lib.util import position_time_series_append_benchmark_to_csv_png, \
+from batch_20211116.batch_20211116_lib.util_batch_simulation import position_time_series_append_benchmark_to_csv_png, \
     strategy_baseball_card
 import pandas as pd
 from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list

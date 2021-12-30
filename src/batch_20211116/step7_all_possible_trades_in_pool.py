@@ -5,7 +5,8 @@ import pandas as pd
 from util.util_file import get_all_csv_file_in_folder
 
 """
-this process get the sub set of trades which is in high perf pool
+this process get the sub set of trades which is in high perf pool 
+use ticker list in step 6 to filter step 5, so step 7 is a sub set of step 5's result
 """
 
 path_trades = RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME

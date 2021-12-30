@@ -3,14 +3,14 @@ Created on Feb 13, 2021
 
 @author: leon
 '''
-import os
-import pandas as pd
-from trading_floor.TradeInterface import Trade
 from datetime import date, timedelta
 import datetime
+import os
 import random
 
-
+from batch_20201214.reuse_position.lib.trade_opportunity_ranking import select_trades_from_available_opportunity
+import pandas as pd
+from trading_floor.TradeInterface import Trade
 
 
 def getAllEntryCSV(path):
@@ -102,16 +102,16 @@ def get_date_list(start_time, end_time):
     return res
 
 
-def draw_x_card_out_of_y(x, y):
-#     print(x,y)
-    res = []
-    for i in range(0,min(x,y)):
-        r = random.randint(1, y)
-        while r in res:
-            r = random.randint(1, y)
-#             print(r)
-        res.append(r)
-    return res
+# def draw_x_card_out_of_y(x, y):
+# #     print(x,y)
+#     res = []
+#     for i in range(0,min(x,y)):
+#         r = random.randint(1, y)
+#         while r in res:
+#             r = random.randint(1, y)
+# #             print(r)
+#         res.append(r)
+#     return res
 
 
 def extract_track_time_seq(track):
@@ -125,7 +125,7 @@ def extract_track_time_seq(track):
 
 
 # this function insert all trades into N track
-def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=False):
+def fill_position(all_entry_trades, start_date, end_date, capacity, ticker_rank_artifact, print_log=False):
     """
     this function insert all trades into N track
     """
@@ -179,10 +179,22 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=Fa
                 # remove ticker in opportunity if it is already there
                 del trade_opportunity_today[room_v]
         
-        opportunity_cnt = len(trade_opportunity_today)
+#         opportunity_cnt = len(trade_opportunity_today)
+        
+        
+        # pick top trades from available trade opportunity for today
+        selected_trades= select_trades_from_available_opportunity(
+            trade_opportunity=trade_opportunity_today,
+            needed_trade_cnt=slot,
+            today_date=date,
+            ticker_ranking_artifact=ticker_rank_artifact
+        )
+        """
+        until here, selected_trades is a map of <ticker, Trade> for today to fill the room
+        """
         
         # pick x opportunity out of y possible trades for today
-        drawed_id = draw_x_card_out_of_y(slot,opportunity_cnt)
+#         drawed_id = draw_x_card_out_of_y(slot,opportunity_cnt)
         # leonyan: need to convert this id list into a ticker list
         # leonyan: need to implement foo for method 2
         """
@@ -194,16 +206,17 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, print_log=Fa
         until here the trade has been selected
         """
         
-        idx = 0
+#         idx = 0
         room_idx = 0
-        for ticker, trade in trade_opportunity_today.items():
-            if idx not in drawed_id: # leonyan: need to change this id list into a ticker list
-                idx = idx + 1
-                continue
+        for ticker, trade in selected_trades.items():
+            # ticker not in selected_ticker_list continue
+#             if idx not in drawed_id: # leonyan: need to change this id list into a ticker list
+#                 idx = idx + 1
+#                 continue
             open_trades[ticker]=trade
             historical_trades.append(trade)
             in_log[date].append(ticker)
-            idx = idx + 1
+#             idx = idx + 1
             
             # find a room for ticker
             while room[room_idx] != '-1':

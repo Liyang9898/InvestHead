@@ -90,6 +90,7 @@ def api_build_portfolio_time_series(
     start_date,
     end_date,
     trade_folder,
+    ticker_rank_folder,
     indicator_folder,
     output_folder,
 ):
@@ -103,6 +104,7 @@ def api_build_portfolio_time_series(
         start_date,
         end_date,
         trade_folder,
+        ticker_rank_folder,
         indicator_folder,
         output_folder,
     )

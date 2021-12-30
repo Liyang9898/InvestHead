@@ -19,6 +19,7 @@ from batch_20201214.reuse_position.fill_price_in_track_lib import (
 from batch_20201214.reuse_position.lib.fit_price_onto_position import gen_position_all_track, \
     aggregate_to_dic
 from batch_20201214.reuse_position.lib.util import track_trades_to_df
+from batch_20211116.batch_20211116_lib.stock_ranking_store import gen_stock_rank_artifact
 import pandas as pd
 import plotly.express as px
 from plotting_lib.simple import moving_window, dip_measure, moving_window_batch
@@ -35,6 +36,7 @@ def reuse_position_cash_history(
     start_date,
     end_date,
     trade_folder,
+    ticker_rank_folder,
     indicator_folder,
     #output
     output_folder,
@@ -96,7 +98,8 @@ def reuse_position_cash_history(
     """
     
     # this function insert all trades into N track
-    tracks = fill_position(all_entry_trades, start_date, end_date, capacity)        
+    ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
+    tracks = fill_position(all_entry_trades, start_date, end_date, capacity,ticker_rank_artifact)        
     # track to csv, each row is one trade
     tracks_df = track_trades_to_df(tracks)
     tracks_df.to_csv(per_track_trades_path, index = False)
