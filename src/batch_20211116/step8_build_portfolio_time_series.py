@@ -12,4 +12,5 @@ api_build_portfolio_time_series(
     ticker_rank_folder=TICKER_RANK_FOLDER,
     indicator_folder=INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME,
     output_folder=PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000,
+    capacity=100,
 )

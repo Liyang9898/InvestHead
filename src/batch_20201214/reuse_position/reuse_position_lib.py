@@ -41,7 +41,7 @@ def reuse_position_cash_history(
     #output
     output_folder,
     #
-    capacity=50,
+    capacity,
 ):
     """
     input: time range, trades file, indicator file
@@ -103,7 +103,7 @@ def reuse_position_cash_history(
 #     for k, v in tracks.items():
 #         print(k,len(v))
     # track to csv, each row is one trade
-    tracks_df = track_trades_to_df(tracks)
+    tracks_df = track_trades_to_df(tracks, capacity)
     tracks_df.to_csv(per_track_trades_path, index = False)
     print('Until here, we got a CSV with all trades happened in all tracks')
     """
@@ -156,7 +156,7 @@ def reuse_position_cash_history(
         end_date,
         per_track_ticker_price_path, 
         per_track_trades_path, 
-        track_count=50
+        track_count=capacity
     )    
     all_position_df.to_csv(per_track_position_path, index=False)
     ############################################position get end#################################################

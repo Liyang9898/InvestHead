@@ -20,7 +20,7 @@ def get_cash_line(df):
         df_sorted.loc[i,'fix_trade_end_pos'] = fix_trade_end_pos
     return df_sorted
 
-def track_trades_to_df(track):
+def track_trades_to_df(track, capacity):
     # convert to df
     rows = []
     for track_id, trades in track.items():
@@ -35,7 +35,7 @@ def track_trades_to_df(track):
     
     # get position
     cash_dfs= {}
-    for i in range(0,50):
+    for i in range(0,capacity):
         cash_df_i = all_trade_df[all_trade_df['track_id']==i]
         cash_df_i_pos = get_cash_line(cash_df_i)
         cash_dfs[i] = cash_df_i_pos

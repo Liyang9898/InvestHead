@@ -93,6 +93,7 @@ def api_build_portfolio_time_series(
     ticker_rank_folder,
     indicator_folder,
     output_folder,
+    capacity,
 ):
     """
     this function insert all available trades into a n track portfolio
@@ -107,6 +108,7 @@ def api_build_portfolio_time_series(
         ticker_rank_folder,
         indicator_folder,
         output_folder,
+        capacity,
     )
     
     
