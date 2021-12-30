@@ -1,9 +1,10 @@
+from dataclasses import replace
 from datetime import datetime
 
 from api.api import api_download_ticker
 import pandas as pd
 from util.general_ui import plot_points_from_xy_list
-from dataclasses import replace
+from util.util_time import df_filter_dy_date
 
 
 def get_benchmark(ticker, start_date, end_date):
@@ -37,6 +38,8 @@ def position_time_series_append_benchmark_to_csv_png(
     position_time_series_csv,
     input_time_col,
     input_position_col,
+    start_date,
+    end_date,
     benchmark_ticker,
     output_time_series_csv,
     output_time_series_png
@@ -49,8 +52,10 @@ def position_time_series_append_benchmark_to_csv_png(
     """
     # get benchmark time series
     portfolio_df = pd.read_csv(position_time_series_csv)
-    start_date = portfolio_df[input_time_col].min()
-    end_date = portfolio_df[input_time_col].max()
+    portfolio_df = df_filter_dy_date(portfolio_df,'date',start_date,end_date)
+    
+#     end_date = portfolio_df[input_time_col].max()
+#     start_date = portfolio_df[input_time_col].min()
     benchmark_df = get_benchmark(benchmark_ticker, start_date, end_date)
     
     # merge

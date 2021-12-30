@@ -19,6 +19,8 @@ position_time_series_append_benchmark_to_csv_png(
     position_time_series_csv=result_position_path,
     input_time_col='date',
     input_position_col='roll',
+    start_date=ANALYSIS_START_DATE,
+    end_date=END_DATE,
     benchmark_ticker='SPY',
     output_time_series_csv=path_position_with_benchmark_csv,
     output_time_series_png=path_position_with_benchmark_png
