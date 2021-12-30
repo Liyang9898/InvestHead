@@ -1,25 +1,21 @@
-import datetime
+from datetime import datetime
 from statistics import (
     mean,
     pstdev
 )
 
-from sklearn import datasets, linear_model
-from sklearn.metrics import mean_squared_error, r2_score
-
-from price_asset_master.lib.api.api import download_ticker
-import matplotlib.pyplot as plt
+from sklearn import linear_model
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list, \
-    plot_points_from_xy_list
+from price_asset_master.lib.api.api import download_ticker
+from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list
 from util.util import plot_hist_from_df_col, \
     extract_sub_df_single_st_based_on_period
 from util.util_math import moving_window_pct_diff, max_pct_drop_positive_list
 from util.util_time import days_gap_date_str, mark_year_month_week_start, \
     df_filter_dy_date
-from datetime import datetime
+
 
 # from util.util_time import period_str_mark
 def get_discrete_fix_roll(df):
@@ -610,3 +606,5 @@ def get_trade_perf_from_trades_csv(trades_csv, output_perf_csv):
     }
     df_stat = pd.DataFrame([stat])
     df_stat.to_csv(output_perf_csv, index=False)
+    
+    

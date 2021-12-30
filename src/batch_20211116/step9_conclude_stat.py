@@ -1,54 +1,46 @@
 from datetime import datetime
+import random
 
 from api.api import api_download_ticker, api_position_perf_from_csv, \
     api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
 from batch_20211116.batch_20211116_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
+from batch_20211116.batch_20211116_lib.util import position_time_series_append_benchmark_to_csv_png, \
+    strategy_baseball_card
 import pandas as pd
 from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list
 
 
-def get_benchmark(ticker):
-    start = ANALYSIS_START_DATE
-    end = END_DATE
-    interval = '1d'
-
-    path = 'D:/f_data/temp/spy20211207.csv'
-    api_download_ticker(ticker, start, end, path, interval)
-    df = pd.read_csv(path)
-    
-    df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['unixtime'])).strftime('%Y-%m-%d')), axis = 1)
-    df[BENCHMARK_TICKER] = df['Close']
-    base = df.loc[0,BENCHMARK_TICKER]
-    df[BENCHMARK_TICKER] = df[BENCHMARK_TICKER] / base
-    df=df[['date',BENCHMARK_TICKER]]
-    df=df.copy()
-    return df
-
-# get benchmark data
-df_benchmark = get_benchmark(BENCHMARK_TICKER)
-
-# merge with trade results
+# position time series
 result_position_path = PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000 + 'position.csv'
-df_result_position = pd.read_csv(result_position_path)
-m_result = pd.merge(df_result_position, df_benchmark, how="inner", on="date")
-path_position_with_benchmark = CONCLUSION_FOLDER + 'intermediate_position_with_benchmark.csv'
-m_result.to_csv(path_position_with_benchmark, index=False)
+path_position_with_benchmark_csv = CONCLUSION_FOLDER + 'baseball_card_position_time_series.csv'
+path_position_with_benchmark_png = CONCLUSION_FOLDER + 'baseball_card_position_time_series.png'
+position_time_series_append_benchmark_to_csv_png(
+    position_time_series_csv=result_position_path,
+    input_time_col='date',
+    input_position_col='roll',
+    benchmark_ticker='SPY',
+    output_time_series_csv=path_position_with_benchmark_csv,
+    output_time_series_png=path_position_with_benchmark_png
+)
+"""
+until here you have position time series and benchmarh save in a csv and png together
+"""
 
 # position perf
 perf_output_path_main = CONCLUSION_FOLDER + 'intermediate_position_perf_potofolio.csv'
 api_position_perf_from_csv(
-    position_path=path_position_with_benchmark, 
+    position_path=path_position_with_benchmark_csv, 
     start_date=ANALYSIS_START_DATE, 
     end_date=END_DATE, 
     date_col='date', 
-    position_col='roll',
+    position_col='portfolio',
     perf_output_path=perf_output_path_main
 )  
 
 perf_output_path_benchmark = CONCLUSION_FOLDER + 'intermediate_position_perf_spy_benchmark.csv'
 api_position_perf_from_csv(
-    position_path=path_position_with_benchmark, 
+    position_path=path_position_with_benchmark_csv, 
     start_date=ANALYSIS_START_DATE, 
     end_date=END_DATE, 
     date_col='date', 
@@ -66,7 +58,10 @@ df_merge.to_csv(perf_merge_output_path, index=False)
 until here we have position perf: return, sharpe
 """
 
-# alpha beta monthly yearly
+
+"""
+monthly alpha beta
+"""
 api_compuate_alpha_beta_to_csv_img(
     position_csv=result_position_path, 
     date_col='date', 
@@ -77,6 +72,11 @@ api_compuate_alpha_beta_to_csv_img(
     period='month',
     result_path=CONCLUSION_FOLDER
 )
+
+
+"""
+yearly alpha beta
+"""
 api_compuate_alpha_beta_to_csv_img(
     position_csv=result_position_path, 
     date_col='date', 
@@ -87,13 +87,22 @@ api_compuate_alpha_beta_to_csv_img(
     period='year',
     result_path=CONCLUSION_FOLDER
 )
-"""
-until here, we have alpha beta for monthly and yearly 
-"""
 
+
+"""
+trade perf, win rate, win_lose_pnl_ratio, trade count
+"""
 trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000}intermediate_per_track_trades.csv'
 output_perf_csv = f'{CONCLUSION_FOLDER}/trade_perf.csv'
 api_trade_perf_from_trades_csv(trades_csv, output_perf_csv)
+
+strategy_baseball_card(
+    position_perf_csv=perf_merge_output_path,
+    trade_perf_csv=output_perf_csv,
+    year_alpha_beta_csv=CONCLUSION_FOLDER+'year_alpha_beta.csv',
+    month_alpha_beta_csv=CONCLUSION_FOLDER+'month_alpha_beta.csv',
+    baseball_card_csv=CONCLUSION_FOLDER+'baseball_card_strategy_perf.csv',
+)
 
 # x_list = m_result['date'].to_list()
 # y_list = {'roll':m_result['roll'].to_list(),'spy':m_result['spy'].to_list()}

@@ -92,7 +92,7 @@ def reuse_position_cash_history(
     all_entry_trades = mergeAllEntryTrade(files)
     print('Until here, all trade option get')
     """
-    Until here, all trade option get
+    Until here, all trade option is retrieved at hand
     """
     
     # this function insert all trades into N track

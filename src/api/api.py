@@ -152,6 +152,8 @@ def api_compuate_alpha_beta_to_csv_img(
     result_path
 ):
     """
+    this function computes alpha beta and saves to csv and img
+    it take care the download of benchmark in the process
     input: time range, position data, benchmark
     output: alpha beta r-square of stat in csv and png
     period: year, month, week

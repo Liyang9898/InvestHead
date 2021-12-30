@@ -4,7 +4,6 @@ from util.general_ui import plot_lines_from_xy_list, plot_bars_from_xy_list
 from util.util import extract_sub_df_single_st_based_on_period
 from util.util_finance import get_max_drop_from_position_df, \
     compute_return_compared_with_previous_row
-from util.util_pandas import df_normalize
 from util.util_pandas import df_normalize, df_multiply_factor
 from util.util_time import mark_year_month_week_start
 

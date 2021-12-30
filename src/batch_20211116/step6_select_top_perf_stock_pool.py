@@ -5,6 +5,9 @@ from util.util_math import intersection_of_k_list
 
 PERF_COLS = ['ma50_up_rate', 'win_rate', 'annual_avg_return', 'win_lose_pnl_ratio', 'total_trades_all_entry']
 
+"""
+this process selection stock with has high perf for the portafolio
+"""
 
        
 def basic_filter(df):
