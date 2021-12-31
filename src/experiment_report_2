@@ -368,3 +368,9 @@ strategy param explain
     "enable_channel_exit":0,
     "ema21_ma50_gap_percent_threshold": 0.039
 
+2021-12-31
+experiment against spy shows the swing would
+1.reduce volatility (max down, beta)
+2.reduce gain as a cost
+3.total effective is position (sharp ratio, gain down ratio)
+

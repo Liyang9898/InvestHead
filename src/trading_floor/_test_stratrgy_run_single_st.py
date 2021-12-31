@@ -107,7 +107,8 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
-strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
+# strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
+strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
 start_time="1990-01-01"
 
