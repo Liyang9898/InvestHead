@@ -53,9 +53,6 @@ def position_time_series_append_benchmark_to_csv_png(
     # get benchmark time series
     portfolio_df = pd.read_csv(position_time_series_csv)
     portfolio_df = df_filter_dy_date(portfolio_df,'date',start_date,end_date)
-    
-#     end_date = portfolio_df[input_time_col].max()
-#     start_date = portfolio_df[input_time_col].min()
     benchmark_df = get_benchmark(benchmark_ticker, start_date, end_date)
     
     # merge

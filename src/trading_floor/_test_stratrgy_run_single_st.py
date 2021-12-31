@@ -106,10 +106,10 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
-strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
+# strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
+strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 
-
-start_time="2016-01-01"
+start_time="1990-01-01"
 
 # start_time="2019-09-01 20:00:00"
 end_time="2022-01-31"
@@ -164,7 +164,7 @@ merged_result_to_csv(over_all_summary, "D:/f_data/dump/result.csv")
 
 
 cash_position = genPositionHistory(price_with_indicator, trades_consecutive.trades, start_time, end_time)
-print(cash_position)
+# print(cash_position)
 
 # dic to df
 strategy_name = 'temp'
@@ -179,7 +179,7 @@ path_position_record = f'D:/f_data/temp/position_list_{strategy_name}.csv'
 # path2 = 'D:/f_data/temp/price_cash_line.csv'
 # ts_position_dict_to_csv(cash_position['price_position'], path2) 
 # print(cash_position['price_position'].keys())
-print(path_position_record)
+print('path_position_record:', path_position_record)
 ts_position_dicts_to_dataframe(
     price_dict = cash_position['price_position'], 
     position_dict = cash_position['cash_rollover_position'],
