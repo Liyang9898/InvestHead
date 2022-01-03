@@ -64,7 +64,7 @@ iwf_up="D:/f_data/etf/iwf_ma50_60up_2021_02_21.csv"
 iwf_down="D:/f_data/etf/iwf_ma50_60down_2021_02_21.csv"
 
 swing_set1="D:/f_data/sweep_20201214/ticker_set/swing_set.csv"
-
+swing_set_20220103 = "D:/f_data/sweep_20201214/ticker_set/russell1000_3year_historical.csv"
 
 # experiment on iwf effect in russell1000
 exp_r1000 = "D:/f_data/etf/exp_r1000.csv"

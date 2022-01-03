@@ -5,6 +5,7 @@ Created on Mar 11, 2021
 '''
 from datetime import datetime, timedelta
 
+from operation.lib.stock_ranking import get_stock_ranking
 from operation.lib.trade_lib import batch_tradable, get_opened_position, \
     update_record_current_price, \
     price_section, BELOW_ENTER, ABOVE_STOP, ABOVE_ENTER_NO_STOP, \
@@ -16,6 +17,7 @@ from strategy_lib.stratage_param import (
 )
 from util.util import sort_dic_by_val
 from version_master.version import op_path_base
+from version_master.version import swing_set1, swing_set_20220103
 
 
 def pct_fmt(n):
@@ -48,7 +50,7 @@ until here, I got a list of entry
 """
 
 opened_position = get_opened_position() # lower case
-# print(opened_position)
+stock_ranking = get_stock_ranking()
 
 res = {}
 price_info = {}
@@ -61,11 +63,11 @@ for ticker, trade in possible_entry.items():
     gap_ma50 = trade['bar_today']['close'] / trade['bar_today']['ma50'] - 1
     entry_info=trade['entry_info']
 
-    res[ticker] = gap_ma50
+    res[ticker] = stock_ranking[ticker.upper()]
     price_info[ticker.lower()] = entry_info
 
 
-possible_entry_sorted = sort_dic_by_val(res)
+possible_entry_sorted = sort_dic_by_val(res,descending=True)
 """
 until here we got a list of possible entry ticker sorted by ma50_gap
 """
@@ -99,7 +101,8 @@ def print_tradable(opened):
         channel_ema21 = bar_today['barlow_2_ema21_percent_oneyear_channel_percentile']
         lmt_price = price_info[ticker]['entry_price']*1.04
         lmt_price_str = "{:.2f}".format(lmt_price)
-        print(ticker,pct_fmt(channel_ema21),'||| quantity:(',cnt_str,'LMT:',lmt_price_str, ') algo_enter_ts:',ts_str,' enter price:',price_str, 'now_to_ma50:',pct_fmt(gap_ma50),'----ema21 ma50 gap:',ema21_ma50_gap_str)
+        rank = round(stock_ranking[ticker.upper()], 2)
+        print(ticker,pct_fmt(channel_ema21),'||| rank=', rank,'||| quantity:(',cnt_str,'LMT:',lmt_price_str, ') algo_enter_ts:',ts_str,' enter price:',price_str, 'now_to_ma50:',pct_fmt(gap_ma50),'----ema21 ma50 gap:',ema21_ma50_gap_str)
 
 # print opened
 print('===========================opened (in current tradble)===========================')
