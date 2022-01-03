@@ -43,9 +43,12 @@ possible_entry = batch_tradable(
     strategy_param_bundle,
     offset
 )
+"""
+until here, I got a list of entry
+"""
 
 opened_position = get_opened_position() # lower case
-print(opened_position)
+# print(opened_position)
 
 res = {}
 price_info = {}
@@ -63,7 +66,9 @@ for ticker, trade in possible_entry.items():
 
 
 possible_entry_sorted = sort_dic_by_val(res)
-
+"""
+until here we got a list of possible entry ticker sorted by ma50_gap
+"""
 
 def print_tradable(opened):
     for ticker in possible_entry_sorted.keys():
@@ -97,7 +102,7 @@ def print_tradable(opened):
         print(ticker,pct_fmt(channel_ema21),'||| quantity:(',cnt_str,'LMT:',lmt_price_str, ') algo_enter_ts:',ts_str,' enter price:',price_str, 'now_to_ma50:',pct_fmt(gap_ma50),'----ema21 ma50 gap:',ema21_ma50_gap_str)
 
 # print opened
-print('===========================opened===========================')
+print('===========================opened (in current tradble)===========================')
 print(len(opened_position), 'opened')
 print_tradable(opened=True)
 
@@ -105,12 +110,18 @@ print('===========================new opportunity===========================')
 print_tradable(opened=False)
 
     
-print('===========================update record===========================')    
-new_record = update_record_current_price(op_path_indicator)
+# print('===========================update record===========================')    
+# new_record = update_record_current_price(op_path_indicator)
+# """
+# until here we print out all opened position
+# """
 
 
 print('=======================Price Section=================================')  
 ps = price_section(op_path_indicator)
+"""
+until here, we got conclusion status of all positions, what stock needs to be out (ma21 < ma50)
+"""
 def print_price_section(ps, section):
     print('-----------------------------'+section+'------------------------------------------')    
     cnt = 0
