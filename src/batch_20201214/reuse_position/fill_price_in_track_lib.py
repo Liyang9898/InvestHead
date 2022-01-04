@@ -125,7 +125,7 @@ def extract_track_time_seq(track):
 
 
 # this function insert all trades into N track
-def fill_position(all_entry_trades, start_date, end_date, capacity, ticker_rank_artifact, print_log=False):
+def fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
     """
     this function insert all trades into N track
     """
@@ -187,7 +187,8 @@ def fill_position(all_entry_trades, start_date, end_date, capacity, ticker_rank_
             trade_opportunity=trade_opportunity_today,
             needed_trade_cnt=slot,
             today_date=date,
-            ticker_ranking_artifact=ticker_rank_artifact
+            ticker_ranking_artifact=ticker_rank_artifact,
+            method=stock_pick_strategy
         )
         """
         until here, selected_trades is a map of <ticker, Trade> for today to fill the room

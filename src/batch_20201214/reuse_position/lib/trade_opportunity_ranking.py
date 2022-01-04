@@ -12,7 +12,7 @@ def select_trades_from_available_opportunity(
     needed_trade_cnt,
     today_date,
     ticker_ranking_artifact,
-    method=METHOD_RANDOM
+    method,
 ):
     """
     select trades from all available trade opportunity

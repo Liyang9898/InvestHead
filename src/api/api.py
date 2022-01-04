@@ -93,6 +93,7 @@ def api_build_portfolio_time_series(
     ticker_rank_folder,
     indicator_folder,
     output_folder,
+    stock_pick_strategy,
     capacity,
 ):
     """
@@ -108,6 +109,7 @@ def api_build_portfolio_time_series(
         ticker_rank_folder,
         indicator_folder,
         output_folder,
+        stock_pick_strategy,
         capacity,
     )
     

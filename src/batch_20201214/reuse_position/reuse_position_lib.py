@@ -41,6 +41,7 @@ def reuse_position_cash_history(
     #output
     output_folder,
     #
+    stock_pick_strategy,
     capacity,
 ):
     """
@@ -99,7 +100,7 @@ def reuse_position_cash_history(
     
     # this function insert all trades into N track
     ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
-    tracks = fill_position(all_entry_trades, start_date, end_date, capacity,ticker_rank_artifact)        
+    tracks = fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, capacity,ticker_rank_artifact)        
 #     for k, v in tracks.items():
 #         print(k,len(v))
     # track to csv, each row is one trade
