@@ -396,3 +396,22 @@ it_options_4m = option_info_reformat({
         'strike=0%': {'strike':230, 'op_p':19.1}
     }
 })
+
+
+amd_options_3m_one = option_info_reformat({ # 3x   iv=0.37-0.45
+    'tag': 'amd_options_3m',
+    # environment info
+    'increase_factor' : 0.03 * 3,
+    'risk_free_rate' : 0.005,
+    
+    # option basic info
+    'ticker':'amd',
+    'st_price_now' : 78.82,
+    'today' : '2021-05-07',
+    'mature' : '2021-08-20',
+    
+    # option chain
+    'option_chain' : {
+        'strike=0%': {'strike':77.5, 'op_p':6.98},
+    }
+})

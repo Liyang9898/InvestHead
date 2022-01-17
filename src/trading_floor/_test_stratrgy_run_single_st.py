@@ -52,8 +52,8 @@ from util.util_time import df_filter_dy_date
 
 
 ############################################source region start#############################################
-# file_name = "SPY_1D_fmt"  # 1993.3 start
-file_name = "SPY_1W_fmt"  # 1993.3 start
+file_name = "SPY_1D_fmt"  # 1993.3 start
+# file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "BTC_1W_fmt"   # 2017.1 start
 # file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
@@ -110,10 +110,10 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
-start_time="1990-01-01"
+start_time="2012-01-01"
 
 # start_time="2019-09-01 20:00:00"
-end_time="2022-01-31"
+end_time="2016-01-31"
 
 ticker='default'
 
@@ -188,12 +188,12 @@ ts_position_dicts_to_dataframe(
 )
 
 
-plotTimeSerisDic3(cash_position['price_position'],cash_position['cash_fixed_base_position'],cash_position['cash_rollover_position'])
+# plotTimeSerisDic3(cash_position['price_position'],cash_position['cash_fixed_base_position'],cash_position['cash_rollover_position'])
  
  
 # trades_consecutive
 # trades_all_entry
-plot_trades(price_with_indicator, '', trades_consecutive, entry_only=False,ticker=price_with_indicator_file)
+plot_trades(price_with_indicator, '', trades_all_entry, entry_only=True,ticker=price_with_indicator_file)
 print('all universe')
  
 print_merged_result(over_all_summary)

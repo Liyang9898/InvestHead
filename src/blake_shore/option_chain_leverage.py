@@ -17,10 +17,10 @@ from blake_shore.lib.visual import ploty_stock_option_batch, \
     ploty_leverage_batch
 
 
-dfs = batch_gen_option_trail_from_today_option(fb_options_3m, negative_growth=True)
+dfs = batch_gen_option_trail_from_today_option(amd_options_3m, negative_growth=False)
 
 res = iv_and_leverage_from_option_group(dfs)
 print(res)
 ploty_stock_option_batch(dfs)
-ploty_leverage_batch(dfs, absolute=True)
-ploty_leverage_batch(dfs, absolute=False)
+# ploty_leverage_batch(dfs, absolute=True)
+# ploty_leverage_batch(dfs, absolute=False)
