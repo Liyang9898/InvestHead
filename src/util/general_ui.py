@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from version_master.version import imagine_folder
 
 
-def plot_candle_stick(df, date_marker=[], date_marker2=[], ticker='default'):
+def plot_candle_stick(df, date_marker=[], date_marker2=[], ticker='default', path=None):
     price_traces =go.Candlestick(
         x=df['est_datetime'],
         open=df['open'],
@@ -70,9 +70,12 @@ def plot_candle_stick(df, date_marker=[], date_marker2=[], ticker='default'):
     fig.update_layout(title=ticker)
     
 
-    fig.show()
+    
 
-
+    if path is not None:
+        fig.write_image(path)
+    else:
+        fig.show()
 
 def plot_trades_simple_base(
     df, 

@@ -61,6 +61,12 @@ def days_gap_date_str(date_str_s, date_str_e):
     return gap.days 
 
 
+def date_add_days(date_str, delta_days):
+    dt = datetime.strptime(date_str, '%Y-%m-%d')
+    dt_new = dt + timedelta(days=delta_days)
+    return dt_new.strftime("%Y-%m-%d")
+
+
 def mark_year_month_week_start(df, date_col):
     df['year_start'] = False
     df['week_start'] = False

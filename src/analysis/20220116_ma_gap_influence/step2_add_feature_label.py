@@ -24,16 +24,19 @@ def feature_ma21_50_pct_gap_4p(ma21_50_pct_gap):
 
 
 files = get_all_csv_file_in_folder(trade_with_idc_folder)
-feature_list = ['ma21_50_pct_gap', 'ma21_50_pct_gap_4p', 'label']
+feature_list = ['ma21_50_pct_gap', 'ma21_50_pct_gap_4p', 'entry_date', 'exit_date', 'label', 'ticker']
 
 
 for file in files:
     file_name = file.split('/')[-1]
-    print(file_name)
+    
+    ticker = file_name.split('_')[0]
+    print(ticker)
     df = pd.read_csv(file)
     df['ma21_50_pct_gap'] = df['ema21'] / df['ma50'] - 1
     df['label']=df.apply(lambda row : label(row['pnl_percent']), axis = 1)
     df['ma21_50_pct_gap_4p']=df.apply(lambda row : feature_ma21_50_pct_gap_4p(row['ma21_50_pct_gap']), axis = 1)
+    df['ticker'] = ticker
     df = df[feature_list]
     df.to_csv(feature_label+file_name, index=False)
 

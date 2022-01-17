@@ -30,6 +30,7 @@ def join_trades_with_indicator(
         return
     
     trade['entry_date']=trade.apply(lambda row : get_date_from_entry_ts(row['entry_ts']), axis = 1)
+    trade['exit_date']=trade.apply(lambda row : get_date_from_entry_ts(row['exit_ts']), axis = 1)
 
     out = trade.merge(indicator, how='left', left_on='entry_date', right_on='date')   # idc'date'
 
