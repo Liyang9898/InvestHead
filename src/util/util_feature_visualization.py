@@ -5,7 +5,7 @@ from plotly.subplots import make_subplots
 
 def chart_bucket_positive_rate(df, feature, label, bins, img_path=''):
     bucket = bucket_positive_rate(df, feature, label, bins)
-
+    print(bucket)
     fig = go.Figure()
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     fig.add_trace(
@@ -86,9 +86,8 @@ def bucket_positive_rate(df, feature, label, bins, bucket_path=None):
     
     df_p = df_cnt_p.rename(columns={feature: "positive"})
     df_n = df_cnt_n.rename(columns={feature: "negative"})
-    
     ratio = df_p.merge(df_n, how='inner', on='bucket')
-    
+
     # calculate boundary
     ratio['left'] = ratio.apply(lambda row : row['bucket'].left, axis = 1)
     ratio['right'] = ratio.apply(lambda row : row['bucket'].right, axis = 1)

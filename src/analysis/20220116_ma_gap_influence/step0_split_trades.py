@@ -1,6 +1,6 @@
 import pandas as pd
 
-base_folder = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_no_take_profit/'
+base_folder = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_4p_profit/'
 all_trades = base_folder + 'step8_portfolio_time_series/intermediate_per_track_trades.csv'
 sub_trades_path = 'D:/f_data/analysis/20220116_ma_gap_influence/trades_split/'
 

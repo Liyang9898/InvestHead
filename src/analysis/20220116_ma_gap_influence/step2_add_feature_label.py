@@ -1,7 +1,7 @@
 from util.util_file import get_all_csv_file_in_folder
 import pandas as pd
 
-base_folder = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_no_take_profit/'
+base_folder = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_4p_profit/'
 
 trade_folder = base_folder + 'step3_add_indicator/'
 indicator_folder = base_folder + 'step4_gen_trades/'
@@ -11,11 +11,9 @@ feature_label = 'D:/f_data/analysis/20220116_ma_gap_influence/feature_label/'
 
 def label(pnl_percent):
     if pnl_percent > 0:
-        return 1
-    elif pnl_percent < 0:
-        return -1
+        return True
     else:
-        return 0
+        return False
 
 
 def feature_ma21_50_pct_gap_4p(ma21_50_pct_gap):
