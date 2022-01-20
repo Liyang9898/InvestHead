@@ -193,7 +193,7 @@ ts_position_dicts_to_dataframe(
  
 # trades_consecutive
 # trades_all_entry
-plot_trades(price_with_indicator, '', trades_all_entry, entry_only=True,ticker=price_with_indicator_file)
+plot_trades(price_with_indicator, '', trades_all_entry, entry_only=False,ticker=price_with_indicator_file)
 print('all universe')
  
 print_merged_result(over_all_summary)
