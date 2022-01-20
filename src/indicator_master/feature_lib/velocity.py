@@ -5,25 +5,30 @@ import plotly.graph_objects as go
 
 
 
-def get_velocity_on_metric(df, metric, bar_range, feature_col):
+def get_velocity_pct_on_metric(df, metric, bar_range, feature_col):
     """
     input:
     df:the indicator Dataframe
     metric: the metric we need to compute speed on
     bar_range: how many gap are there between the start and end price, min = 1
     feature_col: column name of the new feature
+    
+    this function add a col called feature_col as a new feature
     """
     df.reset_index(inplace=True,drop=True)    
     df[feature_col] = np.nan
     
     for r in range(0, len(df)):
+        if pd.isnull(df.loc[r, metric]):
+            continue
+        
         l = r - bar_range
         if l < 0:
             continue
-        gap = df.loc[r, metric] - df.loc[l, metric]
+        gap = (df.loc[r, metric] / df.loc[l, metric])-1
         v = gap / bar_range
         df.loc[r, feature_col] = v
-        print(v)
+
 
 
 def get_velocity(df):
