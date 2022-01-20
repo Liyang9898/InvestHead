@@ -82,6 +82,7 @@ indicator_file_postfix = "_idc"
 
 price_with_indicator_file=folder_path_price_with_indicator+file_name+indicator_file_postfix+"."+file_type_postfix
 
+price_with_indicator_file = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_4p_profit/step3_add_indicator/ABT.csv'
 
 # price_with_indicator_file = "D:/f_data/sweep_20201214/indicator/2021-04-04/" + ticker +'_downloaded_raw.csv'
 
@@ -106,9 +107,9 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap #2021-11-18 prod
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
-# strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
+strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
-strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
+# strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
 start_time="2012-01-01"
 
@@ -193,7 +194,7 @@ ts_position_dicts_to_dataframe(
  
 # trades_consecutive
 # trades_all_entry
-plot_trades(price_with_indicator, '', trades_all_entry, entry_only=False,ticker=price_with_indicator_file)
+plot_trades(price_with_indicator, '', trades_all_entry, entry_only=True,ticker=price_with_indicator_file)
 print('all universe')
  
 print_merged_result(over_all_summary)
