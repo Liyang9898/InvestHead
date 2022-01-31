@@ -1,7 +1,13 @@
+from plotly.subplots import make_subplots
+
 import pandas as pd
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import numpy as np
+from util.general_ui import plot_lines_from_xy_list
+
+
+BIG_EQ_FEATURE = 'big_eq_feature'
+SMALL_EQ_FEATURE = 'small_eq_feature'
+
 
 def chart_bucket_positive_rate(df, feature, label, bins, img_path=''):
     bucket = bucket_positive_rate(df, feature, label, bins)
@@ -130,53 +136,67 @@ def get_feature_label_groupby_sample_cnt(df, feature, label):
     
     # validation
     assert len(df) == df_f_gp['cnt_p'].sum() + df_f_gp['cnt_n'].sum()
+
     return df_f_gp
 
 
-def feature_cumulative_cnt_win_rate(df, feature, label):
+def get_df_feature_cumulative_cnt_win_rate(df, feature, label):
     """
     input: label must be boolean
     """  
     total_sample = len(df)
+    
     # pre-process feature value group by
     df_f_gp = get_feature_label_groupby_sample_cnt(df, feature, label)
-    df_f_gp.sort_values(by=feature, inplace=True)
+    print(df_f_gp)
+    # aggregation of sample count big_eq_feature
+    df_f_gp.sort_values(by=feature, inplace=True, ascending=False)
     df_f_gp.reset_index(inplace=True, drop=True)
+    df_f_gp['cnt_p_big_eq_feature'] = df_f_gp['cnt_p'].cumsum()
+    df_f_gp['cnt_n_big_eq_feature'] = df_f_gp['cnt_n'].cumsum()
+    df_f_gp['cnt_all_big_eq_feature'] = df_f_gp['cnt_p_big_eq_feature'] + df_f_gp['cnt_n_big_eq_feature']
+    df_f_gp['win_rate_big_eq_feature'] = df_f_gp['cnt_p_big_eq_feature'] / df_f_gp['cnt_all_big_eq_feature']
+    df_f_gp['cnt_all_pct_big_eq_feature'] = df_f_gp['cnt_all_big_eq_feature'] / total_sample
+    assert df_f_gp.loc[len(df_f_gp) - 1, 'cnt_all_big_eq_feature'] == total_sample # validation
     
-    # aggregation of sample count
-    df_f_gp['cnt_p_big_eq_feature'] = 0
-    df_f_gp['cnt_n_big_eq_feature'] = 0
-    df_f_gp['cnt_p_small_eq_feature'] = 0
-    df_f_gp['cnt_n_small_eq_feature'] = 0
-    cnt_p_total = 0
-    cnt_n_total = 0
-    cnt_p_total_r = 0
-    cnt_n_total_r = 0
-    for idx in range(0, len(df_f_gp)):
-        # feature small to large
-        cnt_p_total += df_f_gp.loc[idx, 'cnt_p']
-        cnt_n_total += df_f_gp.loc[idx, 'cnt_n']
-        df_f_gp.loc[idx, 'cnt_p_big_eq_feature'] = cnt_p_total
-        df_f_gp.loc[idx, 'cnt_n_big_eq_feature'] = cnt_n_total
-        
-        # feature large to small
-        idx_r = len(df_f_gp) - 1 - idx
-        cnt_p_total_r += df_f_gp.loc[idx_r, 'cnt_p']
-        cnt_n_total_r += df_f_gp.loc[idx_r, 'cnt_n']
-        df_f_gp.loc[idx_r, 'cnt_p_small_eq_feature'] = cnt_p_total_r
-        df_f_gp.loc[idx_r, 'cnt_n_small_eq_feature'] = cnt_n_total_r        
+    # aggregation of sample count small_eq_feature
+    df_f_gp.sort_values(by=feature, inplace=True, ascending=True)
+    df_f_gp.reset_index(inplace=True, drop=True)
+    df_f_gp['cnt_p_small_eq_feature'] = df_f_gp['cnt_p'].cumsum()
+    df_f_gp['cnt_n_small_eq_feature'] = df_f_gp['cnt_n'].cumsum()
+    df_f_gp['cnt_all_small_eq_feature'] = df_f_gp['cnt_p_small_eq_feature'] + df_f_gp['cnt_n_small_eq_feature']
+    df_f_gp['win_rate_small_eq_feature'] = df_f_gp['cnt_p_small_eq_feature'] / df_f_gp['cnt_all_small_eq_feature']
+    df_f_gp['cnt_all_pct_small_eq_feature'] = df_f_gp['cnt_all_small_eq_feature'] / total_sample
+    assert df_f_gp.loc[len(df_f_gp) - 1, 'cnt_all_small_eq_feature'] == total_sample # validation
     
-    # validate
-    assert total_sample == cnt_p_total + cnt_n_total
-    assert total_sample == cnt_p_total_r + cnt_n_total_r
-    
-    # derived metric
-    df_f_gp['sample_cnt_big_eq_feature'] = df_f_gp['cnt_p_big_eq_feature'] + df_f_gp['cnt_n_big_eq_feature']
-    df_f_gp['win_rate_big_eq_feature'] = df_f_gp['cnt_p_big_eq_feature'] / df_f_gp['sample_cnt_big_eq_feature']
-    
-    df_f_gp['sample_cnt_small_eq_feature'] = df_f_gp['cnt_p_small_eq_feature'] + df_f_gp['cnt_n_small_eq_feature']
-    df_f_gp['win_rate_small_eq_feature'] = df_f_gp['cnt_p_small_eq_feature'] / df_f_gp['sample_cnt_small_eq_feature']
-    
-    df_f_gp.to_csv('D:/f_data/temp/efg.csv')
     return df_f_gp
 
+
+def chart_feature_cumulative_win_rate_sample_cnt(df, feature, label, direction_flag, path=None):
+    """
+    input: direction_flag is constant, see above
+    output: chart, x is feature y is cumulative win rate and sample cnt based on direction
+    """
+    df_f_gp = get_df_feature_cumulative_cnt_win_rate(df, feature, label)
+    total = df_f_gp['cnt_p'].sum() + df_f_gp['cnt_n'].sum()
+    win_rate_avg = round(df_f_gp['cnt_p'].sum() / total, 4)
+    
+    x_list = df_f_gp[feature].to_list()
+    y_list_map = {}
+    
+    if direction_flag == BIG_EQ_FEATURE:
+        y_list_map = {
+            'sample count-big_eq_feature': df_f_gp['cnt_all_pct_big_eq_feature'].to_list(),
+            'win rate-big_eq_feature':df_f_gp['win_rate_big_eq_feature'].to_list()
+        }
+    elif direction_flag == SMALL_EQ_FEATURE:
+        y_list_map = {
+            'sample count-small_eq_feature': df_f_gp['cnt_all_pct_small_eq_feature'].to_list(),
+            'win rate-small_eq_feature':df_f_gp['win_rate_small_eq_feature'].to_list()
+        }
+        
+    title = f'y=cumulative win rate & sample count | x={feature} | flag={direction_flag} | avg_win_rate={win_rate_avg}'
+    plot_lines_from_xy_list(x_list, y_list_map, title=title, path=path)  
+        
+
+    
