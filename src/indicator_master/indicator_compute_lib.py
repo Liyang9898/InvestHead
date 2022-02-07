@@ -8,7 +8,8 @@ import bisect
 from datetime import datetime, timedelta
 
 from indicator_master.feature_lib.max_drawdown import get_down_from_peak
-from indicator_master.feature_lib.velocity import get_velocity_one_bar_on_close
+from indicator_master.feature_lib.velocity import get_velocity_one_bar_on_close, \
+    get_velocity_pct_on_metric
 from indicator_master.raw_stock_reader_lib import load_df_from_csv 
 import numpy as np
 from strategy_lib.strat_ma_base import StrategySimpleMABase
@@ -403,6 +404,8 @@ def add_indicator(df):
     ################################# add seperate feature indicator #############################
     get_velocity_one_bar_on_close(df)
     get_down_from_peak(df)
+    # experiment indicator 20220227 - delete after run
+    get_velocity_pct_on_metric(df=df, metric='ema21', bar_range=3, feature_col='v_ema21_3')
     
     
 def datefilter(df,s,e):

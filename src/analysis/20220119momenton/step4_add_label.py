@@ -2,7 +2,7 @@ import pandas as pd
 from util.util_file import get_all_csv_file_in_folder
 
 
-folder_in = 'D:/f_data/analysis/20220119_momenton/step3_filter_first_trade/'
+folder_in = 'D:/f_data/analysis/20220119_momenton/step3b_filter_idc_without_trade/'
 folder_out = 'D:/f_data/analysis/20220119_momenton/step4_added_label/'
 files = get_all_csv_file_in_folder(folder_in)
 

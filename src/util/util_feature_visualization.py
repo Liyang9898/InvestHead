@@ -198,5 +198,20 @@ def chart_feature_cumulative_win_rate_sample_cnt(df, feature, label, direction_f
     title = f'y=cumulative win rate & sample count | x={feature} | flag={direction_flag} | avg_win_rate={win_rate_avg}'
     plot_lines_from_xy_list(x_list, y_list_map, title=title, path=path)  
         
-
+    ### percent
+    x_list_sample = []
+    y_list_map = {}
+    title = f'y=cumulative win rate | x=sample count | flag={direction_flag} | avg_win_rate={win_rate_avg}'
+    if direction_flag == BIG_EQ_FEATURE:
+        x_list_sample = df_f_gp['cnt_all_pct_big_eq_feature'].to_list()
+        y_list_map = {
+            'win rate-big_eq_feature':df_f_gp['win_rate_big_eq_feature'].to_list()
+        }
+        plot_lines_from_xy_list(x_list=x_list_sample, y_list_map=y_list_map, title=title, path=None)  
+    elif direction_flag == SMALL_EQ_FEATURE:
+        x_list_sample = df_f_gp['cnt_all_pct_small_eq_feature'].to_list()
+        y_list_map = {
+            'win rate-small_eq_feature':df_f_gp['win_rate_small_eq_feature'].to_list()
+        }
+        plot_lines_from_xy_list(x_list=x_list_sample, y_list_map=y_list_map, title=title, path=None)  
     
