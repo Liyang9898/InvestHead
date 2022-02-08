@@ -1,4 +1,4 @@
-from batch_20211116.batch_20211116_lib.constant import TICKER_RANK_FOLDER
+from batch_20220207.batch_20220207_lib.constant import TICKER_RANK_FOLDER
 from util.util_file import get_all_csv_file_in_folder
 import pandas as pd
 

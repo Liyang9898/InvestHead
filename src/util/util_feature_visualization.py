@@ -148,7 +148,7 @@ def get_df_feature_cumulative_cnt_win_rate(df, feature, label):
     
     # pre-process feature value group by
     df_f_gp = get_feature_label_groupby_sample_cnt(df, feature, label)
-    print(df_f_gp)
+
     # aggregation of sample count big_eq_feature
     df_f_gp.sort_values(by=feature, inplace=True, ascending=False)
     df_f_gp.reset_index(inplace=True, drop=True)
