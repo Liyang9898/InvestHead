@@ -2,7 +2,11 @@ TICKERS_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step1_ticker_collecti
 TICKERS_PRICE_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step2_download_price_data/'
 INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step3_add_indicator/'
 RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step4_gen_trades/'
-FEATURE_THRESHOLD_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step4b_threshold/'
+FEATURE_THRESHOLD_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step4c_threshold/'
+IDC_TRADE_THRESHOLD_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step4b_idc_trade/'
+
+BASE_PATH = 'D:/f_data/batch_20220207/'
+
 HIGH_PERF_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step7_high_perf_trades/'
 TIME_RANGE_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME = 'D:/f_data/batch_20220207/step5_trade_summary_time_window/trades_time_ranged/'
 PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000 = 'D:/f_data/batch_20220207/step8_portfolio_time_series/'

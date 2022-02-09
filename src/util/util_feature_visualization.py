@@ -145,6 +145,8 @@ def get_df_feature_cumulative_cnt_win_rate(df, feature, label):
     input: label must be boolean
     """  
     total_sample = len(df)
+    if total_sample == 0:
+        return
     
     # pre-process feature value group by
     df_f_gp = get_feature_label_groupby_sample_cnt(df, feature, label)

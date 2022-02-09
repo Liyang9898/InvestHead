@@ -19,6 +19,8 @@ def compute_v_threshold_on_idc_trade_merged_data(df_merge, ticker):
     label = 'label'
  
     df_f_gp = get_df_feature_cumulative_cnt_win_rate(df=df_merge, feature=feature, label=label)
+    if df_f_gp is None:
+        return
     x = df_f_gp['cnt_all_pct_big_eq_feature'].to_list()
     y = df_f_gp['win_rate_big_eq_feature'].to_list()
     win_rate_sample_cnt = dict(zip(x, y))

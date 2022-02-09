@@ -6,10 +6,10 @@ from batch_20220207.batch_20220207_lib.util_feature_threshold import merge_idc_t
     compute_v_threshold_on_idc_trade_merged_data
 import pandas as pd
 from util.util_feature_visualization import chart_feature_cumulative_win_rate_sample_cnt, \
-    BIG_EQ_FEATURE
+    BIG_EQ_FEATURE, chart_bucket_positive_rate
 
 
-ticker = 'AAPL'
+ticker = 'AL'
 output_path_all_entry = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_all_entry.csv'
 
 
@@ -26,5 +26,10 @@ df_merge = merge_idc_trade_add_label(df_idc, df_trade)
 threshold = compute_v_threshold_on_idc_trade_merged_data(df_merge, ticker)
 feature = 'v_ema21_3'
 label = 'label'
+bins = 40
+
+chart_bucket_positive_rate(df_merge, feature, label, bins, img_path='')
+# chart_positive_negative_distribution(df, feature, label, bins, img_path='')
+
 chart_feature_cumulative_win_rate_sample_cnt(df=df_merge, feature=feature, label=label, direction_flag=BIG_EQ_FEATURE)
 print(threshold)

@@ -378,3 +378,11 @@ experiment against spy shows the swing would
 2022-1-17
 D:\f_data\analysis\20220116_ma_gap_influence\conclusion\feature_distribution.png
 looks like as the gap between ma50 and ma21 increase, the win rate will increase
+
+
+2022-02-08
+check batch 20220207
+in no take profit, ema21 v3 didn't show effect over all,  
+win rate increase from 41 to 43 over 1700 stock. for individual stock  + 8684, - 7473 useful (3 year moving window period for each stock)
+
+for 4p out stategy, it show better effect over all on win rate   70->76
