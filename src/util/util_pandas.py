@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def df_unixtime_filter(df, date_col, s, e):
@@ -32,3 +33,7 @@ def dict_to_one_row_df(dict_input):
         d[k] = [v]
     df = pd.DataFrame(data=d)
     return df
+
+
+def percent_increase_of_current_row(df, val_col):
+    df[val_col + '_pct_increase'] = df[val_col].pct_change()

@@ -380,9 +380,23 @@ D:\f_data\analysis\20220116_ma_gap_influence\conclusion\feature_distribution.png
 looks like as the gap between ma50 and ma21 increase, the win rate will increase
 
 
-2022-02-08
+2022-02-08 use ema21 v 3bar as momenton feature 
 check batch 20220207
 in no take profit, ema21 v3 didn't show effect over all,  
 win rate increase from 41 to 43 over 1700 stock. for individual stock  + 8684, - 7473 useful (3 year moving window period for each stock)
 
 for 4p out stategy, it show better effect over all on win rate   70->76
+
+2022-02-09 use spy to hedge portafolio
+long short position is the same at the begining of each period
+use util/demo/month_year_test.py
+
+random
+       winrate            win pnl             lose pnl             pnl
+year: 0.7692307692307693 0.6443171908406574 -0.16789505030378837   0.48
+month: 0.5448717948717948 1.877176988791145 -1.5057005724574883     
+
+high return
+       winrate            win pnl             lose pnl             pnl
+year: 0.7692307692307693 1.3268980577809961 -0.1439893329120827    1.18
+month 0.6217948717948718 2.4927625035565373 -1.4864865265229024

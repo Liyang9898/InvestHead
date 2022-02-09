@@ -1,6 +1,9 @@
 import time
+import pandas as pd
 from datetime import datetime, timedelta
 
+PERIOD_CALENDAR_MONTH = 'calendar_month'
+PERIOD_CALENDAR_YEAR = 'calendar_year'
 
 def get_today_date_str():
     now = datetime.now()
@@ -103,3 +106,44 @@ def mark_year_month_week_start(df, date_col):
             week_pre = week 
                    
     return df      
+
+
+def extract_period_start_from_df(df, date_col, period):
+    """
+    input: a df with date_col has format yyyy-mm-dd
+    """
+    period_id = -1
+    last_processed_date = ''
+    df = df.sort_values(by=date_col, ascending=True)
+    serieses = []
+    for i in range(0, len(df)):
+        date = df.loc[i, date_col]
+        
+        tokens = date.split('-')
+        year = int(tokens[0])
+        month = int(tokens[1])
+        
+        if period == PERIOD_CALENDAR_MONTH:
+            if month != period_id:
+                # extract row add to 
+                row = df.loc[i]
+                serieses.append(row)
+                period_id = month
+                last_processed_date = date
+                
+        elif period == PERIOD_CALENDAR_YEAR:
+            if year != period_id:
+                # extract row add to 
+                row = df.loc[i]
+                serieses.append(row)
+                period_id = year
+                last_processed_date = date
+    
+    last_idx = len(df) - 1
+    last_date = df.loc[last_idx, date_col]
+    if last_date != last_processed_date:
+        serieses.append(df.loc[last_idx])
+    
+    df_res = pd.DataFrame(serieses)
+    df_res.reset_index(inplace=True, drop=True)
+    return df_res
