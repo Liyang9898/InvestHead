@@ -7,9 +7,9 @@ from util.util_time import extract_period_start_from_df, PERIOD_CALENDAR_YEAR,\
     PERIOD_CALENDAR_MONTH
 
 
-# path = 'D:/f_data/batch_20211116_different_stock_pick/random/baseball_card_position_time_series.csv'
+path = 'D:/f_data/batch_20211116_different_stock_pick/random/baseball_card_position_time_series.csv'
 
-path = 'D:/f_data/batch_20211116_different_stock_pick/top_return/baseball_card_position_time_series.csv'
+# path = 'D:/f_data/batch_20211116_different_stock_pick/top_return/baseball_card_position_time_series.csv'
 
 
 df = pd.read_csv(path)
