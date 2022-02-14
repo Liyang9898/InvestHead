@@ -387,7 +387,8 @@ win rate increase from 41 to 43 over 1700 stock. for individual stock  + 8684, -
 
 for 4p out stategy, it show better effect over all on win rate   70->76
 
-2022-02-09 use spy to hedge portafolio
+2022-02-09 
+======use spy to hedge portafolio========
 long short position is the same at the begining of each period
 use util/demo/month_year_test.py
 
@@ -400,3 +401,10 @@ high return
        winrate            win pnl             lose pnl             pnl
 year: 0.7692307692307693 1.3268980577809961 -0.1439893329120827    1.18
 month 0.6217948717948718 2.4927625035565373 -1.4864865265229024
+
+
+2022-02-09
+======
+17 price touch ma50 -> ema21 didn't touch ma50  17       68%
+17 price touch ma50 -> ema21 touch ma50  decrease loss 6
+                    -> even    2

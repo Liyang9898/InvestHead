@@ -2,6 +2,10 @@ from batch_20211116.batch_20211116_lib.constant import TICKERS_RUSSLL1000_OF_ALL
 import pandas as pd
 
 # it's between 2006 to 2021
+"""
+format: col:time,cnt,ticker
+ex:2006, 1134, MSFT|AAPL
+"""
 path = 'D:/f_data/external_data_source/snapshot_version/russell1000_formatted_yearly.csv'
 df = pd.read_csv(path)
 ticker_col = df['ticker'].to_list()
