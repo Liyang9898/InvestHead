@@ -2,6 +2,7 @@
 from batch_20201214.reuse_position.reuse_position_lib import reuse_position_cash_history
 from indicator_master.create_indicator_api_main import price_csv_append_indicator, \
     plot_indicator_from_csv
+from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
 import pandas as pd
 from price_asset_master.lib.api.api import download_ticker
 from trading_floor.api_trade.api import gen_trades_to_csv, \
@@ -11,14 +12,17 @@ from util.util_finance import get_position_perf, compuate_alpha_beta_to_csv_img,
 from util.util_time import df_filter_dy_date
 
 
-def api_download_ticker(ticker, start, end, path_out, interval):
+def api_download_ticker(ticker, start, end, path_out, interval, norgate=False):
     """
     output: download given ticker to a csv
     interval : str
             Valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
     """
-    download_ticker(ticker, start, end, path_out, interval)
-    
+    if not norgate:
+        download_ticker(ticker, start, end, path_out, interval)
+    else:
+        pull_ticker_price_locally_norgate(ticker, start, end, path_out)
+
 
 def api_gen_indicator(input_path, output_path, start_date, end_date):
     """
