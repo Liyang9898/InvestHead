@@ -408,3 +408,9 @@ month 0.6217948717948718 2.4927625035565373 -1.4864865265229024
 17 price touch ma50 -> ema21 didn't touch ma50  17       68%
 17 price touch ma50 -> ema21 touch ma50  decrease loss 6
                     -> even    2
+
+2022-02-13
+======
+get historical s%p 500 component ticker
+code:analusis/20220210_get_spy_coponent/spy_norgate.py
+file:'D:/f_data/external_data_source/snapshot_version/sp500_formatted_yearly.csv'
