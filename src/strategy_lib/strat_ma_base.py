@@ -134,8 +134,12 @@ class StrategySimpleMABase:
             all_ma_upward and \
             optional_ribbon_expanding and \
             self.optional_channel_enter_condition and \
-            self.optional_enter_on_trend_start_condition and \
-            optional_ema21_ma50_gap:
+            self.optional_enter_on_trend_start_condition:
+            
+            # the following 2 line are for entry condition on ema21 and ma50 gap
+#              and \
+#             optional_ema21_ma50_gap:
+            
             
             direction = 1
             # you always enter on 9:30 when market open

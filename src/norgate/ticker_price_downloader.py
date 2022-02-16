@@ -30,6 +30,7 @@ def pull_ticker_price_locally_norgate(ticker, start_date, end_date, path_out):
         padding_setting = padding_setting,
         timeseriesformat = timeseriesformat,
     )
+    
     stock_df.reset_index(inplace=True)
     
     # filter date
@@ -40,6 +41,7 @@ def pull_ticker_price_locally_norgate(ticker, start_date, end_date, path_out):
     # add basic indicator
     if(len(stock_df)==0):
         return stock_df
+
     stock_df['unixtime']=stock_df.apply(lambda row : func(row['Date']), axis = 1)
     stock_df['ma200'] = stock_df['Close'].rolling(window=200).mean()
     stock_df['ma50'] = stock_df['Close'].rolling(window=50).mean()

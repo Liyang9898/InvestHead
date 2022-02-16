@@ -1,19 +1,20 @@
 
 import os
-import pandas as pd
+
 from api.api import api_gen_trades
-from batch_20220207.batch_20220207_lib.constant import RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME, \
-    INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME
+from batch_20220214.batch_20220214_lib.constant import RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME, \
+    INDICATOR_FOLDER_SNP500_OF_ALL_TIME, START_DATE, END_DATE
+import pandas as pd
 from strategy_lib.stratage_param import strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 from util.util_file import get_all_csv_file_in_folder
 
 
-raw_price_files = get_all_csv_file_in_folder(INDICATOR_FOLDER_RUSSLL1000_OF_ALL_TIME)
+raw_price_files = get_all_csv_file_in_folder(INDICATOR_FOLDER_SNP500_OF_ALL_TIME)
 print(len(raw_price_files))
 
 
-start_date = '2006-01-01'
-end_date = '2022-01-01'
+start_date = START_DATE
+end_date = END_DATE
 cnt = 0
 
 for file_path in raw_price_files:
@@ -22,8 +23,8 @@ for file_path in raw_price_files:
     ticker = file_name.split('.')[0]
     
     print(f'{cnt} Generating trades {ticker}')
-    output_path_all_entry = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_all_entry.csv'
-    output_path_consecutive = f'{RAWS_TRADES_FOLDER_RUSSLL1000_OF_ALL_TIME}{ticker}_consecutive.csv'
+    output_path_all_entry = f'{RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME}{ticker}_all_entry.csv'
+    output_path_consecutive = f'{RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME}{ticker}_consecutive.csv'
     
     
     

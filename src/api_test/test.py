@@ -15,23 +15,23 @@ end_date = '2022-01-01'
 strategy = strat_param_20211006_ma_only_exit
 
 # path
-ticker = 'fb'
+ticker = 'A-197701'
 # ticker_path = 'D:/f_data/temp/trade_fb/raw.csv'
 # indicator_file_path = 'D:/f_data/indicator_asset/20210704_swing_only/FB.csv'
 # trade_result_all_entry_path = 'D:/f_data/temp/trade_fb/a_all.csv'
 # trade_result_consecutive_entry_path = 'D:/f_data/temp/trade_fb/a_con.csv'
 # trade_summary_path = 'D:/f_data/temp/trade_fb/trade_summary.csv'
 # 
-start_date = '2022-01-01'
-end_date = '2022-02-01'
+start_date = '1958-01-01'
+end_date = '2022-01-01'
 path_out_ticker_download = 'D:/f_data/temp/norgate/test.csv'
 path_out_ticker_download_norgate = 'D:/f_data/temp/norgate/test_norgate.csv'
-api_download_ticker(ticker, '2022-01-01', '2022-02-01', path_out_ticker_download, '1d', norgate=False)
-api_download_ticker(ticker, '2022-01-01', '2022-02-01', path_out_ticker_download_norgate, '1d', norgate=True)
-idc_not_norgate = 'D:/f_data/temp/norgate/idc_not_norgate.csv'
-idc_norgate = 'D:/f_data/temp/norgate/idc_norgate.csv'
-api_gen_indicator(path_out_ticker_download, idc_not_norgate, start_date, end_date)
-api_gen_indicator(path_out_ticker_download_norgate, idc_norgate, start_date, end_date)
+api_download_ticker(ticker, '1958-01-01', '2022-01-01', path_out_ticker_download, '1d', norgate=False)
+# api_download_ticker(ticker, '2022-01-01', '2022-02-01', path_out_ticker_download_norgate, '1d', norgate=True)
+# idc_not_norgate = 'D:/f_data/temp/norgate/idc_not_norgate.csv'
+# idc_norgate = 'D:/f_data/temp/norgate/idc_norgate.csv'
+# api_gen_indicator(path_out_ticker_download, idc_not_norgate, start_date, end_date)
+# api_gen_indicator(path_out_ticker_download_norgate, idc_norgate, start_date, end_date)
 # api_plot_indicator_from_csv(idc_not_norgate)
 # api_plot_indicator_from_csv(idc_norgate)
 # api_gen_trades(
