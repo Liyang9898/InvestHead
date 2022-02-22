@@ -16,6 +16,8 @@ strategy = strat_param_20211006_ma_only_exit
 
 # path
 ticker = 'A-197701'
+ticker = '^GSPC'
+ticker = '$SPX'
 # ticker_path = 'D:/f_data/temp/trade_fb/raw.csv'
 # indicator_file_path = 'D:/f_data/indicator_asset/20210704_swing_only/FB.csv'
 # trade_result_all_entry_path = 'D:/f_data/temp/trade_fb/a_all.csv'
@@ -24,9 +26,9 @@ ticker = 'A-197701'
 # 
 start_date = '1958-01-01'
 end_date = '2022-01-01'
-path_out_ticker_download = 'D:/f_data/temp/norgate/test.csv'
+path_out_ticker_download = 'D:/f_data/temp/norgate/test_s.csv'
 path_out_ticker_download_norgate = 'D:/f_data/temp/norgate/test_norgate.csv'
-api_download_ticker(ticker, '1958-01-01', '2022-01-01', path_out_ticker_download, '1d', norgate=False)
+api_download_ticker(ticker, '1970-01-01', '2022-01-01', path_out_ticker_download, '1d', norgate=True)
 # api_download_ticker(ticker, '2022-01-01', '2022-02-01', path_out_ticker_download_norgate, '1d', norgate=True)
 # idc_not_norgate = 'D:/f_data/temp/norgate/idc_not_norgate.csv'
 # idc_norgate = 'D:/f_data/temp/norgate/idc_norgate.csv'

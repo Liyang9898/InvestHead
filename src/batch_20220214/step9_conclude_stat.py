@@ -3,16 +3,17 @@ import random
 
 from api.api import api_download_ticker, api_position_perf_from_csv, \
     api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
-from batch_20220207.batch_20220207_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000, \
+from batch_20220214.batch_20220214_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_SNP500, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
-from batch_20220207.batch_20220207_lib.util_batch_simulation import position_time_series_append_benchmark_to_csv_png, \
+from batch_20220214.batch_20220214_lib.util_batch_simulation import position_time_series_append_benchmark_to_csv_png, \
     strategy_baseball_card
 import pandas as pd
 from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list
 
+norgate = True
 
 # position time series
-result_position_path = PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000 + 'position.csv'
+result_position_path = PORTFOLIO_TIME_SERIES_FOLDER_SNP500 + 'position.csv'
 path_position_with_benchmark_csv = CONCLUSION_FOLDER + 'baseball_card_position_time_series.csv'
 path_position_with_benchmark_png = CONCLUSION_FOLDER + 'baseball_card_position_time_series.png'
 position_time_series_append_benchmark_to_csv_png(
@@ -21,10 +22,12 @@ position_time_series_append_benchmark_to_csv_png(
     input_position_col='roll',
     start_date=ANALYSIS_START_DATE,
     end_date=END_DATE,
-    benchmark_ticker='SPY',
+    benchmark_ticker=BENCHMARK_TICKER,
     output_time_series_csv=path_position_with_benchmark_csv,
-    output_time_series_png=path_position_with_benchmark_png
+    output_time_series_png=path_position_with_benchmark_png,
+    norgate=norgate
 )
+print('until here you have position time series and benchmarh save in a csv and png together')
 """
 until here you have position time series and benchmarh save in a csv and png together
 """
@@ -56,6 +59,7 @@ df_perf_bench['ticker'] = BENCHMARK_TICKER
 df_merge = pd.concat([df_perf_main, df_perf_bench])
 perf_merge_output_path = CONCLUSION_FOLDER + 'position_perf.csv'
 df_merge.to_csv(perf_merge_output_path, index=False)
+print('until here we have position perf: return, sharpe')
 """
 until here we have position perf: return, sharpe
 """
@@ -72,9 +76,10 @@ api_compuate_alpha_beta_to_csv_img(
     end_date=END_DATE, 
     benchmark_ticker=BENCHMARK_TICKER,
     period='month',
-    result_path=CONCLUSION_FOLDER
+    result_path=CONCLUSION_FOLDER,
+    norgate=norgate
 )
-
+print('monthly alpha beta done')
 
 """
 yearly alpha beta
@@ -87,14 +92,16 @@ api_compuate_alpha_beta_to_csv_img(
     end_date=END_DATE, 
     benchmark_ticker=BENCHMARK_TICKER,
     period='year',
-    result_path=CONCLUSION_FOLDER
+    result_path=CONCLUSION_FOLDER,
+    norgate=norgate
 )
+print('yearly alpha beta done')
 
 
 """
 trade perf, win rate, win_lose_pnl_ratio, trade count
 """
-trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_RUSSLL1000}intermediate_per_track_trades.csv'
+trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_SNP500}intermediate_per_track_trades.csv'
 output_perf_csv = f'{CONCLUSION_FOLDER}/trade_perf.csv'
 api_trade_perf_from_trades_csv(trades_csv, output_perf_csv)
 

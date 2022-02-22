@@ -55,6 +55,8 @@ def reuse_position_cash_history(
         
         position count
         performance
+    
+    note: if there is a out of memory problem. Comment out the portion start from after the file path definition and before the memory cut of point
     """
 #     print(start_date,end_date,trade_folder,indicator_folder)
     path_trades = trade_folder
@@ -70,24 +72,6 @@ def reuse_position_cash_history(
     
     position_path = f'{output_folder}position.csv'
     performance_path = f'{output_folder}performance.csv'
-    
-    #################################################################################################
-    # step 1: fill in trades
-#     per_track_ticker_price_path = trade_folder + """merge/cash_history_reuse_price_in_track.csv"""
-    
-    # step 2: retrieve price in trade range
-#     per_track_trades_path = trade_folder + """merge/cash_history_reuse_trades_in_track.csv"""
-    
-    # step 3: re-scale price to make them match trades
-#     per_track_position_path = trade_folder + """merge/cash_history_reuse_positions_in_track.csv"""
-    
-    #################################################################################################
-#     per_track_summary_path = trade_folder + """merge/cash_history_reuse_track_summary.csv"""
-#     moving_window_res_path = trade_folder + """merge/cash_history_reuse_moving_window.csv"""
-#     cash_line_path = trade_folder + """merge/cash_history_reuse_cash_history.csv"""
-#     position_cnt_path = trade_folder + """merge/daily_position_cnt.csv"""
-#     position_path = trade_folder + """merge/cash_line_reuse.csv"""
-#     performance_path = trade_folder + """merge/moving_windows.csv"""
      
     ############################################trades get start###################################################
     # merge all trades into one data structure
@@ -97,7 +81,7 @@ def reuse_position_cash_history(
     """
     Until here, all trade option is retrieved at hand
     """
-    
+     
     # this function insert all trades into N track
     ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
     tracks = fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, capacity,ticker_rank_artifact)        
@@ -112,25 +96,25 @@ def reuse_position_cash_history(
         col: ticker, track_id, trade.to_dic
     """
     ############################################trades get end###################################################
-     
+      
     ############################################price get start##################################################  
     # get all ticker that has been traded
     tickers = get_ticker_list_from_track(tracks)
     print('total traded ticker:', len(tickers))
-    
+     
     # get all price
     price_book = build_price_history_collection(tickers, indicator_folder)
     assert len(tickers) == len(price_book)
     print('price book loaded, ticker count correct, price in ticker correct, total traded ticker:', len(tickers))
-    
+     
     # track fill in price - return value has all price and ticker on all timestamp in all tracks
     price_in_tracks = gen_price_seq(tracks, price_book, per_track_summary_path)
-
+ 
     """
     Until here, we got a data structure of price and ticker on each day for each track
         dict<track_id, dict<data, {ticker:?,price?}>>
     """
-    
+     
     # write to csv
     price_in_tracks_to_csv(price_in_tracks, per_track_ticker_price_path)#? 38 is 0 for price
     print('Until here, we got a csv of price and ticker on each day for each track')
@@ -143,13 +127,15 @@ def reuse_position_cash_history(
     Until here, we got a csv of daily stock count
         date, total number of stock
     """
-     
+      
     df = pd.read_csv(per_track_ticker_price_path)
     price_in_tracks = price_in_track_df_to_dic(df) # dict<track_id, dict<data, {ticker:?,price?}>>
-     
+      
     # print validation
     print('get total track:', len(price_in_tracks))
     ############################################price get end#################################################### 
+   
+########################################## out of memory cut off point###########################################  
     
     ############################################position get start###############################################
     all_position_df=gen_position_all_track(

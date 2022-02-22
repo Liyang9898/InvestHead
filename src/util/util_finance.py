@@ -5,6 +5,7 @@ from statistics import (
 )
 
 from sklearn import linear_model
+from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -550,7 +551,8 @@ def compuate_alpha_beta_to_csv_img(
     end_date, 
     benchmark_ticker,
     period,
-    result_path
+    result_path,
+    norgate
 ):
     """
     period: year, month, week
@@ -561,7 +563,15 @@ def compuate_alpha_beta_to_csv_img(
     # prepare benchmark
     interval = '1d'
     path = 'D:/f_data/temp/temp_benchmark.csv'
-    download_ticker(benchmark_ticker, start_date, end_date, path, interval)
+#     download_ticker(benchmark_ticker, start_date, end_date, path, interval)
+#     api_download_ticker(benchmark_ticker, start_date, end_date, path, interval, norgate)
+
+    if not norgate:
+        download_ticker(benchmark_ticker, start_date, end_date, path, interval)
+    else:
+        pull_ticker_price_locally_norgate(benchmark_ticker, start_date, end_date, path)
+        
+    
     df = pd.read_csv(path)
     df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['unixtime'])).strftime('%Y-%m-%d')), axis = 1)
     df['benchmark'] = df['Close']

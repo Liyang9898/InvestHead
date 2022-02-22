@@ -7,13 +7,13 @@ from util.general_ui import plot_points_from_xy_list
 from util.util_time import df_filter_dy_date
 
 
-def get_benchmark(ticker, start_date, end_date):
+def get_benchmark(ticker, start_date, end_date, norgate):
     start = start_date
     end = end_date
     interval = '1d'
 
     path = 'D:/f_data/temp/spy20211207.csv'
-    api_download_ticker(ticker, start, end, path, interval)
+    api_download_ticker(ticker, start, end, path, interval, norgate)
     df = pd.read_csv(path)
     
     df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['unixtime'])).strftime('%Y-%m-%d')), axis = 1)
@@ -42,7 +42,8 @@ def position_time_series_append_benchmark_to_csv_png(
     end_date,
     benchmark_ticker,
     output_time_series_csv,
-    output_time_series_png
+    output_time_series_png,
+    norgate
 ):
     """
     this function download a benchmark ticker, pair with your position time series
@@ -53,7 +54,7 @@ def position_time_series_append_benchmark_to_csv_png(
     # get benchmark time series
     portfolio_df = pd.read_csv(position_time_series_csv)
     portfolio_df = df_filter_dy_date(portfolio_df,'date',start_date,end_date)
-    benchmark_df = get_benchmark(benchmark_ticker, start_date, end_date)
+    benchmark_df = get_benchmark(benchmark_ticker, start_date, end_date, norgate)
     
     # merge
     m_result = pd.merge(portfolio_df, benchmark_df, how="inner", on="date")

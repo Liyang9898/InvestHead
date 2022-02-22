@@ -20,5 +20,5 @@ api_build_portfolio_time_series(
     indicator_folder=INDICATOR_FOLDER_SNP500_OF_ALL_TIME,
     output_folder=PORTFOLIO_TIME_SERIES_FOLDER_SNP500,
     stock_pick_strategy=METHOD_TOP_RETURN,
-    capacity=100,
+    capacity=50,
 )

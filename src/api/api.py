@@ -159,7 +159,8 @@ def api_compuate_alpha_beta_to_csv_img(
     end_date, 
     benchmark_ticker,
     period,
-    result_path
+    result_path,
+    norgate=False
 ):
     """
     this function computes alpha beta and saves to csv and img
@@ -176,7 +177,8 @@ def api_compuate_alpha_beta_to_csv_img(
         end_date, 
         benchmark_ticker,
         period,
-        result_path
+        result_path,
+        norgate
     )
 
 

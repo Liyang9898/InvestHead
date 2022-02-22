@@ -21,7 +21,7 @@ END_DATE = '2022-01-01'
 START_YEAR = int(START_DATE.split('-')[0])
 END_YEAR = int(END_DATE.split('-')[0])
 WINDOW_SIZE = 3 # YEARS
-BENCHMARK_TICKER = 'SPY'
+BENCHMARK_TICKER = '$SPX'
 
 def trade_all_entry_path(ticker):
     return f'{RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME}{ticker}_all_entry.csv'
