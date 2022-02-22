@@ -449,7 +449,10 @@ def merge_trade_summary(consecutive, all_entry):
     
     days = days_gap_date_str(start_date, end_date)
     years = days / 365
-    anual_return_avg = pow((consecutive['total_pnl_fix'][0]+1), 1/years)-1
+    anual_return_avg = 0
+    
+    if years != 0:
+        anual_return_avg = pow((consecutive['total_pnl_fix'][0]+1), 1/years)-1
     
     d = {
         'win_rate': consecutive['win_rate'][0], 
