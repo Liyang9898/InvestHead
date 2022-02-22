@@ -1,4 +1,4 @@
-from batch_20220207.batch_20220207_lib.constant import TRADE_SUMMARY_ALL_TICKER, ranked_ticker_path
+from batch_20220214.batch_20220214_lib.constant import TRADE_SUMMARY_ALL_TICKER, ranked_ticker_path
 import pandas as pd
 from util.util_file import get_all_csv_file_in_folder
 from util.util_math import intersection_of_k_list
