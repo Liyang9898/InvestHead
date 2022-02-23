@@ -16,6 +16,7 @@ def df_general_time_filter(df, date_col, s, e):
 
 def df_normalize(df, normalize_col):
     # normalize_col must be numerical and not null
+    df.reset_index(drop=True,inplace=True)
     factor = df.loc[0, normalize_col]
     for i in range(0, len(df)):
         df.loc[i, normalize_col] = df.loc[i, normalize_col] / factor

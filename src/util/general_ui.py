@@ -248,14 +248,14 @@ def plot_bars_from_xy_list(x_list, y_list, title='default', path=None):
         fig.show()
         
         
-def plot_points_from_xy_list(x_list, y_list_map, title='default', path=None):
+def plot_points_from_xy_list(x_list, y_list_map, title='default', path=None, mode='markers'):
     fig = go.Figure()
     for k, y_list in y_list_map.items():
         fig.add_trace(
             go.Scatter(
                 x=x_list, 
                 y=y_list,
-                mode='markers',#??
+                mode=mode,#??
                 name=k
             )
         )

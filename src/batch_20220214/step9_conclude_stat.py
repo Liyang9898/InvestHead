@@ -5,10 +5,13 @@ from api.api import api_download_ticker, api_position_perf_from_csv, \
     api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
 from batch_20220214.batch_20220214_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_SNP500, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
+from batch_20220214.batch_20220214_lib.ui_multi_year_chart import gen_per_year_position_timeseries, \
+    gen_vs_benchmark
 from batch_20220214.batch_20220214_lib.util_batch_simulation import position_time_series_append_benchmark_to_csv_png, \
     strategy_baseball_card
 import pandas as pd
 from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list
+
 
 norgate = True
 
@@ -113,15 +116,29 @@ strategy_baseball_card(
     baseball_card_csv=CONCLUSION_FOLDER+'baseball_card_strategy_perf.csv',
 )
 
-# x_list = m_result['date'].to_list()
-# y_list = {'roll':m_result['roll'].to_list(),'spy':m_result['spy'].to_list()}
-# plot_points_from_xy_list(x_list, y_list)
-# print(m_result)
+
+"""
+OUTPUT: per year time series
+"""
+input_timeseries = f'{CONCLUSION_FOLDER}baseball_card_position_time_series.csv'
+output_folder = f'{CONCLUSION_FOLDER}per_year_chart/'
+
+gen_per_year_position_timeseries(
+    start_date=ANALYSIS_START_DATE, 
+    end_date=END_DATE, 
+    col_benchmark=BENCHMARK_TICKER,
+    col_portfolio='portfolio',
+    col_date='date',
+    output_folder=output_folder,
+    input_timeseries=input_timeseries
+)
 
 
-# todo
-# compare with spy 
-# alpha, beta, align 
-# win rate, win_lose_pnl_ratio, 
-# -------------
-# 4% not take profit, upper ma gap select
+out_path_vs_benchmark = f'{CONCLUSION_FOLDER}pnl_vs_benchmark.png'
+gen_vs_benchmark(
+    timeseries_path=input_timeseries, 
+    col_date='date', 
+    col_benchmark=BENCHMARK_TICKER, 
+    col_portfolio='portfolio', 
+    out_path=out_path_vs_benchmark
+)
