@@ -268,7 +268,9 @@ def fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, c
 
 def build_price_history_collection(ticker_list, indicator_folder):
     price_book = {}
+    cnt = 0
     for ticker in ticker_list:
+        print(cnt, ticker)
         path = indicator_folder + ticker.upper() + '.csv'
         df = pd.read_csv(path)
         date_price_dic = {}
@@ -281,6 +283,8 @@ def build_price_history_collection(ticker_list, indicator_folder):
         
         price_book[ticker] = date_price_dic
         assert len(date_price_dic) > 0
+        
+        cnt += 1
     return price_book
             
 

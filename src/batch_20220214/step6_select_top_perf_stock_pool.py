@@ -6,7 +6,7 @@ from util.util_math import intersection_of_k_list
 PERF_COLS = ['ma50_up_rate', 'win_rate', 'annual_avg_return', 'win_lose_pnl_ratio', 'total_trades_all_entry']
 
 """
-this process selection stock with has high perf for the portafolio
+this process selection stock with has high perf(basic filter) for the portfolio
 """
 
        
@@ -99,8 +99,10 @@ def rank_stock_by_top_k_win_lose_ratio(k):
         
         df = pd.read_csv(file_path)
         df = basic_filter(df)
+        
 #         df = df.nlargest(k,'win_lose_pnl_ratio')
 #         df.sort_values(by='win_lose_pnl_ratio', ascending=False, inplace=True)
+
         df.reset_index(inplace=True, drop=True)
         print('ranked: ', file_name, '  cnt:',len(df))
         output_path = ranked_ticker_path(file_name)
@@ -111,4 +113,4 @@ def rank_stock_by_top_k_win_lose_ratio(k):
 # rank_stock_by_intersection()
 
 # Method 2
-rank_stock_by_top_k_win_lose_ratio(k=1000)
+rank_stock_by_top_k_win_lose_ratio(k=100000)

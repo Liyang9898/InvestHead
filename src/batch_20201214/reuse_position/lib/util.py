@@ -1,4 +1,6 @@
 import pandas as pd
+from trading_floor.TradeInterface import Trade
+
 
 def get_cash_line(df):
     df_sorted = df.sort_values(by=['entry_ts']).reset_index(drop=True)
@@ -19,6 +21,47 @@ def get_cash_line(df):
         df_sorted.loc[i,'roll_trade_end_pos'] = roll_trade_end_pos
         df_sorted.loc[i,'fix_trade_end_pos'] = fix_trade_end_pos
     return df_sorted
+
+
+def df_to_track_trades(df):
+    """
+    input: df with trades column an track id
+    output: map<track_id, list<map< >>>   
+    map = {
+        "ticker": ticker,
+        "trade": trade ->Trade class in TradeInterface.py
+    }
+    """
+    tracks = {}
+    for i in range(0, len(df)):
+        track_id = int(df.loc[i, 'track_id'])
+        ticker = df.loc[i, 'ticker']
+        complete = False
+        if df.loc[i, 'entry_price'] == 'TRUE':
+            complete = True
+        trade = Trade(
+            entry_price = df.loc[i, 'entry_price'], 
+            entry_ts = df.loc[i, 'entry_ts'], 
+            exit_price = df.loc[i, 'exit_price'], 
+            exit_ts = df.loc[i, 'exit_ts'], 
+            direction = df.loc[i, 'direction'], 
+            bar_duration = df.loc[i, 'bar_duration'],
+            best_potential_pnl_percent = df.loc[i, 'best_potential_pnl_percent'],
+            complete=complete
+        )
+        if track_id not in tracks:
+            tracks[track_id] = []
+        tup = {
+            "ticker": ticker,
+            "trade": trade
+        }
+        tracks[track_id].append(tup)
+    
+    for x,y in tracks.items():
+        print(x, len(y))
+        
+    return tracks
+
 
 def track_trades_to_df(track, capacity):
     # convert to df

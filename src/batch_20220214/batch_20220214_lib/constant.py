@@ -1,3 +1,6 @@
+from batch_20201214.reuse_position.lib.trade_opportunity_ranking import METHOD_RANDOM, \
+    METHOD_TOP_RETURN, METHOD_TOP_WIN_RATE, METHOD_TOP_WIN_LOSE_PNL_RATIO
+
 TICKERS_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step1_ticker_collection/snp500_ticker_of_all_time.csv'
 TICKERS_PRICE_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step2_download_price_data/'
 INDICATOR_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step3_add_indicator/'
@@ -12,7 +15,7 @@ TIME_RANGE_TRADES_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step5_tr
 PORTFOLIO_TIME_SERIES_FOLDER_SNP500 = 'D:/f_data/batch_20220214/step8_portfolio_time_series/'
 TRADE_SUMMARY_PER_TICKER = 'D:/f_data/batch_20220214/step5_trade_summary_time_window/trade_summary_per_ticker/'
 TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20220214/step5_trade_summary_time_window/trade_summary_all_ticker/'
-TICKER_RANK_FOLDER = 'D:/f_data/batch_20220214/step6_ticker_rank/'
+HIGH_PERF_TICKER_FOLDER = 'D:/f_data/batch_20220214/step6_ticker_rank/'
 CONCLUSION_FOLDER = 'D:/f_data/batch_20220214/step9_conclusion/'
 
 START_DATE = '1970-01-01'
@@ -22,6 +25,13 @@ START_YEAR = int(START_DATE.split('-')[0])
 END_YEAR = int(END_DATE.split('-')[0])
 WINDOW_SIZE = 3 # YEARS
 BENCHMARK_TICKER = '$SPX'
+
+
+STOCK_SELECTION_STRATEGY = METHOD_RANDOM
+STOCK_SELECTION_STRATEGY = METHOD_TOP_RETURN
+STOCK_SELECTION_STRATEGY = METHOD_TOP_WIN_RATE
+STOCK_SELECTION_STRATEGY = METHOD_TOP_WIN_LOSE_PNL_RATIO
+
 
 def trade_all_entry_path(ticker):
     return f'{RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME}{ticker}_all_entry.csv'
@@ -44,7 +54,7 @@ def trade_summary_all_ticker_path(start_date,end_date):
 
 
 def ranked_ticker_path(filename):
-    return f'{TICKER_RANK_FOLDER}{filename}'
+    return f'{HIGH_PERF_TICKER_FOLDER}{filename}'
 
 def gen_time_window(window_size, start_year, end_year):
     window = []
