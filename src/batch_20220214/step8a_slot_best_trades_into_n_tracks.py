@@ -6,7 +6,7 @@ from batch_20220214.batch_20220214_lib.constant import START_DATE, END_DATE, \
 
 """
 This process slot best trade into N tracks
-input: trades, high perf ticker in 3 year moving window
+input: trades, stock pick strategy, high perf ticker in 3 year moving window
 output: trades with track id in CSV
 """
 slot_top_trades_into_n_tracks(

@@ -1,5 +1,5 @@
 
-from batch_20201214.reuse_position.reuse_position_lib import reuse_position_cash_history
+# from batch_20201214.reuse_position.reuse_position_lib import reuse_position_cash_history
 from indicator_master.create_indicator_api_main import price_csv_append_indicator, \
     plot_indicator_from_csv
 from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
@@ -89,33 +89,33 @@ def api_gen_trade_summary(
         end_date, 
     )
 
-
-def api_build_portfolio_time_series(
-    start_date,
-    end_date,
-    trade_folder,
-    ticker_rank_folder,
-    indicator_folder,
-    output_folder,
-    stock_pick_strategy,
-    capacity,
-):
-    """
-    this function insert all available trades into a n track portfolio
-    automatically insert new trades when there is vacancy
-    input: time range, trades files, price files
-    output: portfolio time series
-    """
-    reuse_position_cash_history(
-        start_date,
-        end_date,
-        trade_folder,
-        ticker_rank_folder,
-        indicator_folder,
-        output_folder,
-        stock_pick_strategy,
-        capacity,
-    )
+# 
+# def api_build_portfolio_time_series(
+#     start_date,
+#     end_date,
+#     trade_folder,
+#     ticker_rank_folder,
+#     indicator_folder,
+#     output_folder,
+#     stock_pick_strategy,
+#     capacity,
+# ):
+#     """
+#     this function insert all available trades into a n track portfolio
+#     automatically insert new trades when there is vacancy
+#     input: time range, trades files, price files
+#     output: portfolio time series
+#     """
+#     reuse_position_cash_history(
+#         start_date,
+#         end_date,
+#         trade_folder,
+#         ticker_rank_folder,
+#         indicator_folder,
+#         output_folder,
+#         stock_pick_strategy,
+#         capacity,
+#     )
     
     
 def api_position_perf_from_csv(
