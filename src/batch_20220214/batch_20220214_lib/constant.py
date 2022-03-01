@@ -17,6 +17,7 @@ TRADE_SUMMARY_PER_TICKER = 'D:/f_data/batch_20220214/step5_trade_summary_time_wi
 TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20220214/step5_trade_summary_time_window/trade_summary_all_ticker/'
 HIGH_PERF_TICKER_FOLDER = 'D:/f_data/batch_20220214/step6_ticker_rank/'
 CONCLUSION_FOLDER = 'D:/f_data/batch_20220214/step9_conclusion/'
+DEBUG_FOLDER = 'D:/f_data/batch_20220214/step999_optional_debug/'
 
 START_DATE = '1970-01-01'
 ANALYSIS_START_DATE = '1973-01-01' # DUE TO 3 YEARS OF HISTORICAL PERF COLLECTION 
