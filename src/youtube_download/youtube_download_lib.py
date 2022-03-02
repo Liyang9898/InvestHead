@@ -31,8 +31,3 @@ def download_youtube(url, output_path, audio_only):
     else:
         best_video.download(output_path)
 
-
-url = 'https://www.youtube.com/watch?v=ncqcfDukrPw'
-output_folder = 'D:/youtube_download/test/'
-audio_only= False
-download_youtube(url, output_folder, audio_only)
