@@ -118,8 +118,8 @@ end_time="2022-01-31"
 
 ticker='default'
 
-trade_result_all_entry_path=folder_path_trades_csv + file_name + "_trades_consecutive_2.csv"
-trade_result_consecutive_entry_path=folder_path_trades_csv + file_name + "_trades_all_entry_2.csv"
+trade_result_all_entry_path=folder_path_trades_csv + file_name + "_trades_all_entry_2.csv"
+trade_result_consecutive_entry_path=folder_path_trades_csv + file_name + "_trades_all_consecutive_2.csv"
 
 #########################################################################################################################
 # input: indicator, time range, strategy

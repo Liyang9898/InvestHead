@@ -31,7 +31,7 @@ def download_st_df(ticker, date, front_offset, back_offset):
 path = 'D:/f_data/batch_20220214/DEBUG/intermediate_per_track_trades_2001_negative_csv_simple.csv'
 df = pd.read_csv(path)
 df['date'] = pd.to_datetime(df['entry_ts'])
-s_idx = 1
+s_idx = 75
 offset = 5
 
 for i in range(0,len(df)):
