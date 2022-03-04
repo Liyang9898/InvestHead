@@ -58,11 +58,12 @@ def position_time_series_append_benchmark_to_csv_png(
     
     # merge
     m_result = pd.merge(portfolio_df, benchmark_df, how="inner", on="date")
-    
+
     # clean
     m_result['portfolio'] = m_result[input_position_col]
     m_result = m_result[['date', 'portfolio', benchmark_ticker]].copy()
     m_result.sort_values(by=input_time_col, ascending=True, inplace=True)
+
     normalized_position(m_result, input_time_col, 'portfolio')
     normalized_position(m_result, input_time_col, benchmark_ticker)
 
