@@ -265,3 +265,22 @@ def plot_points_from_xy_list(x_list, y_list_map, title='default', path=None, mod
         fig.write_image(path)
     else:
         fig.show()
+        
+        
+def plot_bar_set_from_xy_list(x_list, y_list_map, title='default', path=None):
+    fig = go.Figure()
+    for k, y_list in y_list_map.items():
+        fig.add_trace(
+            go.Bar(
+                x=x_list, 
+                y=y_list,
+                name=k
+            )
+        )
+        
+    fig.update_layout(title=title)
+    
+    if path is not None:
+        fig.write_image(path)
+    else:
+        fig.show()

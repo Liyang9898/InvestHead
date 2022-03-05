@@ -1,11 +1,12 @@
 import pandas as pd
-from util.general_ui import plot_points_from_xy_list
-from util.util_pandas import df_normalize
-from util.util_time import df_filter_dy_date
 from util.general_ui import plot_bars_from_xy_list
+from util.general_ui import plot_points_from_xy_list, plot_bar_set_from_xy_list
+from util.util_pandas import df_normalize
 from util.util_pandas import percent_increase_of_current_row
-from util.util_time import extract_period_start_from_df, PERIOD_CALENDAR_YEAR,\
+from util.util_time import df_filter_dy_date
+from util.util_time import extract_period_start_from_df, PERIOD_CALENDAR_YEAR, \
     PERIOD_CALENDAR_MONTH
+
 
 def gen_time_window_list(start_date, end_date):
     res = []
@@ -68,6 +69,8 @@ def gen_vs_benchmark(timeseries_path, col_date, col_benchmark, col_portfolio, ou
     percent_increase_of_current_row(df, col_portfolio)
     df['after_hedge'] = df[f'{col_portfolio}_pct_increase'] - df[f'{col_benchmark}_pct_increase']
     # print(df[['date','portfolio_pct_increase','SPY_pct_increase','after_hedge']])
+#     df.to_csv('D:/f_data/temp/c.csv', index=False)
+#     print(df)
     
     df_p = df[df['after_hedge']>0]
     df_n = df[df['after_hedge']<0]
@@ -76,10 +79,15 @@ def gen_vs_benchmark(timeseries_path, col_date, col_benchmark, col_portfolio, ou
     lose_onl = round(df_n['after_hedge'].sum(), 2)
     win_potion = round(len(df_p)/(len(df_p)+len(df_n)), 2)
     
-    title = f'PNL vs benchmark, win_potion={win_potion}%, win_pnl={win_pnl}%, lose_onl={lose_onl}%'
+    title = f'PNL vs benchmark, win_potion={win_potion}%, win_pnl={win_pnl}%, lose_onl={lose_onl}%, x is end date of period'
     plot_bars_from_xy_list(x_list=df['date'].to_list(), y_list=df['after_hedge'].to_list(), title=title, path=out_path)
     
+    bar_m = {
+        'portfolio':df[f'{col_portfolio}_pct_increase'].to_list(),
+        'benchmark':df[f'{col_benchmark}_pct_increase'].to_list()
+    }
     
+    plot_bar_set_from_xy_list(df['date'].to_list(), bar_m, title=title, path=None)
     
 # start_date = '1970-01-01'
 # end_date = '2022-01-01'

@@ -31,7 +31,7 @@ end_date = '2021-10-04'
 benchmark_ticker = BENCHMARK_TICKER
 norgate = True
 
- 
+
 gen_perf_stat_from_position_time_series(
     path_position_time_series, # requirement
     position_time_series_date_col,
