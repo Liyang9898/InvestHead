@@ -2,6 +2,14 @@ import time
 import pandas as pd
 from datetime import datetime, timedelta
 
+
+"""
+useful conversion example
+date = datetime.strptime(date_str, '%Y-%m-%d')
+date_str = date.strftime("%Y-%m-%d")
+"""
+
+
 PERIOD_CALENDAR_MONTH = 'calendar_month'
 PERIOD_CALENDAR_YEAR = 'calendar_year'
 
@@ -68,6 +76,25 @@ def date_add_days(date_str, delta_days):
     dt = datetime.strptime(date_str, '%Y-%m-%d')
     dt_new = dt + timedelta(days=delta_days)
     return dt_new.strftime("%Y-%m-%d")
+
+
+def gen_date_list_in_range(start_date, end_date, end_inclusive=True):
+    """
+    input: start end date in YYYY-MM-DD format
+    output: a list of date in YYYY-MM-DD format in range
+    if end_inclusive is false, the end is not included in result list
+    """
+    res = []
+    s = datetime.strptime(start_date, '%Y-%m-%d')
+    e = datetime.strptime(end_date, '%Y-%m-%d')
+    cur = s
+    while cur<e:
+        cur_date_date_str = cur.strftime("%Y-%m-%d")
+        res.append(cur_date_date_str)
+        cur = cur + timedelta(days=1)
+    if end_inclusive:
+        res.append(end_date)
+    return res
 
 
 def mark_year_month_week_start(df, date_col):

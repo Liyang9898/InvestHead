@@ -53,7 +53,8 @@ from util.util_time import df_filter_dy_date
 
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
-file_name = "SPY_1W_fmt"  # 1993.3 start
+# file_name = "SPY_1W_fmt"  # 1993.3 start
+file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
 # file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
@@ -111,10 +112,10 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
-start_time="1991-01-01"
+start_time="1970-01-01"
 
 # start_time="2019-09-01 20:00:00"
-end_time="2022-01-31"
+end_time="1990-01-31"
 
 ticker='default'
 

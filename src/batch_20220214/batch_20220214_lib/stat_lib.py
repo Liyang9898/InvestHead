@@ -147,7 +147,7 @@ def gen_perf_stat_from_position_time_series(
     )
      
      
-    out_path_vs_benchmark = f'{path_result_folder}pnl_vs_benchmark.png'
+    out_path_vs_benchmark = f'{path_result_folder}'
     gen_vs_benchmark(
         timeseries_path=input_timeseries, 
         col_date='date', 

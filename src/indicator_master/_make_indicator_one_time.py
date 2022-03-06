@@ -41,7 +41,8 @@ file_name = "BTC_1D_fmt"
 # file_name = "AMD_1D_fmt"  
 # file_name = "GOLD_1D_fmt"
 # file_name = "EURUSD_1D_fmt"
-file_name = "V_1D_fmt"
+# file_name = "V_1D_fmt"
+file_name = "SPX_1W_fmt"  
 ############################################source region end#############################################
 
 # this is totally using non-batch folder
@@ -56,8 +57,8 @@ print('writing to',output_file)
 api_gen_indicator(
     input_file, 
     output_file,
-    "1991-04-01", 
-    "2022-01-26",
+    "1970-04-01", 
+    "2022-04-26",
 )
 api_plot_indicator_from_csv(output_file)
 print('output finished: ' + output_file + '  done')

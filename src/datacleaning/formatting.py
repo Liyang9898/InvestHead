@@ -92,6 +92,9 @@ def pickcolumn(file, path_out, input_column):
 
 raw_price_file_name = "BATS_V, 1D"
 path_out_file_name = "V_1D_fmt"  
+
+raw_price_file_name = "SP_SPX, 1W_allhist"
+path_out_file_name = "SPX_1W_fmt"  
 ############################################source region end#############################################
 
 raw_price_files=folder_path_raw_downloaded+raw_price_file_name+"."+file_type_postfix
