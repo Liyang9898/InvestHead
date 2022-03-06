@@ -1,6 +1,7 @@
 from batch_20201214.reuse_position.lib.trade_opportunity_ranking import METHOD_RANDOM, \
     METHOD_TOP_RETURN, METHOD_TOP_WIN_RATE, METHOD_TOP_WIN_LOSE_PNL_RATIO
 
+PATH_PREPARE = 'D:/f_data/batch_20220214/step0_prepare/'
 TICKERS_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step1_ticker_collection/snp500_ticker_of_all_time.csv'
 TICKERS_PRICE_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step2_download_price_data/'
 INDICATOR_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step3_add_indicator/'
@@ -18,6 +19,14 @@ TRADE_SUMMARY_ALL_TICKER = 'D:/f_data/batch_20220214/step5_trade_summary_time_wi
 HIGH_PERF_TICKER_FOLDER = 'D:/f_data/batch_20220214/step6_ticker_rank/'
 CONCLUSION_FOLDER = 'D:/f_data/batch_20220214/step9_conclusion/'
 DEBUG_FOLDER = 'D:/f_data/batch_20220214/step999_optional_debug/'
+
+"""
+this section defines tradable days
+"""
+PATH_TRADABLE_DAYS = f'{PATH_PREPARE}tradable_days.csv'
+path_spx_open_position_csv = 'D:/f_data/analysis/20220303_spy_alone/consec.csv'
+use_trade_position_open_days = False
+
 
 START_DATE = '1970-01-01'
 ANALYSIS_START_DATE = '1973-01-01' # DUE TO 3 YEARS OF HISTORICAL PERF COLLECTION 

@@ -38,3 +38,14 @@ def dict_to_one_row_df(dict_input):
 
 def percent_increase_of_current_row(df, val_col):
     df[val_col + '_pct_increase'] = df[val_col].pct_change()
+    
+    
+def gen_csv_from_list_of_val(val_list, col_name, csv_path):
+    """
+    turn list val_list into a single column df with name col_name
+    and save in csv in path csv_path
+    """
+    d = {col_name: val_list}
+    df = pd.DataFrame(data=d)
+    df.to_csv(csv_path, index=False)
+    
