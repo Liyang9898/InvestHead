@@ -125,7 +125,7 @@ def extract_track_time_seq(track):
 
 
 # this function insert all trades into N track
-def fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
+def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
     """
     this function insert all trades into N track
     """
@@ -163,6 +163,9 @@ def fill_position(all_entry_trades, start_date, end_date, stock_pick_strategy, c
                 
         # step 2: add position
         if date not in all_entry_trades.keys(): # no opportunity today
+            continue
+        
+        if date not in tradable_days: # not tradable today
             continue
         
         slot = capacity - len(open_trades)

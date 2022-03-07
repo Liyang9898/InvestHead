@@ -38,6 +38,7 @@ def slot_top_trades_into_n_tracks(
     end_date,
     trade_folder,
     ticker_rank_folder,
+    tradable_days_path,
     #output
     output_folder,
     #
@@ -50,6 +51,11 @@ def slot_top_trades_into_n_tracks(
     output: 
         CSV, each row is a trade + track_id column
     """
+    df = pd.read_csv(tradable_days_path)
+    tradable_days = df['date'].to_list()
+    l = len(tradable_days)
+    print(f'tradable days {l}')
+    
     per_track_trades_path = f'{output_folder}intermediate_per_track_trades.csv'
 
     # merge all trades into one data structure
@@ -60,7 +66,7 @@ def slot_top_trades_into_n_tracks(
     # this function insert all trades into N track
     print('starting slotting stock')
     ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
-    tracks = fill_position(df_all_entry_trades, start_date, end_date, stock_pick_strategy, capacity,ticker_rank_artifact)        
+    tracks = fill_position(df_all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity,ticker_rank_artifact)        
 
     # output
     tracks_df = track_trades_to_df(tracks, capacity)

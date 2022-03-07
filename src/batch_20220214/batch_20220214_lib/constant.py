@@ -25,7 +25,7 @@ this section defines tradable days
 """
 PATH_TRADABLE_DAYS = f'{PATH_PREPARE}tradable_days.csv'
 path_spx_open_position_csv = 'D:/f_data/analysis/20220303_spy_alone/consec.csv'
-use_trade_position_open_days = False
+use_trade_position_open_days = True
 
 
 START_DATE = '1970-01-01'
