@@ -414,3 +414,19 @@ month 0.6217948717948718 2.4927625035565373 -1.4864865265229024
 get historical s%p 500 component ticker
 code:analusis/20220210_get_spy_coponent/spy_norgate.py
 file:'D:/f_data/external_data_source/snapshot_version/sp500_formatted_yearly.csv'
+
+2022-03-09
+different stock pick strategy
+stat in D:/f_data/batch_archive/
+pnl win lose ratio best -> makes sense 
+win rate -? makes less sense compared to pnl win lose ratio
+return -? win more lose more, could be a huge beta
+
+
+2022-03-10
+swing using best part of spy pick and filter out when spy is short
+filter is better
+why?
+1.entire position time series is smoother
+2.stat is better
+3.stat in D:/f_data/batch_archive/baseball_card_strategy_perf.csv
