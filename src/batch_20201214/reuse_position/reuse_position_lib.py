@@ -39,6 +39,7 @@ def slot_top_trades_into_n_tracks(
     trade_folder,
     ticker_rank_folder,
     tradable_days_path,
+    penny_stock_threshold,
     #output
     output_folder,
     #
@@ -51,6 +52,7 @@ def slot_top_trades_into_n_tracks(
     output: 
         CSV, each row is a trade + track_id column
     """
+    print('strategy:' + stock_pick_strategy)
     df = pd.read_csv(tradable_days_path)
     tradable_days = df['date'].to_list()
     l = len(tradable_days)
@@ -61,7 +63,7 @@ def slot_top_trades_into_n_tracks(
     # merge all trades into one data structure
     print('start')
     files = getAllEntryCSV(trade_folder)
-    df_all_entry_trades = mergeAllEntryTrade(files) #<-dict<date, dict<ticker, Trade Object>>
+    df_all_entry_trades = mergeAllEntryTrade(files, penny_stock_threshold) #<-dict<date, dict<ticker, Trade Object>>
 
     # this function insert all trades into N track
     print('starting slotting stock')

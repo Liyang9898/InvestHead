@@ -32,9 +32,26 @@ def gen_per_track_st_price_pic(
         fig.write_image(path_out)
 
 
-# gen_per_track_st_price_pic(
-#     path,
-#     folder_out,
-#     start_date,
-#     end_date
-# )
+def gen_per_track_position_pic(
+    path,
+    folder_out,
+    start_date,
+    end_date
+):
+    df = pd.read_csv(path)
+    df = df_filter_dy_date(df,'date',start_date,end_date)
+    
+    dfs = {}
+    for i in range(0,50):
+        print(f'plotting stock price for track {i}')
+        dfs[i] = df[df['track_id']==i].copy()
+#         if i == 40:
+#             print(dfs[i])
+        if (len(dfs[i]) == 0):
+            print(f'no trade for track {i}')
+            continue
+        title = f'track_{i}'
+        fig = px.line(dfs[i], x="date", y="roll_position", title=title)
+        
+        path_out = folder_out + title + '.png'
+        fig.write_image(path_out)

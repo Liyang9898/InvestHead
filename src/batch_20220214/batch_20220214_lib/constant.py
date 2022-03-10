@@ -1,6 +1,9 @@
 from batch_20201214.reuse_position.lib.trade_opportunity_ranking import METHOD_RANDOM, \
     METHOD_TOP_RETURN, METHOD_TOP_WIN_RATE, METHOD_TOP_WIN_LOSE_PNL_RATIO
 
+
+PENNY_STOCK_DOLLAR_THRESHOLD = 10
+
 PATH_PREPARE = 'D:/f_data/batch_20220214/step0_prepare/'
 TICKERS_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step1_ticker_collection/snp500_ticker_of_all_time.csv'
 TICKERS_PRICE_FOLDER_SNP500_OF_ALL_TIME = 'D:/f_data/batch_20220214/step2_download_price_data/'
@@ -24,8 +27,8 @@ DEBUG_FOLDER = 'D:/f_data/batch_20220214/step999_optional_debug/'
 this section defines tradable days
 """
 PATH_TRADABLE_DAYS = f'{PATH_PREPARE}tradable_days.csv'
-path_spx_open_position_csv = 'D:/f_data/analysis/20220303_spy_alone/consec.csv'
-use_trade_position_open_days = True
+path_spx_open_position_csv = 'D:/f_data/analysis/20220307_spx_1970_2022/SPX_1W_fmt_trades_all_consecutive_2.csv'
+use_trade_position_open_days = False
 
 
 START_DATE = '1970-01-01'
@@ -37,9 +40,9 @@ WINDOW_SIZE = 3 # YEARS
 BENCHMARK_TICKER = '$SPX'
 
 
-STOCK_SELECTION_STRATEGY = METHOD_RANDOM
-STOCK_SELECTION_STRATEGY = METHOD_TOP_RETURN
-STOCK_SELECTION_STRATEGY = METHOD_TOP_WIN_RATE
+# STOCK_SELECTION_STRATEGY = METHOD_RANDOM
+# STOCK_SELECTION_STRATEGY = METHOD_TOP_RETURN
+# STOCK_SELECTION_STRATEGY = METHOD_TOP_WIN_RATE
 STOCK_SELECTION_STRATEGY = METHOD_TOP_WIN_LOSE_PNL_RATIO
 
 

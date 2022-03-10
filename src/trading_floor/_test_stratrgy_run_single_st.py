@@ -115,7 +115,7 @@ strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 start_time="1970-01-01"
 
 # start_time="2019-09-01 20:00:00"
-end_time="1990-01-31"
+end_time="2023-01-31"
 
 ticker='default'
 

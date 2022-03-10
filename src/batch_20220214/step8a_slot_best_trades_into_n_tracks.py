@@ -8,7 +8,7 @@ from batch_20201214.reuse_position.reuse_position_lib import slot_top_trades_int
 from batch_20220214.batch_20220214_lib.constant import START_DATE, END_DATE, \
     HIGH_PERF_TRADES_FOLDER_SNP500_OF_ALL_TIME, \
     PORTFOLIO_TIME_SERIES_FOLDER_SNP500, HIGH_PERF_TICKER_FOLDER, \
-    STOCK_SELECTION_STRATEGY, PATH_TRADABLE_DAYS
+    STOCK_SELECTION_STRATEGY, PATH_TRADABLE_DAYS, PENNY_STOCK_DOLLAR_THRESHOLD
 
 
 slot_top_trades_into_n_tracks(
@@ -17,6 +17,7 @@ slot_top_trades_into_n_tracks(
     trade_folder=HIGH_PERF_TRADES_FOLDER_SNP500_OF_ALL_TIME,
     ticker_rank_folder=HIGH_PERF_TICKER_FOLDER,
     tradable_days_path=PATH_TRADABLE_DAYS,
+    penny_stock_threshold=PENNY_STOCK_DOLLAR_THRESHOLD,
     output_folder=PORTFOLIO_TIME_SERIES_FOLDER_SNP500,
     stock_pick_strategy=STOCK_SELECTION_STRATEGY,
     capacity=50,

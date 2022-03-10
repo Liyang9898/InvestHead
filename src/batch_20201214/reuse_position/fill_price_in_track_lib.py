@@ -25,7 +25,8 @@ def getAllEntryCSV(path):
 
 
 # this function merge all trades into one data structure
-def mergeAllEntryTrade(files):
+def mergeAllEntryTrade(files, penny_stock_threshold):
+    PENNY_STOCK_ENTRY = 1
     """
     input: a list of files with entry
     output: dict<date, dict<ticker, Trade Object>>
@@ -46,6 +47,13 @@ def mergeAllEntryTrade(files):
         
         total_trade_cnt = total_trade_cnt + len(trades_df)
         for i in range(0, len(trades_df)):
+            
+            # filter out penny stock entry
+            entry_price = trades_df.loc[i, 'entry_price']
+            if entry_price < penny_stock_threshold:
+                total_trade_cnt -= 1
+                continue
+            
             # per trades
             trade = Trade(
                 entry_price=trades_df.loc[i, 'entry_price'], 

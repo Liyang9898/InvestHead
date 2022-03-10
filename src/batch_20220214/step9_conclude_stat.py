@@ -144,6 +144,9 @@ from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list
 #     col_portfolio='portfolio', 
 #     out_path=out_path_vs_benchmark
 # )
+# END_DATE = '1991-01-01'
+
+
 path_position_time_series = PORTFOLIO_TIME_SERIES_FOLDER_SNP500 + 'position.csv'
 path_trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_SNP500}intermediate_per_track_trades.csv'
 
