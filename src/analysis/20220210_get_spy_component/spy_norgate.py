@@ -46,7 +46,7 @@ def get_ticker_present_year_in_index(ticker, index_name):
     return all_year
 
 
-def get_ticker_present_index_year(watchlistname):
+def get_ticker_present_index_year(watchlistname, index_name):
     """
     input: index and its attribute, ex:'S&P 500 Current & Past'
     output: input: dataframe cols = ticker, year_cnt, years
@@ -62,7 +62,7 @@ def get_ticker_present_index_year(watchlistname):
 #             cnt += 1
 #             continue
 
-        index_name = 'S&P 500' 
+#         index_name = 'S&P 500' 
         all_year = get_ticker_present_year_in_index(ticker, index_name)
         all_year_str = '|'.join(all_year)
         row = {'ticker':ticker, 'year_cnt':len(all_year), 'all_year':all_year_str}
@@ -110,13 +110,19 @@ def format_yearly_index(df):
 
 
 # get all past and current ticker in index
+index_name = 'S&P 500'
+index_name = 'Russell 1000'
+
 watchlistname = 'S&P 500 Current & Past'
+watchlistname = 'Russell 1000 Current & Past'
 
 path_ticker_year = 'D:/f_data/external_data_source/snapshot_version/sp500_ticker_year.csv'
-ticker_present_year_df = get_ticker_present_index_year(watchlistname)
+path_ticker_year = 'D:/f_data/external_data_source/snapshot_version/russell1000_ticker_year.csv'
+ticker_present_year_df = get_ticker_present_index_year(watchlistname, index_name)
 ticker_present_year_df.to_csv(path_ticker_year, index=False)
 
 path_yearly_index_spy = 'D:/f_data/external_data_source/snapshot_version/sp500_formatted_yearly.csv'
+path_yearly_index_spy = 'D:/f_data/external_data_source/snapshot_version/russell1000_formatted_yearly.csv'
 df_ticker_year = pd.read_csv(path_ticker_year)
 df_yearly_index = format_yearly_index(df_ticker_year)
 df_yearly_index.to_csv(path_yearly_index_spy, index=False)

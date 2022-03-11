@@ -412,7 +412,7 @@ month 0.6217948717948718 2.4927625035565373 -1.4864865265229024
 2022-02-13
 ======
 get historical s%p 500 component ticker
-code:analusis/20220210_get_spy_coponent/spy_norgate.py
+code:analysis/20220210_get_spy_coponent/spy_norgate.py
 file:'D:/f_data/external_data_source/snapshot_version/sp500_formatted_yearly.csv'
 
 2022-03-09
@@ -430,3 +430,8 @@ why?
 1.entire position time series is smoother
 2.stat is better
 3.stat in D:/f_data/batch_archive/baseball_card_strategy_perf.csv
+
+2022-03-11
+get russell 1000 historical composite
+code:analysis/20220210_get_spy_coponent/spy_norgate.py
+file:'D:/f_data/external_data_source/snapshot_version/russell1000_formatted_yearly.csv'
