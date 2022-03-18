@@ -1,6 +1,6 @@
 import os
 
-from batch_20220214.batch_20220214_lib.constant import RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME, HIGH_PERF_TRADES_FOLDER_SNP500_OF_ALL_TIME, HIGH_PERF_TICKER_FOLDER
+from batch_20220310.batch_20220310_lib.constant import RAWS_TRADES_FOLDER_COLLECTION_OF_ALL_TIME, HIGH_PERF_TRADES_FOLDER_COLLECTION_OF_ALL_TIME, HIGH_PERF_TICKER_FOLDER
 import pandas as pd
 from util.util_file import get_all_csv_file_in_folder
 
@@ -9,8 +9,8 @@ this process get the sub set of trades which is in high perf pool
 use ticker list in step 6 to filter step 5, so step 7 is a sub set of step 5's result
 """
 
-path_trades = RAWS_TRADES_FOLDER_SNP500_OF_ALL_TIME
-path_filtered_trades = HIGH_PERF_TRADES_FOLDER_SNP500_OF_ALL_TIME
+path_trades = RAWS_TRADES_FOLDER_COLLECTION_OF_ALL_TIME
+path_filtered_trades = HIGH_PERF_TRADES_FOLDER_COLLECTION_OF_ALL_TIME
 
 
 def ticker_elible_end_year():
