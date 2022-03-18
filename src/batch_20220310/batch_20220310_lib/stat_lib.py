@@ -4,7 +4,7 @@ import os
 
 from api.api import api_download_ticker, api_position_perf_from_csv, \
     api_compuate_alpha_beta_to_csv_img, api_trade_perf_from_trades_csv
-from batch_20220310.batch_20220310_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_SNP500, \
+from batch_20220310.batch_20220310_lib.constant import PORTFOLIO_TIME_SERIES_FOLDER_COLLECTION, \
     ANALYSIS_START_DATE, END_DATE, CONCLUSION_FOLDER, BENCHMARK_TICKER
 from batch_20220310.batch_20220310_lib.ui_multi_year_chart import gen_per_year_position_timeseries, \
     gen_vs_benchmark
@@ -117,7 +117,7 @@ def gen_perf_stat_from_position_time_series(
     """
     trade perf, win rate, win_lose_pnl_ratio, trade count
     """
-#     trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_SNP500}intermediate_per_track_trades.csv'
+#     trades_csv = f'{PORTFOLIO_TIME_SERIES_FOLDER_COLLECTION}intermediate_per_track_trades.csv'
     output_perf_csv = f'{path_result_folder}/trade_perf.csv'
     api_trade_perf_from_trades_csv(path_trades_csv, output_perf_csv)
      
