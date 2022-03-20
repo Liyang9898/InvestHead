@@ -137,14 +137,14 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
     """
     this function insert all trades into N track
     """
-    room = {}
+    room = {} # for most current snapshot of portfolio
     track = {} # trade is room history, list of <ticker, trade>
     for idx in range(0, capacity):
         room[idx] = '-1'
         track[idx] = []
     
     historical_trades = []
-    open_trades = {}
+    open_trades = {} # map<ticker, cur_position> for most current snapshot, ticker in portfolio and it's orice
     daily_position_cnt = {}
     out_log = {}
     in_log = {}
@@ -152,15 +152,23 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
     for date in dates:
         # initial
         in_log[date] = []
-        out_log[date] = []
-        
+        out_log[date] = [] # a list of ticker which needs to be sold today
+        today_before_trade_position_cnt = len(open_trades)
+        today_close_cnt = -1
+        today_new_opened_cnt = -1
+        today_after_trade = -1
+        """
+        step 1: close trade
+        """
         # step 1: close trade
         for ticker, cur_position in open_trades.items():
             exit_ts = cur_position.exit_ts
             exit_ts_date = exit_ts.split(' ')[0]
             if exit_ts_date == date: # exit
                 out_log[date].append(ticker)
-                
+        today_close_cnt = len(out_log[date])
+#         print(date, ' close', today_close_cnt)
+        
         for ticker in out_log[date]:
             del open_trades[ticker]
             
@@ -168,7 +176,10 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         for idx, v in room.items():
             if v in out_log[date]:
                 room[idx] = '-1'
-                
+
+        """
+        step 2: add position
+        """
         # step 2: add position
         if date not in all_entry_trades.keys(): # no opportunity today
             continue
@@ -177,6 +188,10 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             continue
         
         slot = capacity - len(open_trades)
+        
+
+#         print('---', date, capacity, ' begin with',today_before_trade_position_cnt, ' closed ',today_close_cnt, ' need add', slot)
+        
         if slot == 0: # no remaining cash for new position today
             continue
         
@@ -201,6 +216,10 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             ticker_ranking_artifact=ticker_rank_artifact,
             method=stock_pick_strategy
         )
+        today_new_opened_cnt = len(selected_trades)
+        
+        if today_new_opened_cnt < slot:
+            print('---', date, capacity, ' begin with',today_before_trade_position_cnt, ' closed ',today_close_cnt, ' need add', slot, ' added',today_new_opened_cnt)
         """
         until here, selected_trades is a map of <ticker, Trade> for today to fill the room
         """
@@ -265,6 +284,15 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         
         if print_log:
             print('date:', date, ' in:', in_log[date], ' out:', out_log[date] , ' position cnt:',len(open_trades)) 
+        
+#         today_close_cnt = -1'''
+#         today_new_opened_cnt = -1'''
+        today_after_trade = len(open_trades)
+        assert  today_new_opened_cnt - today_close_cnt == today_after_trade - today_before_trade_position_cnt
+        print(date, ' after trade ', today_after_trade)
+        """
+        until here selected trade has been inserted
+        """
     
     # print track information
 
