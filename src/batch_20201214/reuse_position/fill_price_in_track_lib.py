@@ -132,6 +132,42 @@ def extract_track_time_seq(track):
     return entry_ts_list
 
 
+def gen_close_position_ticker_list(current_open_trades, today_date):
+    """
+    This function scan today's positions position(trades) and decides which of these needs to be closed
+    input: current_open_trades->map<ticker,Trade>, today_date->today's date
+    output: a list of ticker which needs to be closed today
+    """
+    close_position_ticker_list = []
+    for ticker, trade in current_open_trades.items():
+        exit_ts = trade.exit_ts
+        exit_ts_date = exit_ts.split(' ')[0]
+        if exit_ts_date == today_date: # exit
+            close_position_ticker_list.append(ticker)    
+    return close_position_ticker_list
+
+
+def should_open_position_today(all_entry_trades, tradable_days, remaining_slot):
+    """
+    Input: all available trades across all dates, tradable days, remaining_slot
+    Output: should we open position today
+    to decide if today should trade or not: 
+        1. number of opportunity today
+        2. is today a trade day
+        3. do we have empty slot
+    """
+    if date not in all_entry_trades.keys(): # no opportunity today
+        return False
+    
+    if date not in tradable_days: # not tradable today
+        return False
+    
+    if remaining_slot == 0: # no remaining cash for new position today
+        return False
+    
+    return True
+
+
 # this function insert all trades into N track
 def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
     """
@@ -161,12 +197,17 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         step 1: close trade
         """
         # step 1: close trade
-        for ticker, cur_position in open_trades.items():
-            exit_ts = cur_position.exit_ts
-            exit_ts_date = exit_ts.split(' ')[0]
-            if exit_ts_date == date: # exit
-                out_log[date].append(ticker)
-        today_close_cnt = len(out_log[date])
+        today_close_ticker_list = gen_close_position_ticker_list(
+            current_open_trades=open_trades, 
+            today_date=date
+        )
+        out_log[date] = today_close_ticker_list
+#         for ticker, cur_position in open_trades.items():
+#             exit_ts = cur_position.exit_ts
+#             exit_ts_date = exit_ts.split(' ')[0]
+#             if exit_ts_date == date: # exit
+#                 out_log[date].append(ticker)
+        today_close_cnt = len(today_close_ticker_list)
 #         print(date, ' close', today_close_cnt)
         
         for ticker in out_log[date]:
@@ -181,17 +222,21 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         step 2: add position
         """
         # step 2: add position
+#         slot = capacity - len(open_trades)
+#         should_open = should_open_position_today(all_entry_trades, tradable_days, slot)
+#         if not should_open:
+#             continue
+ 
+#         
         if date not in all_entry_trades.keys(): # no opportunity today
             continue
-        
+         
         if date not in tradable_days: # not tradable today
             continue
-        
+         
         slot = capacity - len(open_trades)
-        
-
-#         print('---', date, capacity, ' begin with',today_before_trade_position_cnt, ' closed ',today_close_cnt, ' need add', slot)
-        
+         
+ 
         if slot == 0: # no remaining cash for new position today
             continue
         
