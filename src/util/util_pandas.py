@@ -1,5 +1,6 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
+from util.util_time import df_filter_dy_date
 
 
 def df_unixtime_filter(df, date_col, s, e):
@@ -40,12 +41,14 @@ def percent_increase_of_current_row(df, val_col):
     df[val_col + '_pct_increase'] = df[val_col].pct_change()
     
     
-def gen_csv_from_list_of_val(val_list, col_name, csv_path):
+def gen_csv_from_list_of_val(val_list, col_name, csv_path, start_date, end_date):
     """
     turn list val_list into a single column df with name col_name
     and save in csv in path csv_path
     """
     d = {col_name: val_list}
     df = pd.DataFrame(data=d)
+    date_col = 'date'
+    df = df_filter_dy_date(df,date_col,start_date,end_date)
     df.to_csv(csv_path, index=False)
     

@@ -11,7 +11,7 @@ We only open position when the day exist in 'PATH_TRADABLE_DAYS'
 """
 
 
-def gen_position_opened_date_from_trades(trade_csv, open_date_csv):
+def gen_position_opened_date_from_trades(trade_csv, open_date_csv, start_date, end_date):
     df_trade = pd.read_csv(trade_csv)
     open_dates = []
     for i in range(0, len(df_trade)):
@@ -20,7 +20,7 @@ def gen_position_opened_date_from_trades(trade_csv, open_date_csv):
         open_dates_trade = gen_date_list_in_range(s, e, False)
         open_dates = open_dates + open_dates_trade
     
-    gen_csv_from_list_of_val(open_dates, 'date', open_date_csv)
+    gen_csv_from_list_of_val(open_dates, 'date', open_date_csv, start_date, end_date)
     
 
 def gen_tradable_days(start_date, end_date, trade_file, path_tradable_days, use_trade_position_open_days=False):
@@ -30,7 +30,7 @@ def gen_tradable_days(start_date, end_date, trade_file, path_tradable_days, use_
         all days are tradable
         """
         res = gen_date_list_in_range(start_date, end_date, True)
-        gen_csv_from_list_of_val(res, 'date', path_tradable_days)
+        gen_csv_from_list_of_val(res, 'date', path_tradable_days, start_date, end_date)
     
     else:
         """
@@ -38,7 +38,7 @@ def gen_tradable_days(start_date, end_date, trade_file, path_tradable_days, use_
         tradable only when spx is open position
         """
         
-        gen_position_opened_date_from_trades(trade_csv=trade_file, open_date_csv=path_tradable_days)
+        gen_position_opened_date_from_trades(trade_csv=trade_file, open_date_csv=path_tradable_days, start_date=start_date, end_date=end_date)
         
 
 gen_tradable_days(
