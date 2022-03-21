@@ -147,7 +147,70 @@ def gen_close_position_ticker_list(current_open_trades, today_date):
     return close_position_ticker_list
 
 
-def should_open_position_today(all_entry_trades, tradable_days, remaining_slot):
+def gen_trade_opportunity_today(all_entry_trades, today_date, cur_track_ticker):
+    """
+    This function return a list of ticker which needs to be opened today
+    
+    input: 
+        all_entry_trades -> all trade opportunity across all days, 
+        today_date -> today's date, 
+        cur_track_ticker -> map <track_id, ticker> for current moment, 
+        slot -> number of position need to be opened, 
+        ticker_rank_artifact -> artifact to support stock pick, 
+        stock_pick_strategy -> strategy of picking stock
+    
+    output: map<ticker, trade> available trade opportunity today
+    """
+    
+    # trade can happen today
+    all_available_trade_today = all_entry_trades[today_date] # all option
+    
+    # remove trade opportunity which is already opened in portfolio
+    trade_opportunity_today = all_available_trade_today.copy()
+    for _room_i, room_v in cur_track_ticker.items():
+        if room_v in trade_opportunity_today:
+            # remove ticker in opportunity if it is already there
+            del trade_opportunity_today[room_v]
+
+
+    return trade_opportunity_today
+
+
+def gen_open_position_ticker_list(all_entry_trades, today_date, cur_track_ticker, slot, ticker_rank_artifact, stock_pick_strategy):
+    """
+    This function return a list of ticker which needs to be opened today
+     
+    input: 
+        all_entry_trades -> all trade opportunity across all days, 
+        today_date -> today's date, 
+        cur_track_ticker -> map <track_id, ticker> for current moment, 
+        slot -> number of position need to be opened, 
+        ticker_rank_artifact -> artifact to support stock pick, 
+        stock_pick_strategy -> strategy of picking stock
+     
+    output: a list of ticker which needs to be closed today
+    """
+     
+    # trade can happen today
+    trade_opportunity_today = gen_trade_opportunity_today(
+        all_entry_trades=all_entry_trades, 
+        today_date=today_date, 
+        cur_track_ticker=cur_track_ticker, 
+    ) 
+#     print(trade_opportunity_today)
+ 
+    # pick top trades from available trade opportunity for today
+    selected_trades= select_trades_from_available_opportunity(
+        trade_opportunity=trade_opportunity_today,
+        needed_trade_cnt=slot,
+        today_date=today_date,
+        ticker_ranking_artifact=ticker_rank_artifact,
+        method=stock_pick_strategy
+    )    
+    return selected_trades
+    
+
+def should_open_position_today(all_entry_trades, tradable_days, today_date, remaining_slot):
     """
     Input: all available trades across all dates, tradable days, remaining_slot
     Output: should we open position today
@@ -156,10 +219,10 @@ def should_open_position_today(all_entry_trades, tradable_days, remaining_slot):
         2. is today a trade day
         3. do we have empty slot
     """
-    if date not in all_entry_trades.keys(): # no opportunity today
+    if today_date not in all_entry_trades.keys(): # no opportunity today
         return False
     
-    if date not in tradable_days: # not tradable today
+    if today_date not in tradable_days: # not tradable today
         return False
     
     if remaining_slot == 0: # no remaining cash for new position today
@@ -222,45 +285,69 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         step 2: add position
         """
         # step 2: add position
-#         slot = capacity - len(open_trades)
-#         should_open = should_open_position_today(all_entry_trades, tradable_days, slot)
-#         if not should_open:
-#             continue
- 
-#         
-        if date not in all_entry_trades.keys(): # no opportunity today
-            continue
-         
-        if date not in tradable_days: # not tradable today
-            continue
-         
         slot = capacity - len(open_trades)
+        should_open = should_open_position_today(all_entry_trades, tradable_days, date, slot)
+        if not should_open:
+            continue
+ 
+# #         
+#         if date not in all_entry_trades.keys(): # no opportunity today
+#             continue
+#          
+#         if date not in tradable_days: # not tradable today
+#             continue
+         
+#         slot = capacity - len(open_trades)
          
  
-        if slot == 0: # no remaining cash for new position today
-            continue
+#         if slot == 0: # no remaining cash for new position today
+#             continue
         
-        # start buying      
-        all_entry_today = all_entry_trades[date] # all option
-        
-        # rule out existing position
-        trade_opportunity_today = all_entry_today.copy()
-        for _room_i, room_v in room.items():
-            if room_v in trade_opportunity_today:
-                # remove ticker in opportunity if it is already there
-                del trade_opportunity_today[room_v]
-        
-#         opportunity_cnt = len(trade_opportunity_today)
-        
-        
-        # pick top trades from available trade opportunity for today
-        selected_trades= select_trades_from_available_opportunity(
-            trade_opportunity=trade_opportunity_today,
-            needed_trade_cnt=slot,
-            today_date=date,
-            ticker_ranking_artifact=ticker_rank_artifact,
-            method=stock_pick_strategy
+        # start buying     
+#         selected_trades = gen_open_position_ticker_list(
+#             all_entry_trades=all_entry_trades, 
+#             today_date=date, 
+#             cur_track_ticker=room, 
+#             slot=slot, 
+#             ticker_rank_artifact=ticker_rank_artifact, 
+#             stock_pick_strategy=stock_pick_strategy
+#         ) 
+        selected_trades = gen_open_position_ticker_list(
+            all_entry_trades=all_entry_trades, 
+            today_date=date, 
+            cur_track_ticker=room, 
+            slot=slot, 
+            ticker_rank_artifact=ticker_rank_artifact, 
+            stock_pick_strategy=stock_pick_strategy
         )
+        
+        
+#         trade_opportunity_today = gen_trade_opportunity_today(
+#             all_entry_trades=all_entry_trades, 
+#             today_date=date, 
+#             cur_track_ticker=room, 
+#         ) 
+#         all_entry_today = all_entry_trades[date] # all option
+#          
+#         # rule out existing position
+#         trade_opportunity_today = all_entry_today.copy()
+#         for _room_i, room_v in room.items():
+#             if room_v in trade_opportunity_today:
+#                 # remove ticker in opportunity if it is already there
+#                 del trade_opportunity_today[room_v]
+         
+#         opportunity_cnt = len(trade_opportunity_today)
+         
+         
+        # pick top trades from available trade opportunity for today
+#         selected_trades= select_trades_from_available_opportunity(
+#             trade_opportunity=trade_opportunity_today,
+#             needed_trade_cnt=slot,
+#             today_date=date,
+#             ticker_ranking_artifact=ticker_rank_artifact,
+#             method=stock_pick_strategy
+#         )
+
         today_new_opened_cnt = len(selected_trades)
         
         if today_new_opened_cnt < slot:
