@@ -2,7 +2,7 @@ import pandas as pd
 from util.general_ui import plot_points_from_xy_list
 from util.util_time import gen_date_list_in_range
 
-
+#
 def gen_daily_position_cnt_from_trade_list(df_trade):
     daily_position_cnt = {}
     for i in range(len(df_trade)):
