@@ -276,14 +276,8 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             today_date=date
         )
         out_log[date] = today_close_ticker_list
-#         for ticker, cur_position in open_trades.items():
-#             exit_ts = cur_position.exit_ts
-#             exit_ts_date = exit_ts.split(' ')[0]
-#             if exit_ts_date == date: # exit
-#                 out_log[date].append(ticker)
         today_close_cnt = len(today_close_ticker_list)
-#         print(date, ' close', today_close_cnt)
-        
+
         for ticker in out_log[date]:
             del open_trades[ticker]
             
@@ -306,28 +300,6 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             print(debug_row)
             continue
  
-# #         
-#         if date not in all_entry_trades.keys(): # no opportunity today
-#             continue
-#          
-#         if date not in tradable_days: # not tradable today
-#             continue
-         
-#         slot = capacity - len(open_trades)
-         
- 
-#         if slot == 0: # no remaining cash for new position today
-#             continue
-        
-        # start buying     
-#         selected_trades = gen_open_position_ticker_list(
-#             all_entry_trades=all_entry_trades, 
-#             today_date=date, 
-#             cur_track_ticker=room, 
-#             slot=slot, 
-#             ticker_rank_artifact=ticker_rank_artifact, 
-#             stock_pick_strategy=stock_pick_strategy
-#         ) 
         selected_trades = gen_open_position_ticker_list(
             all_entry_trades=all_entry_trades, 
             today_date=date, 
@@ -337,33 +309,6 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             stock_pick_strategy=stock_pick_strategy
         )
         
-        
-#         trade_opportunity_today = gen_trade_opportunity_today(
-#             all_entry_trades=all_entry_trades, 
-#             today_date=date, 
-#             cur_track_ticker=room, 
-#         ) 
-#         all_entry_today = all_entry_trades[date] # all option
-#          
-#         # rule out existing position
-#         trade_opportunity_today = all_entry_today.copy()
-#         for _room_i, room_v in room.items():
-#             if room_v in trade_opportunity_today:
-#                 # remove ticker in opportunity if it is already there
-#                 del trade_opportunity_today[room_v]
-         
-#         opportunity_cnt = len(trade_opportunity_today)
-         
-         
-        # pick top trades from available trade opportunity for today
-#         selected_trades= select_trades_from_available_opportunity(
-#             trade_opportunity=trade_opportunity_today,
-#             needed_trade_cnt=slot,
-#             today_date=date,
-#             ticker_ranking_artifact=ticker_rank_artifact,
-#             method=stock_pick_strategy
-#         )
-
         today_new_opened_cnt = len(selected_trades)
 #         debug_row = {'date': date, 'capacity':capacity,'slot':slot,'add':today_new_opened_cnt, 'close':today_close_cnt,'after_close_before_add':after_close_before_add}
 #         rows.append(debug_row)
@@ -422,8 +367,6 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             
         daily_position_cnt[date] = len(open_trades)   
         
-#         print(debug_row)
-        
         # validation on room logic
         x = 0
         
@@ -438,8 +381,7 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         if print_log:
             print('date:', date, ' in:', in_log[date], ' out:', out_log[date] , ' position cnt:',len(open_trades)) 
         
-#         today_close_cnt = -1'''
-#         today_new_opened_cnt = -1'''
+
         today_after_trade = len(open_trades)
 #         assert  today_new_opened_cnt - today_close_cnt == today_after_trade - today_before_trade_position_cnt
         print(date, ' after trade ', today_after_trade)
