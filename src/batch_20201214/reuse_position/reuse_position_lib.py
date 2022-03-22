@@ -24,8 +24,40 @@ from batch_20211116.batch_20211116_lib.stock_ranking_store import gen_stock_rank
 import pandas as pd
 import plotly.express as px
 from plotting_lib.simple import moving_window, dip_measure, moving_window_batch
+from util.general_ui import plot_points_from_xy_list
+from util.util_time import gen_date_list_in_range
 
 
+# from sandbox.20220322_8a_daily_position_cnt import gen_daily_position_cnt_from_track
+def gen_daily_position_cnt_from_track(tracks):
+#     map<track_id, map<>()>
+#     track_record = {
+#         "ticker": ticker,
+#         "trade": trade
+#     }
+    rows = []
+    for track_id, m in tracks.items():
+        for x in m:
+            trade = x['trade']
+            ticker = x['ticker']
+            dic = trade.trade2dic()
+            rows.append(dic)
+#             print(ticker)
+#             print(dic)
+
+    daily_position_cnt = {}
+    for trade_dic in rows:
+        start_date = str(trade_dic['entry_ts']).split(' ')[0]
+        end_date = str(trade_dic['exit_ts']).split(' ')[0]
+ 
+        date_list = gen_date_list_in_range(start_date, end_date, False)
+        for date in date_list:
+            if date not in daily_position_cnt.keys():
+                daily_position_cnt[date] = 0
+            daily_position_cnt[date] = daily_position_cnt[date] + 1  
+    return daily_position_cnt  
+            
+            
 def get_daily_position_cnt(path_in, path_out):
     df = pd.read_csv(path_in)
     daily_position_cnt = df.groupby('date').size().to_frame(name = 'position_cnt').reset_index()
@@ -69,7 +101,12 @@ def slot_top_trades_into_n_tracks(
     print('starting slotting stock')
     ticker_rank_artifact = gen_stock_rank_artifact(ticker_rank_folder)
     tracks = fill_position(df_all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity,ticker_rank_artifact)        
-
+    
+#     daily_position_cnt = gen_daily_position_cnt_from_track(tracks)
+#     x_list = list(daily_position_cnt.keys())
+#     y_list_map = {'cnt': list(daily_position_cnt.values())}
+#     plot_points_from_xy_list(x_list, y_list_map, title='default', path=None, mode='markers')
+    
     # output
     tracks_df = track_trades_to_df(tracks, capacity)
     tracks_df.to_csv(per_track_trades_path, index = False)

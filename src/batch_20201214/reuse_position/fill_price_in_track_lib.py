@@ -235,6 +235,12 @@ def should_open_position_today(all_entry_trades, tradable_days, today_date, rema
 def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
     """
     this function insert all trades into N track
+    out:
+    map<track_id, map<>()>
+    track_record = {
+        "ticker": ticker,
+        "trade": trade
+    }
     """
     room = {} # for most current snapshot of portfolio
     track = {} # trade is room history, list of <ticker, trade>
@@ -248,6 +254,11 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
     out_log = {}
     in_log = {}
     dates = get_date_list(start_date, end_date)
+    
+#     total_position = 0
+    
+    rows = []
+    rows2 = []
     for date in dates:
         # initial
         in_log[date] = []
@@ -285,9 +296,14 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         step 2: add position
         """
         # step 2: add position
+        after_close_before_add = len(open_trades)
         slot = capacity - len(open_trades)
+        
         should_open = should_open_position_today(all_entry_trades, tradable_days, date, slot)
         if not should_open:
+            debug_row = {'date': date, 'capacity':capacity,'slot':0,'add':0, 'close':today_close_cnt,'after_close_before_add':after_close_before_add}
+            rows.append(debug_row)
+            print(debug_row)
             continue
  
 # #         
@@ -349,9 +365,12 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
 #         )
 
         today_new_opened_cnt = len(selected_trades)
-        
-        if today_new_opened_cnt < slot:
-            print('---', date, capacity, ' begin with',today_before_trade_position_cnt, ' closed ',today_close_cnt, ' need add', slot, ' added',today_new_opened_cnt)
+#         debug_row = {'date': date, 'capacity':capacity,'slot':slot,'add':today_new_opened_cnt, 'close':today_close_cnt,'after_close_before_add':after_close_before_add}
+#         rows.append(debug_row)
+#         print(debug_row)
+############################################################################################        
+#         if today_new_opened_cnt < slot:
+#             print('---', date, capacity, ' begin with',today_before_trade_position_cnt, ' closed ',today_close_cnt, ' need add', slot, ' added',today_new_opened_cnt)
         """
         until here, selected_trades is a map of <ticker, Trade> for today to fill the room
         """
@@ -399,9 +418,11 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
                 "trade": trade
             }
             track[room_idx].append(track_record)
-            
+
             
         daily_position_cnt[date] = len(open_trades)   
+        
+#         print(debug_row)
         
         # validation on room logic
         x = 0
@@ -420,12 +441,19 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
 #         today_close_cnt = -1'''
 #         today_new_opened_cnt = -1'''
         today_after_trade = len(open_trades)
-        assert  today_new_opened_cnt - today_close_cnt == today_after_trade - today_before_trade_position_cnt
+#         assert  today_new_opened_cnt - today_close_cnt == today_after_trade - today_before_trade_position_cnt
         print(date, ' after trade ', today_after_trade)
+        
+        leon1 =  len(open_trades)
+        debug_row2 = {'date': date, 'leon1':leon1}
+        rows2.append(debug_row2)
+        
         """
         until here selected trade has been inserted
         """
     
+    df = pd.DataFrame(rows2)
+    df.to_csv('D:/f_data/temp/positioncnt_111.csv',index=False)
     # print track information
 
     for idx in range(0,capacity):
