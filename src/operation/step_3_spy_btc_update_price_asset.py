@@ -15,7 +15,7 @@ from util.util_time import get_today_date_str
 spy_asset_loc = refresh_price_asset_add_indicator(
     time_window=365*2, 
     ticker_list=['spy'], 
-    op_path_base='D:/f_data/operation_spy/', 
+    op_path_base='C:/f_data/operation_spy/', 
     interval='1wk'
 )
 
@@ -23,7 +23,7 @@ spy_asset_loc = refresh_price_asset_add_indicator(
 btc_asset_loc = refresh_price_asset_add_indicator(
     time_window=180, 
     ticker_list=['BTC-USD'], 
-    op_path_base='D:/f_data/operation_btc/', 
+    op_path_base='C:/f_data/operation_btc/', 
     interval='1d'
 )
 

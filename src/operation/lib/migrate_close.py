@@ -63,16 +63,20 @@ def move_closed_positions():
     path_closed = op_path_base+'closed.csv'
     df_record = pd.read_csv(path_record)
     df_closed = pd.read_csv(path_closed)
+
     list_match(df_record.columns, df_closed.columns)
 
     x = len(df_record)
     y = len(df_closed)
-
+    if x == 0:
+        # if there is no stock in portfolio, nothing needs to be closed
+        return
     still_opened_df = df_record[df_record['exit_price'].isnull()]
     new_closed_df_origin = df_record[df_record['exit_price'].notnull()]
     new_closed_df=new_closed_df_origin.copy()
 
     # process closed_df
+    
     new_closed_df['close_rate'] = new_closed_df['exit_price'] * 1.0 / new_closed_df['enter_price'] - 1
     new_closed_df['status'] = new_closed_df.apply(lambda row : status(row['close_rate']), axis = 1)
     new_closed_df['close_rate'] = new_closed_df.apply(lambda row : float_to_percent_str(row['close_rate']), axis = 1)

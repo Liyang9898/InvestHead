@@ -5,6 +5,10 @@ from operation.lib.trade_lib import update_record_current_price
 from version_master.version import op_path_base
 from datetime import datetime
 
+"""
+you must manually close position and mark it in csv before running this
+this process backup record, move closed position to another file, update most recent price on portfolio
+"""
 
 now = datetime.today()
 now_str = now.strftime('%Y-%m-%d')

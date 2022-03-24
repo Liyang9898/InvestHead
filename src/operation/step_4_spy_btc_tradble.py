@@ -10,13 +10,14 @@ from strategy_lib.stratage_param import strat_param_20211006_ma_max_drawdown_cut
     strat_param_20211006_ma_macd
 from util.util_finance_chart import plot_candle_stick_with_trace
 from util.util_time import get_today_date_str
+from global_constant.global_constant import root_path
 
 
 
 
 def spy_enterable():
     date_str = get_today_date_str()
-    path_base=f'D:/f_data/operation_spy/{date_str}/indicator/'
+    path_base=f'{root_path}/operation_spy/{date_str}/indicator/'
     idc_path = path_base + 'spy_downloaded_raw.csv'
     df_spy_idc = pd.read_csv(idc_path)
     
@@ -63,7 +64,7 @@ def spy_enterable():
 
 def btc_enterabe():
     date_str = get_today_date_str()
-    path_base=f'D:/f_data/operation_btc/{date_str}/indicator/'
+    path_base=f'{root_path}/operation_btc/{date_str}/indicator/'
     idc_path = path_base + 'BTC-USD_downloaded_raw.csv'
     df_spy_idc = pd.read_csv(idc_path)
     

@@ -6,6 +6,10 @@ import pandas as pd
 from version_master.version import op_path_base, op_record
 
 
+"""
+deprecates: this process set stop loss, we run it at night
+"""
+
 now = datetime.today()
 now_str = now.strftime('%Y-%m-%d')
 

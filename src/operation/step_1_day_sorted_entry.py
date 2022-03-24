@@ -20,6 +20,10 @@ from version_master.version import op_path_base
 from version_master.version import swing_set1, swing_set_20220103
 
 
+"""
+this process provides new training opportunities
+"""
+
 def pct_fmt(n):
     price_str = "{:.2f}%".format(n*100, 2)
     return price_str
