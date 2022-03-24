@@ -165,5 +165,8 @@ def select_trades_top_perf_metric(
         # ticker not in selected_ticker_list continue
         if ticker not in selected_ticker:
             continue
+        if trade.complete == False:
+            continue
+        
         res[ticker]=trade
     return res
