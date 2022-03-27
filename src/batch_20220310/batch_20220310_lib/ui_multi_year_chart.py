@@ -56,7 +56,7 @@ def gen_per_year_position_timeseries(
         }
         
         title = f'position_timeseries_{start_date}_{end_date}'
-        ui_path = f'{output_folder}{title}.png'
+        ui_path = f'{output_folder}{title}.html'
         plot_points_from_xy_list(x_list, y_list_map, title=title, path=ui_path, mode='lines+markers')
 
 
@@ -80,14 +80,14 @@ def gen_vs_benchmark(timeseries_path, col_date, col_benchmark, col_portfolio, ou
     win_potion = round(len(df_p)/(len(df_p)+len(df_n)), 2)
     
     title = f'PNL vs benchmark, win_potion={win_potion}%, win_pnl={win_pnl}%, lose_onl={lose_onl}%, x is end date of period'
-    plot_bars_from_xy_list(x_list=df['date'].to_list(), y_list=df['after_hedge'].to_list(), title=title, path=out_path+'pnl_vs_benchmark.png')
+    plot_bars_from_xy_list(x_list=df['date'].to_list(), y_list=df['after_hedge'].to_list(), title=title, path=out_path+'pnl_vs_benchmark.html')
     
     bar_m = {
         'portfolio':df[f'{col_portfolio}_pct_increase'].to_list(),
         'benchmark':df[f'{col_benchmark}_pct_increase'].to_list()
     }
     
-    plot_bar_set_from_xy_list(df['date'].to_list(), bar_m, title=title, path=out_path+'yearly_return.png')
+    plot_bar_set_from_xy_list(df['date'].to_list(), bar_m, title=title, path=out_path+'yearly_return.html')
     
 # start_date = '1970-01-01'
 # end_date = '2022-01-01'

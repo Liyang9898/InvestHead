@@ -480,7 +480,7 @@ def compute_alpha_beta_from_position(df, date_col, base_col, exp_col, period, im
         fig.update_xaxes(title_text='baseline return')
         fig.update_layout(title=title)
         # save image to file
-        fig.write_image(img_path)
+        fig.write_html(img_path)
  
         
 #         
@@ -558,7 +558,7 @@ def compuate_alpha_beta_to_csv_img(
     period: year, month, week
     """
     result_path_csv = f'{result_path}{period}_alpha_beta.csv'
-    result_path_img = f'{result_path}{period}_alpha_beta.png'
+    result_path_img = f'{result_path}{period}_alpha_beta.html'
     
     # prepare benchmark
     interval = '1d'

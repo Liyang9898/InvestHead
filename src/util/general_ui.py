@@ -264,7 +264,8 @@ def plot_points_from_xy_list(x_list, y_list_map, title='default', path=None, mod
     fig.update_layout(title=title)
     
     if path is not None:
-        fig.write_image(path)
+        # fig.write_image(path)
+        fig.write_html(path)
     else:
         fig.show()
         
@@ -283,6 +284,7 @@ def plot_bar_set_from_xy_list(x_list, y_list_map, title='default', path=None):
     fig.update_layout(title=title)
     
     if path is not None:
-        fig.write_image(path)
+        fig.write_html(path)
+        # fig.write_image(path)
     else:
         fig.show()
