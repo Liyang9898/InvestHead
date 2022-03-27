@@ -10,12 +10,13 @@ from strategy_lib.stratage_param import strat_param_20211006_ma_max_drawdown_cut
     strat_param_20211006_ma_macd
 from util.util_finance_chart import plot_candle_stick_with_trace
 from util.util_time import get_today_date_str
+from global_constant.global_constant import root_path
 
 
 spy_asset_loc = refresh_price_asset_add_indicator(
     time_window=365*2, 
     ticker_list=['spy'], 
-    op_path_base='C:/f_data/operation_spy/', 
+    op_path_base=f'{root_path}/operation_spy/', 
     interval='1wk'
 )
 
@@ -23,7 +24,7 @@ spy_asset_loc = refresh_price_asset_add_indicator(
 btc_asset_loc = refresh_price_asset_add_indicator(
     time_window=180, 
     ticker_list=['BTC-USD'], 
-    op_path_base='C:/f_data/operation_btc/', 
+    op_path_base=f'{root_path}/operation_btc/', 
     interval='1d'
 )
 
