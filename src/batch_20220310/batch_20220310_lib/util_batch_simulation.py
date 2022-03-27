@@ -5,6 +5,7 @@ from api.api import api_download_ticker
 import pandas as pd
 from util.general_ui import plot_points_from_xy_list
 from util.util_time import df_filter_dy_date
+from global_constant.global_constant import root_path
 
 
 def get_benchmark(ticker, start_date, end_date, norgate):
@@ -12,7 +13,7 @@ def get_benchmark(ticker, start_date, end_date, norgate):
     end = end_date
     interval = '1d'
 
-    path = 'D:/f_data/temp/spy20211207.csv'
+    path = f'{root_path}/temp/spy20211207.csv'
     api_download_ticker(ticker, start, end, path, interval, norgate)
     df = pd.read_csv(path)
     
@@ -77,7 +78,10 @@ def position_time_series_append_benchmark_to_csv_png(
         benchmark_ticker:m_result[benchmark_ticker].to_list()
     }
     title = 'Position Time Series'
+    
     plot_points_from_xy_list(x_list, y_list,title,output_time_series_png)
+    # plot_points_from_xy_list(x_list, y_list,title)
+    # print('========')
     
 
 def merge_dic(list_of_dict):

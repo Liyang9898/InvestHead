@@ -30,7 +30,7 @@ this section defines tradable days
 """
 PATH_TRADABLE_DAYS = f'{PATH_PREPARE}tradable_days.csv'
 path_spx_open_position_csv = f'{root_path}/analysis/20220307_spx_1970_2022/SPX_1W_fmt_trades_all_consecutive_2.csv'
-use_trade_position_open_days = True
+use_trade_position_open_days = False
 
 
 START_DATE = '1988-01-01'

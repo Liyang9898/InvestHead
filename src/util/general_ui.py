@@ -4,6 +4,7 @@ Created on Jun 4, 2020
 @author: leon
 '''
 import plotly.graph_objects as go
+from plotly.io import write_image
 from version_master.version import imagine_folder
 
 
@@ -241,9 +242,10 @@ def plot_bars_from_xy_list(x_list, y_list, title='default', path=None):
         )
     )
     fig.update_layout(title=title)
-    
+
     if path is not None:
-        fig.write_image(path)
+        # fig.write_image(path)
+        fig.write_html(path)
     else:
         fig.show()
         

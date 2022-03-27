@@ -562,7 +562,7 @@ def compuate_alpha_beta_to_csv_img(
     
     # prepare benchmark
     interval = '1d'
-    path = 'D:/f_data/temp/temp_benchmark.csv'
+    path = 'C:/f_data/temp/temp_benchmark.csv'
 #     download_ticker(benchmark_ticker, start_date, end_date, path, interval)
 #     api_download_ticker(benchmark_ticker, start_date, end_date, path, interval, norgate)
 

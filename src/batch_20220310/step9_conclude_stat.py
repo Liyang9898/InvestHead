@@ -16,7 +16,7 @@ path_result_folder = CONCLUSION_FOLDER
 start_date = ANALYSIS_START_DATE
 end_date = END_DATE
 benchmark_ticker = BENCHMARK_TICKER
-norgate = True
+norgate = False
 
 
 gen_perf_stat_from_position_time_series(
