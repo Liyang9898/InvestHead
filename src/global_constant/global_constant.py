@@ -1,1 +1,1 @@
-root_path = 'C:/f_data'
+root_path = 'D:/f_data'

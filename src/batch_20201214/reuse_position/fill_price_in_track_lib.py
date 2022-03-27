@@ -419,7 +419,7 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         """
     
     df = pd.DataFrame(rows)
-    df.to_csv('C:/f_data/temp/positioncnt_111.csv',index=False)
+
 
     # print track information
 
