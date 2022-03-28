@@ -4,7 +4,7 @@ from batch_20220310.batch_20220310_lib.stat_lib import gen_perf_stat_from_positi
 
 
 
-ANALYSIS_START_DATE = '1991-01-01'
+ANALYSIS_START_DATE = '1990-01-01'
 
 
 path_position_time_series = PORTFOLIO_TIME_SERIES_FOLDER_COLLECTION + 'position.csv'
