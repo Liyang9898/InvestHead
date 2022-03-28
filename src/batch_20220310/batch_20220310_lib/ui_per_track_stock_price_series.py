@@ -28,8 +28,8 @@ def gen_per_track_st_price_pic(
         title = f'track_{i}'
         fig = px.line(dfs[i], x="date", y="price", color='ticker', title=title)
         
-        path_out = folder_out + title + '.png'
-        fig.write_image(path_out)
+        path_out = folder_out + title + '.html'
+        fig.write_html(path_out)
 
 
 def gen_per_track_position_pic(
@@ -53,5 +53,5 @@ def gen_per_track_position_pic(
         title = f'track_{i}'
         fig = px.line(dfs[i], x="date", y="roll_position", title=title)
         
-        path_out = folder_out + title + '.png'
-        fig.write_image(path_out)
+        path_out = folder_out + title + '.html'
+        fig.write_html(path_out)

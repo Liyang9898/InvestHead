@@ -132,18 +132,24 @@ def extract_track_time_seq(track):
     return entry_ts_list
 
 
-def gen_close_position_ticker_list(current_open_trades, today_date):
+def gen_close_position_ticker_list(current_open_trades, today_date, tradable_days):
     """
     This function scan today's positions position(trades) and decides which of these needs to be closed
     input: current_open_trades->map<ticker,Trade>, today_date->today's date
     output: a list of ticker which needs to be closed today
     """
     close_position_ticker_list = []
-    for ticker, trade in current_open_trades.items():
-        exit_ts = trade.exit_ts
-        exit_ts_date = exit_ts.split(' ')[0]
-        if exit_ts_date == today_date: # exit
-            close_position_ticker_list.append(ticker)    
+    
+    if today_date not in tradable_days: # if not tradeable all sell
+        # print(today_date, 'hit')
+        for ticker, trade in current_open_trades.items():
+            close_position_ticker_list.append(ticker)   
+    else: 
+        for ticker, trade in current_open_trades.items():
+            exit_ts = trade.exit_ts
+            exit_ts_date = exit_ts.split(' ')[0]
+            if exit_ts_date == today_date: # exit
+                close_position_ticker_list.append(ticker)    
     return close_position_ticker_list
 
 
@@ -231,6 +237,20 @@ def should_open_position_today(all_entry_trades, tradable_days, today_date, rema
     return True
 
 
+def mark_trade_exit_ts_if_end_early(track, open_trades, today_date):
+    for room_idx, trade_list in track.items():
+        last_idx = len(trade_list) - 1
+        if last_idx < 0:
+            continue
+        last_trade = trade_list[last_idx]
+        ticker = last_trade["ticker"]
+        if ticker in open_trades.keys():
+            exist_trade = open_trades[ticker]
+            track_trade = last_trade["trade"]
+            if exist_trade.exit_ts == track_trade.exit_ts:            
+                last_trade["trade"].exit_ts = today_date    
+
+
 # this function insert all trades into N track
 def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_pick_strategy, capacity, ticker_rank_artifact, print_log=False):
     """
@@ -262,6 +282,8 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
     rows_trade_dic = []
     cur = 0
     
+    # print(tradable_days)
+    
     for date in dates:
         # initial
         in_log[date] = []
@@ -273,11 +295,18 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
         """
         step 1: close trade
         """
-        # step 1: close trade
+        # step 1: close trade        
         today_close_ticker_list = gen_close_position_ticker_list(
             current_open_trades=open_trades, 
-            today_date=date
+            today_date=date,
+            tradable_days=tradable_days
         )
+        # mark exit date in track
+        if date not in tradable_days:
+            # print(date)
+            mark_trade_exit_ts_if_end_early(track, open_trades, date)
+        
+        
         out_log[date] = today_close_ticker_list
         today_close_cnt = len(today_close_ticker_list)
 
@@ -360,9 +389,9 @@ def fill_position(all_entry_trades, start_date, end_date, tradable_days, stock_p
             # track validation
             if len(track[room_idx]) > 0:
                 last_trade_in_track = track[room_idx][len(track[room_idx])-1]
-                last_trade_in_track_exit_price = last_trade_in_track['trade'].exit_ts
+                last_trade_in_track_exit_ts = last_trade_in_track['trade'].exit_ts
                 new_enter_ts = trade.entry_ts
-                assert last_trade_in_track_exit_price <= new_enter_ts
+                assert last_trade_in_track_exit_ts <= new_enter_ts
             
             # insert into 
             track_record = {

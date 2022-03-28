@@ -5,8 +5,8 @@ from batch_20220310.batch_20220310_lib.ui_per_track_stock_price_series import ge
 import os
 
 
-start_date = '2021-11-23'
-end_date = '2022-01-01'
+start_date = '2020-01-01'
+end_date = '2021-01-01'
 # start_date = '1970-01-01'
 # end_date = '2023-01-01'
 output_folder = PORTFOLIO_TIME_SERIES_FOLDER_COLLECTION
