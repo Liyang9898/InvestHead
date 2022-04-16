@@ -14,7 +14,6 @@ from global_constant.global_constant import root_path
 
 
 
-
 def spy_enterable():
     date_str = get_today_date_str()
     path_base=f'{root_path}/operation_spy/{date_str}/indicator/'
@@ -55,10 +54,17 @@ def spy_enterable():
         }
     } 
     
+    enter_str = 'ENTER: NO'
+    previous_bar_ts = df_spy_idc.loc[len(df_spy_idc) - 2, 'est_datetime']
+    enterable_date = traces['enter']['x']
+    if previous_bar_ts in enterable_date:
+        enter_str = 'ENTER: YES'
+    
+    title = 'BTC today:' + date_str + ' need to check last bar, not current bar!!!!              ' + enter_str
     plot_candle_stick_with_trace(
         df_spy_idc, 
         traces,
-        'SPY'
+        title
     )
 
 
@@ -66,7 +72,7 @@ def btc_enterabe():
     date_str = get_today_date_str()
     path_base=f'{root_path}/operation_btc/{date_str}/indicator/'
     idc_path = path_base + 'BTC-USD_downloaded_raw.csv'
-    df_spy_idc = pd.read_csv(idc_path)
+    df_idc = pd.read_csv(idc_path)
     
     strategy_param_bundle=strat_param_20211006_ma_macd
     offset=0
@@ -102,10 +108,17 @@ def btc_enterabe():
         }
     } 
     
+    enter_str = 'ENTER: NO'
+    previous_bar_ts = df_idc.loc[len(df_idc) - 2, 'est_datetime']
+    enterable_date = traces['enter']['x']
+    if previous_bar_ts in enterable_date:
+        enter_str = 'ENTER: YES'
+    
+    title = 'BTC today:' + date_str + ' need to check last bar, not current bar!!!!              ' + enter_str
     plot_candle_stick_with_trace(
-        df_spy_idc, 
+        df_idc, 
         traces,
-        'BTC'
+        title
     )
     
 

@@ -18,7 +18,7 @@ def refresh_price_asset(time_window, set_list):
     print('processing: ticker list')
     df = pd.read_csv(set_list)
     ticker_list = df['ticker'].to_list()
-    ticker_list = ticker_list + ['BTC-USD', 'ANSS', 'ZBRA', 'HD','TREX']
+    # ticker_list = ticker_list + ['BTC-USD', 'ANSS', 'ZBRA', 'HD','TREX']
 
     # update
     refresh_price_asset_add_indicator(time_window, ticker_list, op_path_base, interval='1d')

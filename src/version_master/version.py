@@ -68,6 +68,7 @@ iwf_down=f"{root_path}/etf/iwf_ma50_60down_2021_02_21.csv"
 
 swing_set1=f"{root_path}/sweep_20201214/ticker_set/swing_set.csv"
 swing_set_20220103 = f"{root_path}/sweep_20201214/ticker_set/russell1000_3year_historical.csv"
+swing_set_2019_2022 = f"{root_path}/operation/stock_pool/2019-01-01_2022-01-01.csv"
 
 # experiment on iwf effect in russell1000
 exp_r1000 = f"{root_path}/etf/exp_r1000.csv"
