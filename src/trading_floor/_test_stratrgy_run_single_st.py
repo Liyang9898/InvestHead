@@ -27,7 +27,6 @@ from strategy_lib.stratage_param import (
     strat_param_swing_2150in_2150out_ma_gap_6p_out,
     strat_param_swing_2150in_2150out_ma_gap_8p_out,
     strat_param_swing_2150in_2150out_ma_gap_10p_out,
-    strat_param_swing_2150in_2150out_ma_gap_12p_out,
     strat_param_swing_2150in_2150out_no_profit_manage,
     strat_param_swing_821in_821out_no_profit_manage,
     strat_param_swing_821in_821out_ma_gap,
@@ -54,9 +53,9 @@ from util.util_time import df_filter_dy_date
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
 # file_name = "SPY_1W_fmt"  # 1993.3 start
-file_name = "SPX_1W_fmt"  # 1970- 2022
+# file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
-# file_name = "BTC_1D_fmt"   # 2017.1 start
+file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
 # file_name = "BTC_2H_fmt" # 2017.1 start
 
@@ -102,7 +101,7 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # 2021-10-06
 # strategy_param_bundle=strat_param_20211006 # same as strat_param_swing_2150in_2150out_plain
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
-# strategy_param_bundle=strat_param_20211006_ma_macd
+strategy_param_bundle=strat_param_20211006_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
 # strategy_param_bundle=strat_param_20211006_ma_only_exit
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
@@ -110,7 +109,7 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_4p_profit
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
-strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
+# strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
 start_time="1970-01-01"
 
@@ -162,7 +161,7 @@ print('All entry trade summary')
 trades_all_entry.printTradesSummary()
 
 print(over_all_summary)
-merged_result_to_csv(over_all_summary, "D:/f_data/dump/result.csv")
+merged_result_to_csv(over_all_summary, "C:/f_data/dump/result.csv")
  
 
 
@@ -173,7 +172,7 @@ cash_position = genPositionHistory(price_with_indicator, trades_consecutive.trad
 strategy_name = 'temp'
 if 'name' in strategy_param_bundle:
     strategy_name = strategy_param_bundle['name']
-path_position_record = f'D:/f_data/temp/position_list_{strategy_name}.csv'
+path_position_record = f'C:/f_data/temp/position_list_{strategy_name}.csv'
 
 # path_position_record = f'D:/f_data/temp/position_list_ma_drop_15p.csv'
 

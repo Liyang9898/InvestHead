@@ -14,21 +14,25 @@ import pandas as pd
 from util.general_ui import plot_bars_from_xy_list, plot_points_from_xy_list
 
 
-raw = 'C:/f_data/analysis/20220306_spx_alone_1970_1990/position.csv'
-result_position_path = 'C:/f_data/analysis/20220306_spx_alone_1970_1990/position_fmt.csv'
+"""
+strategy_param_bundle=strat_param_20211006_ma_macd
+"""
+
+raw = 'C:/f_data/analysis/20220417_btc/position.csv'
+result_position_path = 'C:/f_data/analysis/20220417_btc/position_fmt.csv'
 df = pd.read_csv(raw)
 df['date'] = pd.to_datetime(df["date"]).dt.date
-df.to_csv(result_position_path)
+df.to_csv(result_position_path, index = False)
 
 
 path_position_time_series = result_position_path
 position_time_series_date_col = 'date'
 position_time_series_position_col = 'roll'
-path_result_folder = 'C:/f_data/analysis/20220306_spx_alone_1970_1990/results/'
-path_trades_csv = 'C:/f_data/analysis/20220306_spx_alone_1970_1990/SPX_1W_fmt_trades_all_consecutive_2.csv'
+path_result_folder = 'C:/f_data/analysis/20220417_btc/results/'
+path_trades_csv = 'C:/f_data/analysis/20220417_btc/BTC_1D_fmt_trades_all_consecutive_2.csv'
 start_date = '1970-01-01'
-end_date = '1990-01-01'
-benchmark_ticker = BENCHMARK_TICKER
+end_date = '2023-01-01'
+benchmark_ticker = 'BTC-USD'
 norgate = True
 
 
@@ -41,5 +45,5 @@ gen_perf_stat_from_position_time_series(
     benchmark_ticker,
     start_date, # can be automated TODO
     end_date,
-    norgate=True
+    norgate=False
 )

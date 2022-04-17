@@ -30,7 +30,7 @@ def gen_perf_stat_from_position_time_series(
     #############
     
     path_position_with_benchmark_csv = path_result_folder + 'baseball_card_position_time_series.csv'
-    path_position_with_benchmark_png = path_result_folder + 'baseball_card_position_time_series.png'
+    path_position_with_benchmark_png = path_result_folder + 'baseball_card_position_time_series.html'
      
     position_time_series_append_benchmark_to_csv_png(
         position_time_series_csv=result_position_path,

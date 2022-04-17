@@ -1,10 +1,10 @@
 
-folder_path_raw_downloaded = "D:/f_data/raw_downloaded_file/"
-folder_path_raw_price_formated = "D:/f_data/formatted_price_file/"
-folder_path_price_with_indicator = "D:/f_data/price_with_indicator/"
-folder_path_trades_csv = "D:/f_data/trades_csv/"
-folder_path_trade_ml_sample = "D:/f_data/trade_ml_sample/"
-folder_path_trade_summary = "D:/f_data/trade_summary/"
+folder_path_raw_downloaded = "C:/f_data/raw_downloaded_file/"
+folder_path_raw_price_formated = "C:/f_data/formatted_price_file/"
+folder_path_price_with_indicator = "C:/f_data/price_with_indicator/"
+folder_path_trades_csv = "C:/f_data/trades_csv/"
+folder_path_trade_ml_sample = "C:/f_data/trade_ml_sample/"
+folder_path_trade_summary = "C:/f_data/trade_summary/"
 file_type_postfix="csv"
 
 #file naming rule

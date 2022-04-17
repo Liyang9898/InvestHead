@@ -42,7 +42,7 @@ file_name = "BTC_1D_fmt"
 # file_name = "GOLD_1D_fmt"
 # file_name = "EURUSD_1D_fmt"
 # file_name = "V_1D_fmt"
-file_name = "SPX_1W_fmt"  
+# file_name = "SPX_1W_fmt"  
 ############################################source region end#############################################
 
 # this is totally using non-batch folder
