@@ -11,7 +11,39 @@ from strategy_lib.stratage_param import strat_param_20211006_ma_max_drawdown_cut
 from util.util_finance_chart import plot_candle_stick_with_trace
 from util.util_time import get_today_date_str
 from global_constant.global_constant import root_path
+from _socket import close
 
+
+
+def gen_exit(df):
+    """
+    max_drop_threshold=-1 means a position return to 0 and lost all
+    """
+    
+    df.reset_index(inplace=True, drop=True)
+
+    x = []
+    y = []
+    # max = 0
+    for i in range(0, len(df)):
+        ts =  df.loc[i, 'est_datetime']
+        ma50 = df.loc[i, 'ma50']
+        ema21 = df.loc[i, 'ema21']
+        close = df.loc[i, 'close']
+        # if close > max:
+        #     max = close
+        # else:
+        #     drop_pct = close / max - 1
+            
+        if ema21<ma50:
+            x.append(ts)
+            y.append(close)
+            
+    exit = {
+        'x':x,
+        'y':y
+    }
+    return exit
 
 
 def spy_enterable():
@@ -47,11 +79,13 @@ def spy_enterable():
             x.append(entry_ts)
             y.append(entry_price)
             
+    exit = gen_exit(df_spy_idc)   
     traces = {
         'enter': {
             'x':x,
             'y':y
-        }
+        },
+        'exit': exit
     } 
     
     enter_str = 'ENTER: NO'
@@ -100,13 +134,17 @@ def btc_enterabe():
             entry_price = entry_info['entry_price']
             x.append(entry_ts)
             y.append(entry_price)
-            
+         
+    
+    exit = gen_exit(df_idc)   
     traces = {
         'enter': {
             'x':x,
             'y':y
-        }
+        },
+        'exit': exit
     } 
+    
     
     enter_str = 'ENTER: NO'
     previous_bar_ts = df_idc.loc[len(df_idc) - 2, 'est_datetime']

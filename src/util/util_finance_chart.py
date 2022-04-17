@@ -152,13 +152,16 @@ def plot_candle_stick_with_trace(
     ]
     
     for name, t in traces.items():
+        color = "purple"
+        if name == 'exit':
+            color = "black"
         trace_enter={
             "mode": "markers", 
             "name": name, 
             "type": "scatter", 
             "x":t["x"],
             "y":t["y"],
-            "line_color":"purple",
+            "line_color":color,
             "line":{
                 "width":1
             }
