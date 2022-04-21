@@ -94,7 +94,7 @@ def spy_enterable():
     if previous_bar_ts in enterable_date:
         enter_str = 'ENTER: YES'
     
-    title = 'BTC today:' + date_str + ' need to check last bar, not current bar!!!!              ' + enter_str
+    title = 'SPY today:' + date_str + ' need to check last bar, not current bar!!!!              ' + enter_str
     plot_candle_stick_with_trace(
         df_spy_idc, 
         traces,
