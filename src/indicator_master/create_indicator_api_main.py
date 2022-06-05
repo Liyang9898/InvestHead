@@ -31,18 +31,18 @@ def price_csv_append_indicator(input_file_path, output_file_path, start_time, en
     # read price csv to df
     df = load_df_from_csv(input_file_path)
     df = df_unixtime_filter(df, 'time', unix_s, unix_e)
-
-
-    if len(df)<=10:
-        return
     
 
+    if len(df)<=10:
+        print('price row count = ' + str(len(df)))
+        return
+    
     # add indicator
     add_indicator(df)
     
     # filter time
     df_range = tsfilter(df,start_time,end_time)
-
+    
     # write df with indicator to file
     df2csv_indicator(df_range,output_file_path)
     

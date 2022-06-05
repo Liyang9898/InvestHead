@@ -21,7 +21,7 @@ from indicator_master.create_indicator_api_main import price_csv_append_indicato
 # file_name = "SPY_1W_fmt"
 # file_name = "IWF_1W_fmt"
 # file_name = "BTC_1W_fmt"
-file_name = "BTC_1D_fmt"
+# file_name = "BTC_1D_fmt"
 # file_name = "BTC_4H_fmt"
 # file_name = "BTC_2H_fmt"
 # file_name = "BTC_4H_0718_fmt"
@@ -43,6 +43,7 @@ file_name = "BTC_1D_fmt"
 # file_name = "EURUSD_1D_fmt"
 # file_name = "V_1D_fmt"
 # file_name = "SPX_1W_fmt"  
+file_name = "FX_USDCAD_1D_fmt"
 ############################################source region end#############################################
 
 # this is totally using non-batch folder
@@ -58,7 +59,8 @@ api_gen_indicator(
     input_file, 
     output_file,
     "1970-04-01", 
-    "2022-04-26",
+    "2023-04-26",
 )
-api_plot_indicator_from_csv(output_file)
 print('output finished: ' + output_file + '  done')
+api_plot_indicator_from_csv(output_file)
+# print('output finished: ' + output_file + '  done')

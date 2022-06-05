@@ -17,12 +17,15 @@ file_type_postfix=constant2.file_type_postfix
 
 def pickcolumn(file, path_out, input_column):
     path = file
-    df = pd.read_csv(
-        path,
-        sep=',',
-        header=0,
-        names=input_column
-    )
+    df = pd.read_csv(path)
+
+    df.rename(columns={
+        "MA": "ma200", 
+        "MA.1": "ma50",
+        "EMA": "ema21",
+        "EMA.1": "ema8",
+    }, inplace=True)
+
     print('df reading done')
     df.to_csv(
         path_out,
@@ -44,8 +47,8 @@ def pickcolumn(file, path_out, input_column):
 # raw_price_file_name ="BITSTAMP_BTCUSD, 1W" 
 # path_out_file_name = "BTC_1W_fmt"  
 
-raw_price_file_name ="BITSTAMP_BTCUSD, 1D" 
-path_out_file_name = "BTC_1D_fmt"  
+# raw_price_file_name ="BITSTAMP_BTCUSD, 1D" 
+# path_out_file_name = "BTC_1D_fmt"  
 
 # raw_price_file_name ="BITSTAMP_BTCUSD, 4H" 
 # path_out_file_name = "BTC_4H_fmt"  
@@ -95,6 +98,9 @@ path_out_file_name = "BTC_1D_fmt"
 #
 # raw_price_file_name = "SP_SPX, 1W_allhist"
 # path_out_file_name = "SPX_1W_fmt"  
+
+raw_price_file_name ="FX_USDCAD, 1D" 
+path_out_file_name = "FX_USDCAD_1D_fmt" 
 ############################################source region end#############################################
 
 raw_price_files=folder_path_raw_downloaded+raw_price_file_name+"."+file_type_postfix
