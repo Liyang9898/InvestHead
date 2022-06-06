@@ -583,6 +583,25 @@ strat_param_20211006_ma_macd = {
     "enable_channel_exit":0,
 }
 
+strat_param_20220605_200ma_up_ma_macd = {
+    # out: 21_50 ma, 
+    # in: 21_50 ma, all 21,50,200 ma goes up, 21-50 macd
+    # using field 'exit_strategy'
+    "name": 'strat_param_20220605_200ma_up_ma_macd',
+    "exit_strategy": EXIT_STRATEGY_MA_MACD,
+    "enter_ma_signal": "21_50_200",
+    "exit_ma_signal":"21_50",
+    "exit_duration_threshiold": 4, # after x bar, allow neutral exit
+    "exit_profit_threshiold": 0.001, # no specific meaning
+    "neutual_exit_enable":0,
+    "profit_management_enable":0,
+    "profit_management_enable_threshold":0.04,
+    "take_profit_above_x":0,
+    "take_profit_above_x_threshold":0.04,    
+    "enable_channel_enter":0,
+    "enable_channel_exit":0,
+}
+
 strat_param_20211006_ma_max_drawdown_cut = {
     # out: 21_50 ma, 
     # in: 21_50 ma, all 8,21,50 ma goes up, 21-50 macd

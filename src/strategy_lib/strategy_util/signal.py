@@ -20,6 +20,8 @@ def ma_enter_sequence(enter_ma_signal, bar_yesterday):
         return bar_yesterday['ema21'] > bar_yesterday['ma50']
     elif enter_ma_signal == "long_8_21_50":
         return bar_yesterday['ema21'] > bar_yesterday['ma50'] and bar_yesterday['ema8'] > bar_yesterday['ema21']
+    elif enter_ma_signal == "21_50_200":
+        return bar_yesterday['ema21'] > bar_yesterday['ma50']
 
 
 def ma_exit_sequence(exit_ma_signal, bar_yesterday):
@@ -40,6 +42,8 @@ def macd(enter_ma_signal, bar_yesterday):
         return bar_yesterday['ema21_ma50_MACD'] > 0
     elif enter_ma_signal == "long_8_21_50":
         return bar_yesterday['ema21_ma50_MACD'] > 0
+    elif enter_ma_signal == "21_50_200":
+        return bar_yesterday['ema21_ma50_MACD'] > 0
 
 
 def trend_start(bar_yesterday):
@@ -55,8 +59,12 @@ def trend_start(bar_yesterday):
 def all_ma_upwards(enter_ma_signal, bar_yesterday):
     if enter_ma_signal == "8_21":
         return bar_yesterday['ema8_delta'] > 0 and bar_yesterday['ema21_delta'] > 0 and bar_yesterday['ma50_delta'] > 0
+
     elif enter_ma_signal == "21_50":
         return bar_yesterday['ema21_delta'] > 0 and bar_yesterday['ma50_delta'] > 0
+
+    elif enter_ma_signal == "21_50_200":
+        return bar_yesterday['ema21_delta'] > 0 and bar_yesterday['ma50_delta'] > 0 and bar_yesterday['ma200_delta'] > 0    
 
 
 def ribbon_expanding(bar_yesterday):

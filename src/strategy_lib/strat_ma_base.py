@@ -26,6 +26,8 @@ class StrategySimpleMABase:
         if 'exit_strategy' in param_bundle.keys():
             self.exit_strategy = param_bundle['exit_strategy']
         self.enter_ma_signal = param_bundle['enter_ma_signal']
+        print(self.enter_ma_signal)
+        
         
         self.exit_duration_threshiold = param_bundle['exit_duration_threshiold']
         self.exit_profit_threshiold = param_bundle['exit_profit_threshiold'] # need to adjust based on time period, 4% is good for 1 day bar, 4%/24 for one hour bar
@@ -139,7 +141,7 @@ class StrategySimpleMABase:
             # the following 2 line are for entry condition on ema21 and ma50 gap
 #              and \
 #             optional_ema21_ma50_gap:
-            
+            # print('in')
             
             direction = 1
             # you always enter on 9:30 when market open

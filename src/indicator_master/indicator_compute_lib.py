@@ -66,6 +66,7 @@ def add_indicator(df):
             df.loc[i, 'ema8_delta'] = df.loc[i, 'ema8'] - df.loc[i-1, 'ema8']
             df.loc[i, 'ema21_delta'] = df.loc[i, 'ema21'] - df.loc[i-1, 'ema21']
             df.loc[i, 'ma50_delta'] = df.loc[i, 'ma50'] - df.loc[i-1, 'ma50']
+            df.loc[i, 'ma200_delta'] = df.loc[i, 'ma200'] - df.loc[i-1, 'ma200']
         if i >= 2:
             delta = df.loc[i-1, base_projector] - df.loc[i-2, base_projector]
             projectile=delta+df.loc[i-1, base_projector]

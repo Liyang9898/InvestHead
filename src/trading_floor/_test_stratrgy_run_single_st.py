@@ -39,7 +39,8 @@ from strategy_lib.stratage_param import (
     strat_param_20211006,
     strat_param_20211006_ma_max_drawdown_cut, strat_param_20211006_ma_macd,
     strat_param_20211006_ma_max_drawdown_cut_neutral_out,
-    strat_param_20211006_ma_only_exit, strat_param_20211030_ma_only_exit_8_21)
+    strat_param_20211006_ma_only_exit, strat_param_20211030_ma_only_exit_8_21,
+    strat_param_20220605_200ma_up_ma_macd)
 from trade_analysis_lib.cash_position_tool import genPositionHistory
 from trading_floor.TradeInterface import merge_trade_summary, genTradingBundleFromCSV, merged_result_to_csv, print_merged_result
 from trading_floor.TradePlot import plot_trades, plot_win_lose_trade_size
@@ -55,9 +56,10 @@ from util.util_time import df_filter_dy_date
 # file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
-file_name = "BTC_1D_fmt"   # 2017.1 start
+# file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
 # file_name = "BTC_2H_fmt" # 2017.1 start
+file_name = "FX_USDCAD_1D_fmt"
 
 # file_name = "XLK_1W_fmt"
 # file_name = "ACAD_1D_fmt"
@@ -101,7 +103,8 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # 2021-10-06
 # strategy_param_bundle=strat_param_20211006 # same as strat_param_swing_2150in_2150out_plain
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
-strategy_param_bundle=strat_param_20211006_ma_macd
+# strategy_param_bundle=strat_param_20211006_ma_macd
+strategy_param_bundle=strat_param_20220605_200ma_up_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
 # strategy_param_bundle=strat_param_20211006_ma_only_exit
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
@@ -147,7 +150,6 @@ df = csv2df_indicator(price_with_indicator_file)
 price_with_indicator = df_filter_dy_date(df,'date', start_time,end_time)
 # plot_indicator(price_with_indicator, 'sequence_8_21_50',ticker=file_name)
  
-  
 #########################################################################################################################
  
 over_all_summary = merge_trade_summary(trades_consecutive.tradeSummary2dict(),trades_all_entry.tradeSummary2dict())

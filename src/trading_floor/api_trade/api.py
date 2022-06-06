@@ -31,7 +31,7 @@ def gen_trades_to_csv(
     )
     trades_consecutive = trades['trades_consecutive']
     trades_all_entry = trades['trades_all_entry']
- 
+    
     trades_all_entry.trades2CSV(trade_result_all_entry_path)
     trades_consecutive.trades2CSV(trade_result_consecutive_entry_path)
     
