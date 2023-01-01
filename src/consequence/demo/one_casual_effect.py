@@ -7,7 +7,7 @@ from util.general_ui import plot_candle_stick
 from util.util import df_date_filter, df_date_index_mapping, PX_PERCENT_HIST
 
 
-st_path = 'D:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
+st_path = 'C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
 # col_names = [
 #     'p_delta_oc_pct',
 #     'p_delta_1d_pct',
@@ -25,7 +25,7 @@ df = df_date_filter(df, 'date', '2016-05-16', '2021-05-16')
 df.reset_index(inplace=True, drop=True)
 
 signal = 'price_delta_1bar_pct'
-threshold_causal = -0.0186 # down of the signal
+threshold_causal = -0.0208 # down of the signal
 threshold_effect = -0.01 # down of the effect
 
 observe_range = 20 # number of days to cover in observing what will happen

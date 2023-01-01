@@ -19,12 +19,12 @@ def pickcolumn(file, path_out, input_column):
     path = file
     df = pd.read_csv(path)
 
-    df.rename(columns={
-        "MA": "ma200", 
-        "MA.1": "ma50",
-        "EMA": "ema21",
-        "EMA.1": "ema8",
-    }, inplace=True)
+    # df.rename(columns={
+    #     "MA": "ma200", 
+    #     "MA.1": "ma50",
+    #     "EMA": "ema21",
+    #     "EMA.1": "ema8",
+    # }, inplace=True)
 
     print('df reading done')
     df.to_csv(
@@ -38,8 +38,8 @@ def pickcolumn(file, path_out, input_column):
 # raw_price_file_name = "BATS_SPY, 1D"
 # path_out_file_name = """SPY_1D_fmt"""  
 
-# raw_price_file_name = "BATS_SPY, 1W"
-# path_out_file_name = """SPY_1W_fmt"""  
+raw_price_file_name = "BATS_SPY, 1W"
+path_out_file_name = """SPY_1W_fmt"""  
 # 
 # raw_price_file_name = "BATS_GHSI, 1D"
 # path_out_file_name = """GHSI_1D_fmt"""  
@@ -99,8 +99,8 @@ def pickcolumn(file, path_out, input_column):
 # raw_price_file_name = "SP_SPX, 1W_allhist"
 # path_out_file_name = "SPX_1W_fmt"  
 
-raw_price_file_name ="FX_USDCAD, 1D" 
-path_out_file_name = "FX_USDCAD_1D_fmt" 
+# raw_price_file_name ="FX_USDCAD, 1D" 
+# path_out_file_name = "FX_USDCAD_1D_fmt" 
 ############################################source region end#############################################
 
 raw_price_files=folder_path_raw_downloaded+raw_price_file_name+"."+file_type_postfix
@@ -109,3 +109,6 @@ path_out=folder_path_raw_price_formated+path_out_file_name+"."+file_type_postfix
 input_column=['time', 'open','high','low','close','Volume','volume_ma','ma200','ma50','ema21','ema8']
 
 pickcolumn(raw_price_files, path_out, input_column)
+
+print(raw_price_files)
+print(path_out)

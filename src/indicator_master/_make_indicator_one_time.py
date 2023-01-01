@@ -18,7 +18,7 @@ from indicator_master.create_indicator_api_main import price_csv_append_indicato
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"
 # file_name ="GHSI_1D_fmt"
-# file_name = "SPY_1W_fmt"
+file_name = "SPY_1W_fmt"
 # file_name = "IWF_1W_fmt"
 # file_name = "BTC_1W_fmt"
 # file_name = "BTC_1D_fmt"
@@ -43,7 +43,7 @@ from indicator_master.create_indicator_api_main import price_csv_append_indicato
 # file_name = "EURUSD_1D_fmt"
 # file_name = "V_1D_fmt"
 # file_name = "SPX_1W_fmt"  
-file_name = "FX_USDCAD_1D_fmt"
+# file_name = "FX_USDCAD_1D_fmt"
 ############################################source region end#############################################
 
 # this is totally using non-batch folder

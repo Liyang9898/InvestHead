@@ -20,7 +20,6 @@ from strategy_lib.strategy_util.signal import all_ma_upwards, macd, \
 
 # This library add indicator to each bar, input df should has the following interface: see global_constant file
 def add_indicator(df):
-    instance = StrategySimpleMABase(strat_param_swing_2150in_2150out)
     # meta info
     df['est_datetime']=df.apply(lambda row : datetime.fromtimestamp(int(row['time'])).strftime('%Y-%m-%d %H:%M:%S'), axis = 1)
     df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['time'])).strftime('%Y-%m-%d')), axis = 1)
