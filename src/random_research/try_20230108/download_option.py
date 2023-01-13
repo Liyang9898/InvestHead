@@ -27,6 +27,7 @@ def get_option_dataframe(ticker, expiration, op_type):
 def gen_spread_combo(op_df, strike_price_max, strike_price_min):
     op_df_filtered = op_df[(op_df['strike'] >= strike_price_min) & (op_df['strike'] <= strike_price_max)]
     op_df_filtered.reset_index(inplace=True, drop=True)
+    print(op_df_filtered)
     combo_list = []
     
     for i in range(0, len(op_df_filtered)):
@@ -43,6 +44,7 @@ def gen_spread_combo(op_df, strike_price_max, strike_price_min):
             # process combination
             strike_diff = abs(strike_high - strike_low)
             gain = round(bid_low - ask_high, 2)
+            print(gain)
             if gain <= 0:
                 continue
 
@@ -73,7 +75,7 @@ def gen_spread_combo(op_df, strike_price_max, strike_price_min):
                 
             }
             combo_list.append(combo)
-            combo_df = pd.DataFrame(combo_list)
+    combo_df = pd.DataFrame(combo_list)
     return combo_df
             
 
@@ -84,11 +86,11 @@ def gen_op_combo_filter(combo_df, max_lose_win_rate, max_required_win_rate, min_
 
 
 ticker = 'SPY'
-expiration = '2023-01-13'
-op_type = 'call'
 strike_price_max = 420.0
-strike_price_min = 400.0
+strike_price_min = 388.0
 
+expiration = '2023-01-10'
+op_type = 'call'
 max_lose_win_rate = 10
 min_required_win_rate = 1
 min_pnl_spread_margin = 0
@@ -97,7 +99,10 @@ path = 'C:/f_data/random/option_date_test.csv'
 
 
 op_df = get_option_dataframe(ticker, expiration, op_type)
+print(op_df)
 combo_df= gen_spread_combo(op_df, strike_price_max, strike_price_min)
+print(combo_df)
 combo_df_filtered = gen_op_combo_filter(combo_df, max_lose_win_rate, min_required_win_rate, min_pnl_spread_margin)
 
 combo_df_filtered.to_csv(path, index=False)
+print(combo_df_filtered)
