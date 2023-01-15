@@ -7,6 +7,7 @@ Created on Jan 13, 2023
 import pandas as pd
 from datetime import datetime, timedelta
 import plotly.express as px
+from util.util_time import df_filter_dy_date 
 
 '''
 conclusion: 
@@ -24,7 +25,13 @@ df.sort_values(by='time', ascending=True, inplace=True)
 df.reset_index(inplace=True, drop=True)
 df['weekly_delta'] = 0
 df['weekday'] = 0
+print(df['date'])
 
+date_col = 'date'
+s = '2022-01-01'
+e = '2023-01-15'
+
+df = df_filter_dy_date(df,date_col,s,e)
 
 
 for i in range(0, len(df)):
@@ -51,6 +58,9 @@ negative = df[df['weekly_delta']<0]
 
 fig = px.histogram(negative, x="weekly_delta", color="weekday", barmode="overlay",cumulative=True,histnorm='percent')
 fig.show()
+
+fig_all = px.histogram(negative, x="weekly_delta", barmode="overlay",cumulative=True,histnorm='percent',nbins=100)
+fig_all.show()
 
 # weekday0 = df[df['weekday']==0]
 # weekday1 = df[df['weekday']==1]
