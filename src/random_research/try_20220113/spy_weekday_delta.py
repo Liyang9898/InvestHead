@@ -18,14 +18,15 @@ in negative:
 0<4
 '''
 
-path = 'C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
+path = 'C:/f_data/price_with_indicator/WMT_1D_fmt_idc.csv'
 df = pd.read_csv(path)
 
 df.sort_values(by='time', ascending=True, inplace=True)
 df.reset_index(inplace=True, drop=True)
 df['weekly_delta'] = 0
 df['weekday'] = 0
-print(df['date'])
+# print(df['date'])
+print(df.columns)
 
 date_col = 'date'
 s = '2022-01-01'
@@ -47,16 +48,20 @@ for i in range(0, len(df)):
         df.loc[i, 'weekday'] = wd
         
         
-print(len(df))
+
+
 
 fig = px.histogram(df, x="weekly_delta", color="weekday", barmode="overlay")
 fig.show()
+
+df = df[df['ema8']>df['ema21']]
+print(len(df))
 
 
 positive = df[df['weekly_delta']>0]
 negative = df[df['weekly_delta']<0]
 
-fig = px.histogram(negative, x="weekly_delta", color="weekday", barmode="overlay",cumulative=True,histnorm='percent')
+fig = px.histogram(positive, x="weekly_delta", color="weekday", barmode="overlay",cumulative=True,histnorm='percent')
 fig.show()
 
 fig_all = px.histogram(negative, x="weekly_delta", barmode="overlay",cumulative=True,histnorm='percent',nbins=100)

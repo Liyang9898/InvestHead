@@ -66,25 +66,27 @@ def gen_spread_combo(op_df, strike_price_max, strike_price_min):
 
 
 ticker = 'SPY'
-strike_price_max = 388.0
+strike_price_max = 387.0
 strike_price_min = 376.0
 
 expiration = '2023-01-20'
 op_type = 'put'
-max_lose_win_rate = 99999
+max_lose_win_rate = 9999
 min_required_win_rate = 1
 min_pnl_spread_margin = 0
 
 path = 'C:/f_data/random/option_date_test.csv'
+path_op = 'C:/f_data/random/option_date_op_test.csv'
 
 
 op_df = get_option_dataframe(ticker, expiration, op_type)
 print(op_df)
 print('downloaded all options')
+op_df.to_csv(path_op, index=False)
 
 combo_df= gen_spread_combo(op_df, strike_price_max, strike_price_min)
 print(combo_df)
 combo_df_filtered = gen_op_combo_filter(combo_df, max_lose_win_rate, min_required_win_rate, min_pnl_spread_margin)
 
-combo_df.to_csv(path, index=False)
+combo_df_filtered.to_csv(path, index=False)
 print(combo_df_filtered)
