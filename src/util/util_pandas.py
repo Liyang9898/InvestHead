@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from util.util_math import percentile
 from util.util_time import df_filter_dy_date
 
 
@@ -52,3 +53,14 @@ def gen_csv_from_list_of_val(val_list, col_name, csv_path, start_date, end_date)
     df = df_filter_dy_date(df,date_col,start_date,end_date)
     df.to_csv(csv_path, index=False)
     
+def df_col_percentile(df, col, p, asc=True):
+    '''
+    compute value at a certain percentile for a col in dataframe
+    l is a list values
+    p is percentile
+    asc means the l list is sorted in asc order
+    p=90 will pick the 10% element from the right
+    '''
+    l = df[col].tolist()
+    x = percentile(l, p, asc)
+    return x

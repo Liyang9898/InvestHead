@@ -11,11 +11,11 @@ print(iv)
 
 
 op_type = 'c'  # 'c' for call, 'p' for put
-stock_p = 634.01  # Underlying asset price
-strike_p = 640  # Strike
-t = 180  # (Annualized) time-to-expiration   3/9  9/17      6 month 1 week      5 month 3 week   0.49
-r = 0.0153  # Interest free rate
-v = 0.72222  # Implied Volatility
+stock_p = 49  # Underlying asset price
+strike_p = 50  # Strike
+t = 140  # (Annualized) time-to-expiration   3/9  9/17      6 month 1 week      5 month 3 week   0.49
+r = 0.05  # Interest free rate
+v = 0.2  # Implied Volatility
 op_p_est = get_option_price(v, stock_p, strike_p, t, r, op_type)
 print(op_p_est)
 

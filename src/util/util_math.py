@@ -81,3 +81,32 @@ def draw_x_card_out_of_y(x, y):
 
         res.append(r)
     return res
+
+
+def percentile(l, p, asc=True):
+    '''
+    compute value at a certain percentile
+    l is a list values
+    p is percentile
+    asc means the l list is sorted in asc order
+    p=90 will pick the 10% element from the right
+    '''
+    if len(l)==0:
+        raise Exception("no value to compute percentile")
+    if p < 0 or p > 1:
+        raise Exception("p should be between 0 and 1")
+    if asc:
+        l.sort() # default is ascending
+    else: # descending
+        l.sort(reverse=True) 
+    length = len(l)
+    idx = int(length * p) - 1
+    if idx < 0:
+        idx = 0
+    return l[idx]
+
+
+# l = [6,7,8,1,2,3,5,4,9,10]
+# x = percentile(l=l, p=0.8, asc=False)
+# print(x)
+    
