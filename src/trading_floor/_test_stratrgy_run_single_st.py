@@ -53,13 +53,13 @@ from util.util_time import df_filter_dy_date
 
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
-# file_name = "SPY_1W_fmt"  # 1993.3 start
+file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
 # file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
 # file_name = "BTC_2H_fmt" # 2017.1 start
-file_name = "FX_USDCAD_1D_fmt"
+# file_name = "FX_USDCAD_1D_fmt"
 
 # file_name = "XLK_1W_fmt"
 # file_name = "ACAD_1D_fmt"
@@ -103,8 +103,8 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 # 2021-10-06
 # strategy_param_bundle=strat_param_20211006 # same as strat_param_swing_2150in_2150out_plain
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
-# strategy_param_bundle=strat_param_20211006_ma_macd
-strategy_param_bundle=strat_param_20220605_200ma_up_ma_macd
+strategy_param_bundle=strat_param_20211006_ma_macd
+# strategy_param_bundle=strat_param_20220605_200ma_up_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
 # strategy_param_bundle=strat_param_20211006_ma_only_exit
 # strategy_param_bundle=strat_param_20211030_ma_only_exit_8_21
