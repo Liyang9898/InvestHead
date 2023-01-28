@@ -13,6 +13,7 @@ from random_research.try_20230119.mudong_op_only import final_ts_chart_mudong_op
 from random_research.try_20230119.spy_bench_mark import final_ts_chart_spy_benchmark
 from random_research.try_20230119.spy_weekly_swing import final_ts_chart_spy_weekly_swing
 from util.general_ui import plot_lines_from_xy_list
+from util.util_math import compute_alpha_beta
 
 
 df_spy_benchmark = pd.read_csv(final_ts_chart_spy_benchmark)
@@ -36,3 +37,16 @@ y_list_map = {
 }
 
 plot_lines_from_xy_list(x_list=date_list, y_list_map=y_list_map, title='default', path=None)
+
+ab_mudong_op_only = compute_alpha_beta(list_benchmark=ts_spy_benchmark, list_exp=ts_mudong_op_only)
+ab_mudong_op_long_seq = compute_alpha_beta(list_benchmark=ts_spy_benchmark, list_exp=ts_mudong_op_long_seq)
+ab_spy_weekly_swing = compute_alpha_beta(list_benchmark=ts_spy_benchmark, list_exp=ts_spy_weekly_swing)
+
+ab_mudong_op_only['strategy'] = 'mudong_op_only'
+ab_mudong_op_long_seq['strategy'] = 'mudong_op_long_seq'
+ab_spy_weekly_swing['strategy'] = 'spy_weekly_swing'
+
+l = [ab_spy_weekly_swing, ab_mudong_op_only, ab_mudong_op_long_seq]
+df_ab = pd.DataFrame(l)
+path_ab = 'C:/f_data/random/alpha_beta_merge.csv'
+df_ab.to_csv(path_ab,index=False)

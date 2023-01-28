@@ -22,7 +22,6 @@ aum_start = 1
 path_spy_weekly_swing='C:/f_data/temp/position_list_strat_param_20211006_ma_max_drawdown_cut.csv'
 final_ts_chart_spy_weekly_swing = 'C:/f_data/random/spy_weekly_swing.csv'
 df = pd.read_csv(path_spy_weekly_swing)
-print(df)
 
 
 # step 2: get first_trading_day info of each year

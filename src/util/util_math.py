@@ -4,6 +4,26 @@ from statistics import (
 )
 import random
 
+from datetime import datetime
+from statistics import (
+    mean,
+    pstdev
+)
+
+from sklearn import linear_model
+from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from price_asset_master.lib.api.api import download_ticker
+from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list
+from util.util import plot_hist_from_df_col, \
+    extract_sub_df_single_st_based_on_period
+
+from util.util_time import days_gap_date_str, mark_year_month_week_start, \
+    df_filter_dy_date
+
+
 def moving_window_pct_diff(l, window):
     # window = 1 len = 2,   len >= window + 1
     if len(l) < window + 1:
@@ -106,7 +126,38 @@ def percentile(l, p, asc=True):
     return l[idx]
 
 
-# l = [6,7,8,1,2,3,5,4,9,10]
-# x = percentile(l=l, p=0.8, asc=False)
-# print(x)
+def get_beta_from_list(baseline, target):
+    array1 = np.array(baseline)
+    array2 = np.array(target)
+    cov_matrix = np.cov(array1, array2)
+    covariance = cov_matrix[0][1]
+    variance  = np.var(baseline)
+    beta = covariance / variance
+    return beta
+
+
+def compute_alpha_beta(list_benchmark, list_exp):
+    x = np.array(list_benchmark).reshape(-1, 1)
+    y = np.array(list_exp).reshape(-1, 1)
+    
+    # Create linear regression object
+    regr = linear_model.LinearRegression()
+    # Train the model using the training sets
+    regr.fit(x, y)
+    # The coefficients
+    r_sq = regr.score(x, y)
+    alpha = regr.intercept_[0]
+    beta = regr.coef_[0][0]
+    beta2 = get_beta_from_list(list_benchmark, list_exp)
+
+    res = {
+        'alpha':round(alpha,4),
+        'beta':round(beta,4),
+        'beta2':round(beta2,4),
+        'r_sq':round(r_sq,4)
+    }
+    
+    return res
+
+
     
