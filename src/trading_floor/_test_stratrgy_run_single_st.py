@@ -102,8 +102,8 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 
 # 2021-10-06
 # strategy_param_bundle=strat_param_20211006 # same as strat_param_swing_2150in_2150out_plain
-# strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
-strategy_param_bundle=strat_param_20211006_ma_macd
+strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
+# strategy_param_bundle=strat_param_20211006_ma_macd
 # strategy_param_bundle=strat_param_20220605_200ma_up_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
 # strategy_param_bundle=strat_param_20211006_ma_only_exit
