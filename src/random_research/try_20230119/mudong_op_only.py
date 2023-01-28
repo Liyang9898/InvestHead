@@ -18,10 +18,10 @@ from util.util_time import df_filter_dy_date
 #plot
 year_max = 2023
 year_min = 1994
-up = 0.1
-low = -0.1
+up = 0.125
+low = -0.125
 aum_start = 1
-final_ts_chart = 'C:/f_data/random/mudong_op_ts.csv'
+final_ts_chart_mudong_op_only = 'C:/f_data/random/mudong_op_ts.csv'
 
 
 # step 1: get spy data
@@ -88,6 +88,6 @@ l = []
 for year, bundle in first_trading_day_info.items():
     l.append(bundle)
 df = pd.DataFrame(l)
-df.to_csv(final_ts_chart)
+df.to_csv(final_ts_chart_mudong_op_only, index=False)
 fig = px.line(df, x="first_trading_day", y="aum", title='mudong op timeseries')
 fig.show()
