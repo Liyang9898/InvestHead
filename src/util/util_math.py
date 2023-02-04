@@ -139,7 +139,7 @@ def get_beta_from_list(baseline, target):
 def compute_alpha_beta(list_benchmark, list_exp):
     x = np.array(list_benchmark).reshape(-1, 1)
     y = np.array(list_exp).reshape(-1, 1)
-    
+
     # Create linear regression object
     regr = linear_model.LinearRegression()
     # Train the model using the training sets
