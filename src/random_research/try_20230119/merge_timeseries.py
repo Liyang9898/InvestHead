@@ -7,6 +7,16 @@ Created on Jan 28, 2023
 first_trading_day is date
 '''
 
+'''
+Conclusion 1:
+under same final gain after applying multiplier
+for fluctuation:
+mudong_op_long_seq < spy weekly swing < mudong_op_only < SPY  
+So, mudong_op_long_seq is the best strategy: 
+1.only buy 1 year option at 1/1 of each year (strike price = current price, upper profit cap = 12.5%, lower loss start = 12.5%, bond 4.6%, based on 2023 Jan data)
+2.only buy combination when spy weekly ema21 > ma5 (follow strategy of strat_param_20211006_ma_max_drawdown_cut)
+'''
+
 import pandas as pd
 from random_research.try_20230119.mudong_op_long_seq_only import final_ts_chart_mudong_op_long_seq
 from random_research.try_20230119.mudong_op_only import final_ts_chart_mudong_op_only
