@@ -1,4 +1,4 @@
-import numpy as np
+# import numpy as np
 import pandas as pd
 from util.util_math import percentile
 from util.util_time import df_filter_dy_date
@@ -64,3 +64,28 @@ def df_col_percentile(df, col, p, asc=True):
     l = df[col].tolist()
     x = percentile(l, p, asc)
     return x
+
+
+def insert_missing_date_to_df_col(df, date_col, start_date, end_date):
+    df[date_col] = df[date_col].astype('datetime64[ns]')
+    date_index = pd.date_range(start=start_date, end=end_date)
+    df = df.set_index(date_col).reindex(date_index).rename_axis(date_col).reset_index()   
+    return df
+
+
+def insert_missing_date_val_to_df_cols(
+    df, 
+    date_col, 
+    val_col, 
+    start_date, 
+    end_date, 
+    method ='linear', 
+    limit_direction ='forward'
+):
+    '''
+    This method first interpolate the date_col with start and end date
+    then interpolate val_col using the specified method
+    '''
+    df = insert_missing_date_to_df_col(df, date_col, start_date, end_date)
+    df[val_col].interpolate(method=method, limit_direction=limit_direction, inplace=True)
+    return df

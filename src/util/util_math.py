@@ -1,27 +1,27 @@
-from statistics import (
-    mean,
-    pstdev
-)
+# from statistics import (
+#     mean,
+#     pstdev
+# )
 import random
 
-from datetime import datetime
-from statistics import (
-    mean,
-    pstdev
-)
+# from datetime import datetime
+# from statistics import (
+#     mean,
+#     pstdev
+# )
 
 from sklearn import linear_model
-from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
+# from norgate.ticker_price_downloader import pull_ticker_price_locally_norgate
 import numpy as np
-import pandas as pd
-import plotly.graph_objects as go
-from price_asset_master.lib.api.api import download_ticker
-from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list
-from util.util import plot_hist_from_df_col, \
-    extract_sub_df_single_st_based_on_period
-
-from util.util_time import days_gap_date_str, mark_year_month_week_start, \
-    df_filter_dy_date
+# import pandas as pd
+# import plotly.graph_objects as go
+# from price_asset_master.lib.api.api import download_ticker
+# from util.general_ui import plot_line_from_xy_list, plot_lines_from_xy_list
+# from util.util import plot_hist_from_df_col, \
+#     extract_sub_df_single_st_based_on_period
+#
+# from util.util_time import days_gap_date_str, mark_year_month_week_start, \
+#     df_filter_dy_date
 
 
 def moving_window_pct_diff(l, window):
