@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 import plotly.express as px
+from random_research.try_20230119.constant import final_ts_chart_mudong_op_only
 from random_research.try_20230119.pnl_fomular import mudong_op_pnl_conversion
 from util.util_time import df_filter_dy_date 
-
 
 
 year_max = 2023
@@ -17,7 +17,6 @@ year_min = 1994
 up = 0.125
 low = -0.125
 aum_start = 1
-final_ts_chart_mudong_op_only = 'C:/f_data/random/mudong_op_ts.csv'
 
 
 # step 1: get spy data

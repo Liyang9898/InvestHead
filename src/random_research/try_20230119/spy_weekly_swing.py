@@ -12,7 +12,7 @@ from random_research.try_20230119.pnl_fomular import mudong_op_pnl_conversion
 from util.util_time import df_filter_dy_date 
 
 
-year_max = 2023
+year_max = 2023 
 year_min = 1994
 up = 0.125
 low = -0.125
@@ -55,7 +55,7 @@ for year in range(year_min, year_max+1):
     if year > year_min:
         first_trading_day_info[year-1]['after_1_year_price'] = first_day_price
         first_trading_day_info[year-1]['after_1_year_date'] = date_year_begin
-
+        
 
 # step4: connect
 previous_aum = aum_start

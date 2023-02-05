@@ -22,6 +22,7 @@ def df_normalize(df, normalize_col):
     factor = df.loc[0, normalize_col]
     for i in range(0, len(df)):
         df.loc[i, normalize_col] = df.loc[i, normalize_col] / factor
+    return df
         
         
 def df_multiply_factor(df, normalize_col, factor):

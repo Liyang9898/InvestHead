@@ -8,25 +8,27 @@ Created on Jan 28, 2023
 
 @author: spark
 '''
-from datetime import datetime, timedelta
-
-import pandas as pd
-import plotly.express as px
-from random_research.try_20230119.pnl_fomular import mudong_op_pnl_conversion
-from util.util_time import df_filter_dy_date 
-
-
 # enter at xxxx/1/1,(search for closest date, or every)  {xxxx/1/1: next trading day}
 #date: enter date: exit  (get close price on every entry in previous dic ), apply fomular -> result {xxxx/1/1, next trading day, price, end asset}
 #connect start 1, 
 #ts
 #plot
+
+from datetime import datetime, timedelta
+
+import pandas as pd
+import plotly.express as px
+from random_research.try_20230119.constant import final_ts_chart_spy_benchmark
+from random_research.try_20230119.pnl_fomular import mudong_op_pnl_conversion
+from util.util_time import df_filter_dy_date 
+
+
 year_max = 2023
 year_min = 1994
 up = 0.125
 low = -0.125
 aum_start = 1
-final_ts_chart_spy_benchmark = 'C:/f_data/random/spy_benchmark.csv'
+
 
 
 # step 1: get spy data
