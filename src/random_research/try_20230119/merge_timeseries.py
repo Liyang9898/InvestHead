@@ -6,7 +6,6 @@ Created on Jan 28, 2023
 '''
 first_trading_day is date
 '''
-
 '''
 Conclusion 1:
 under same final gain after applying multiplier
@@ -20,6 +19,7 @@ So, mudong_op_long_seq is the best strategy:
 import pandas as pd
 from random_research.try_20230119.mudong_op_long_seq_only import final_ts_chart_mudong_op_long_seq
 from random_research.try_20230119.mudong_op_only import final_ts_chart_mudong_op_only
+from random_research.try_20230119.mudong_op_only_adjust import final_ts_chart_mudong_op_adjust
 from random_research.try_20230119.spy_bench_mark import final_ts_chart_spy_benchmark
 from random_research.try_20230119.spy_weekly_swing import final_ts_chart_spy_weekly_swing
 from util.general_ui import plot_lines_from_xy_list
@@ -80,6 +80,7 @@ def extract_scale_pnl_from_ts(list_ts, multiplier):
 
 df_spy_benchmark = pd.read_csv(final_ts_chart_spy_benchmark)
 df_mudong_op_only = pd.read_csv(final_ts_chart_mudong_op_only)
+df_mudong_op_only_adjust = pd.read_csv(final_ts_chart_mudong_op_adjust)
 df_mudong_op_long_seq = pd.read_csv(final_ts_chart_mudong_op_long_seq)
 df_spy_weekly_swing = pd.read_csv(final_ts_chart_spy_weekly_swing)
 
@@ -87,6 +88,7 @@ df_spy_weekly_swing = pd.read_csv(final_ts_chart_spy_weekly_swing)
 date_list = df_spy_benchmark['first_trading_day'].to_list()
 ts_spy_benchmark = df_spy_benchmark['aum'].to_list()
 ts_mudong_op_only = df_mudong_op_only['aum'].to_list()
+ts_mudong_op_only_adjust = df_mudong_op_only_adjust['aum'].to_list()
 ts_mudong_op_long_seq = df_mudong_op_long_seq['aum'].to_list()
 ts_spy_weekly_swing = df_spy_weekly_swing['aum'].to_list()
 
@@ -94,6 +96,7 @@ ts_spy_weekly_swing = df_spy_weekly_swing['aum'].to_list()
 y_list_map = {
     'SPY benchmark': ts_spy_benchmark,
     'Mudong Option Combination': ts_mudong_op_only,
+    'Mudong Option Combination, adjusted': ts_mudong_op_only_adjust,
     'Mudong Option Combination-ema21>50 only': ts_mudong_op_long_seq,
     'SPY weekly swing-ema21>50 only': ts_spy_weekly_swing,
 }
@@ -102,18 +105,22 @@ plot_lines_from_xy_list(x_list=date_list, y_list_map=y_list_map, title='AUM time
 
 return_ts_spy_benchmark = diff_with_previous(ts_spy_benchmark)
 return_ts_mudong_op_only = diff_with_previous(ts_mudong_op_only)
+return_ts_mudong_op_only_adjust = diff_with_previous(ts_mudong_op_only_adjust)
 return_ts_mudong_op_long_seq = diff_with_previous(ts_mudong_op_long_seq)
 return_ts_spy_weekly_swing = diff_with_previous(ts_spy_weekly_swing)
 
 ab_mudong_op_only = compute_alpha_beta(list_benchmark=return_ts_spy_benchmark, list_exp=return_ts_mudong_op_only)
+ab_mudong_op_only_adjust = compute_alpha_beta(list_benchmark=return_ts_spy_benchmark, list_exp=return_ts_mudong_op_only_adjust)
 ab_mudong_op_long_seq = compute_alpha_beta(list_benchmark=return_ts_spy_benchmark, list_exp=return_ts_mudong_op_long_seq)
 ab_spy_weekly_swing = compute_alpha_beta(list_benchmark=return_ts_spy_benchmark, list_exp=return_ts_spy_weekly_swing)
 
 ab_mudong_op_only['strategy'] = 'mudong_op_only'
+ab_mudong_op_only_adjust['strategy'] = 'mudong_op_only_adjust'
 ab_mudong_op_long_seq['strategy'] = 'mudong_op_long_seq'
 ab_spy_weekly_swing['strategy'] = 'spy_weekly_swing'
 
-l = [ab_spy_weekly_swing, ab_mudong_op_only, ab_mudong_op_long_seq]
+
+l = [ab_spy_weekly_swing, ab_mudong_op_only, ab_mudong_op_only_adjust, ab_mudong_op_long_seq]
 df_ab = pd.DataFrame(l)
 path_ab = 'C:/f_data/random/alpha_beta_merge.csv'
 df_ab.to_csv(path_ab,index=False)
@@ -122,23 +129,28 @@ df_ab.to_csv(path_ab,index=False)
 # scaled PNL time series chart
 multiplier_spy_benchmark = get_multiplier_scale_pnl_from_ts(ts_spy_benchmark, ts_spy_benchmark)
 multiplier_mudong_op_only = get_multiplier_scale_pnl_from_ts(ts_mudong_op_only, ts_spy_benchmark)
+multiplier_mudong_op_only_adjust = get_multiplier_scale_pnl_from_ts(ts_mudong_op_only_adjust, ts_spy_benchmark)
 multiplier_mudong_op_long_seq = get_multiplier_scale_pnl_from_ts(ts_mudong_op_long_seq, ts_spy_benchmark)
 multiplier_spy_weekly_swing = get_multiplier_scale_pnl_from_ts(ts_spy_weekly_swing, ts_spy_benchmark)
-print(multiplier_spy_benchmark, multiplier_mudong_op_only, multiplier_mudong_op_long_seq, multiplier_spy_weekly_swing)
+
+print(multiplier_spy_benchmark, multiplier_mudong_op_only, multiplier_mudong_op_only_adjust, multiplier_mudong_op_long_seq, multiplier_spy_weekly_swing)
 
 ts_scaled_pnl_spy_benchmark = extract_scale_pnl_from_ts(ts_spy_benchmark, multiplier_spy_benchmark)
 ts_scaled_pnl_mudong_op_only = extract_scale_pnl_from_ts(ts_mudong_op_only, multiplier_mudong_op_only)
+ts_scaled_pnl_mudong_op_only_adjust = extract_scale_pnl_from_ts(ts_mudong_op_only_adjust, multiplier_mudong_op_only_adjust)
 ts_scaled_pnl_mudong_op_long_seq = extract_scale_pnl_from_ts(ts_mudong_op_long_seq, multiplier_mudong_op_long_seq)
 ts_scaled_pnl_spy_weekly_swing = extract_scale_pnl_from_ts(ts_spy_weekly_swing, multiplier_spy_weekly_swing)
 
 legend_spy = "SPY benchmark, multiplier = {}X".format(round(multiplier_spy_benchmark,2))
 legend_mudong_op_only = "mudong_op_only, multiplier = {}X".format(round(multiplier_mudong_op_only,2))
+legend_mudong_op_only_adjust = "mudong_op_only_adjust, multiplier = {}X".format(round(multiplier_mudong_op_only_adjust,2))
 legend_mudong_op_long_seq = "mudong_op_long_seq, multiplier = {}X".format(round(multiplier_mudong_op_long_seq,2))
 legend_spy_weekly_swing = "spy_weekly_swing, multiplier = {}X".format(round(multiplier_spy_weekly_swing,2))
 
 y_list_pnl_map = {
     legend_spy: ts_scaled_pnl_spy_benchmark,
     legend_mudong_op_only: ts_scaled_pnl_mudong_op_only,
+    legend_mudong_op_only_adjust: ts_scaled_pnl_mudong_op_only_adjust,
     legend_mudong_op_long_seq: ts_scaled_pnl_mudong_op_long_seq,
     legend_spy_weekly_swing: ts_scaled_pnl_spy_weekly_swing,
 }
