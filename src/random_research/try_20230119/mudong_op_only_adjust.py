@@ -31,6 +31,8 @@ first_trading_date = '01-01'
 path_spy_weekly = 'C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv'
 path = 'C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
 
+path_out = final_ts_chart_mudong_op_adjust
+# path_out = 'C:/f_data/random/mudong_op_swing_adjusted_monthly_125_125.csv'
 
 df = gen_op_swing_timeseries(
     path,
@@ -45,11 +47,11 @@ df = gen_op_swing_timeseries(
     low_in_short,
     
     aum_start,
-    final_ts_chart_mudong_op_adjust,
+    path_out,
     first_trading_date,
 )    
 
-df.to_csv(final_ts_chart_mudong_op_adjust, index=False)
+df.to_csv(path_out, index=False)
 
 fig = px.line(df, x="first_trading_day", y="aum", title='mudong op timeseries')
 fig.show()

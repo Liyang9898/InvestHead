@@ -8,7 +8,9 @@ from functools import reduce
 
 import pandas as pd
 import plotly.express as px
-from random_research.try_20230119.constant import final_op_swing_adjusted_monthly
+from random_research.try_20230119.constant import final_op_swing_adjusted_monthly, \
+    mudong_op_swing_adjusted_monthly_125_125, \
+    mudong_op_swing_adjusted_monthly_175_75
 from random_research.try_20230119.mudong_lib import gen_op_swing_timeseries, \
     df_time_filter_and_normalize
 from util.util_pandas import insert_missing_date_val_to_df_cols
@@ -26,11 +28,19 @@ val_col = 'aum'
 year_max = 2023
 year_min = 1994
 
-up_in_long = 0.175
-low_in_long = -0.075
+# up_in_long = 0.175
+# low_in_long = -0.075
+#
+# up_in_short = 0.075
+# low_in_short = -0.175
 
-up_in_short = 0.075
-low_in_short = -0.175
+
+up_in_long = 0.125
+low_in_long = -0.125
+
+up_in_short = 0.125
+low_in_short = -0.125
+
 
 aum_start = 1
 final_ts_chart_mudong_op_adjust = 'C:/f_data/random/mudong_op_ts_adjusted.csv'
@@ -39,6 +49,8 @@ first_trading_date_list = ['01-15','03-15','06-15','09-15','12-15']
 path_spy_weekly = 'C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv'
 path = 'C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
 
+path_out = mudong_op_swing_adjusted_monthly_125_125
+# path_out = mudong_op_swing_adjusted_monthly_175_75
 
 df_list = []
 for first_trading_date in first_trading_date_list:
@@ -72,7 +84,7 @@ df_all['aum'] = (df_all['aum01-15'] + df_all['aum03-15'] + df_all['aum06-15'] + 
 
 df_all_filter = df_time_filter_and_normalize(df=df_all, date_col=date_col, normalize_col='aum', start_date=ts_start_date, end_date=ts_end_date)
 
-df_all_filter.to_csv(final_op_swing_adjusted_monthly, index=False)
+df_all_filter.to_csv(path_out, index=False)
 
 
 fig = px.line(df_all_filter, x="first_trading_day", y="aum", title='mudong op timeseries')
