@@ -10,7 +10,11 @@ import pandas as pd
 import plotly.express as px
 from random_research.try_20230119.constant import final_op_swing_adjusted_monthly, \
     mudong_op_swing_adjusted_monthly_125_125, \
-    mudong_op_swing_adjusted_monthly_175_75
+    mudong_op_swing_adjusted_monthly_175_75, \
+    mudong_op_swing_adjusted_monthly_15_10, \
+    mudong_op_swing_adjusted_monthly_175_75_short_out, \
+    mudong_op_swing_adjusted_monthly_125_125_short_out, \
+    mudong_op_swing_adjusted_monthly_20_5_short_out
 from random_research.try_20230119.mudong_lib import gen_op_swing_timeseries, \
     df_time_filter_and_normalize
 from util.util_pandas import insert_missing_date_val_to_df_cols
@@ -28,16 +32,24 @@ val_col = 'aum'
 year_max = 2023
 year_min = 1994
 
+# up_in_long = 0.20
+# low_in_long = -0.05
+
 # up_in_long = 0.175
 # low_in_long = -0.075
 #
 # up_in_short = 0.075
 # low_in_short = -0.175
 
+# up_in_long = 0.15
+# low_in_long = -0.10
+#
+# up_in_short = 0.10
+# low_in_short = -0.15
 
 up_in_long = 0.125
 low_in_long = -0.125
-
+#
 up_in_short = 0.125
 low_in_short = -0.125
 
@@ -49,7 +61,11 @@ first_trading_date_list = ['01-15','03-15','06-15','09-15','12-15']
 path_spy_weekly = 'C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv'
 path = 'C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv'
 
-path_out = mudong_op_swing_adjusted_monthly_125_125
+# path_out = mudong_op_swing_adjusted_monthly_125_125
+# path_out = mudong_op_swing_adjusted_monthly_15_10
+# path_out = mudong_op_swing_adjusted_monthly_175_75_short_out
+path_out = mudong_op_swing_adjusted_monthly_125_125_short_out
+# path_out = mudong_op_swing_adjusted_monthly_20_5_short_out
 # path_out = mudong_op_swing_adjusted_monthly_175_75
 
 df_list = []
@@ -69,6 +85,7 @@ for first_trading_date in first_trading_date_list:
         aum_start,
         final_ts_chart_mudong_op_adjust,
         first_trading_date,
+        True # short out
     )
     df = insert_missing_date_val_to_df_cols(df, date_col, val_col, start_date, end_date)
     col_name = 'aum'+first_trading_date
@@ -77,6 +94,9 @@ for first_trading_date in first_trading_date_list:
     df = df[['first_trading_day', col_name]]
     df.reset_index(inplace=True, drop=True)
     df_list.append(df)
+    
+    # fig2 = px.line(df, x="first_trading_day", y=col_name, title='mudong op timeseries')
+    # fig2.show()
 
 
 df_all = reduce(lambda x, y: pd.merge(x, y, on = 'first_trading_day'), df_list)

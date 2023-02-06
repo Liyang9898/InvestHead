@@ -21,7 +21,7 @@ df['weekday'] = 0
 print(df.columns)
 
 date_col = 'date'
-s = '2022-01-01'
+s = '2021-01-01'
 e = '2023-01-15'
 
 df = df_filter_dy_date(df,date_col,s,e)
@@ -30,7 +30,7 @@ df = df_filter_dy_date(df,date_col,s,e)
 for i in range(0, len(df)):
     if i + 1 < len(df):
         t = df.loc[i, 'time']
-        s = df.loc[i, 'close']
+        s = df.loc[i, 'open']
         e = df.loc[i + 1, 'close']  
         r = e / s - 1  
         df.loc[i, 'close_to_close_delta'] = r

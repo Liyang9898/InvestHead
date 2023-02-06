@@ -56,6 +56,7 @@ def gen_op_swing_timeseries(
     aum_start,
     final_ts_chart_mudong_op_adjust,
     first_trading_date,
+    short_out=False
 ):
     # step 1: get stock data and weekly asset
     df = pd.read_csv(path)
@@ -115,9 +116,12 @@ def gen_op_swing_timeseries(
             end_price = round(strike + gain, 2)
             bundle['end_price_with_mudong_op'] = end_price
         else:
-            gain = round(mudong_op_pnl_conversion(price, strike, up_in_short, low_in_short),2)
-            end_price = round(strike + gain, 2)
-            bundle['end_price_with_mudong_op'] = end_price
+            if short_out:
+                bundle['end_price_with_mudong_op'] = strike
+            else:
+                gain = round(mudong_op_pnl_conversion(price, strike, up_in_short, low_in_short),2)
+                end_price = round(strike + gain, 2)
+                bundle['end_price_with_mudong_op'] = end_price
         
         
     # step4: connect

@@ -20,7 +20,11 @@ import pandas as pd
 from random_research.try_20230119.constant import final_ts_chart_mudong_op_only, \
     final_ts_chart_mudong_op_adjust, final_ts_chart_mudong_op_long_seq, \
     final_ts_chart_spy_weekly_swing, final_op_swing_adjusted_monthly, \
-    final_ts_chart_spy_benchmark, mudong_op_swing_adjusted_monthly_125_125
+    final_ts_chart_spy_benchmark, mudong_op_swing_adjusted_monthly_125_125, \
+    mudong_op_swing_adjusted_monthly_15_10, \
+    mudong_op_swing_adjusted_monthly_175_75_short_out, \
+    mudong_op_swing_adjusted_monthly_125_125_short_out, \
+    mudong_op_swing_adjusted_monthly_20_5_short_out
 from random_research.try_20230119.mudong_lib import df_time_filter_and_normalize
 from util.general_ui import plot_lines_from_xy_list
 from util.util_math import compute_alpha_beta
@@ -106,8 +110,12 @@ strategy_name_ts_csv = {
     'Mudong op yearly 175_75':final_ts_chart_mudong_op_adjust,
     'Mudong op yearly ema21>50':final_ts_chart_mudong_op_long_seq,
     'Weekly swing':final_ts_chart_spy_weekly_swing,
-    'Mudong op monthly 175 75':final_op_swing_adjusted_monthly,
-    'Mudong op monthly 125 125':mudong_op_swing_adjusted_monthly_125_125,
+    'Mudong op quarterly 175 75':final_op_swing_adjusted_monthly,
+    'Mudong op quarterly 125 125':mudong_op_swing_adjusted_monthly_125_125,
+    'Mudong op quarterly 15 10': mudong_op_swing_adjusted_monthly_15_10,
+    'Mudong op quarterly 175 75 short out': mudong_op_swing_adjusted_monthly_175_75_short_out,
+    'Mudong op quarterly 125 125 short out': mudong_op_swing_adjusted_monthly_125_125_short_out,
+    'Mudong op quarterly 20 5 short out':mudong_op_swing_adjusted_monthly_20_5_short_out
 }
 
 
@@ -143,8 +151,8 @@ for name, csv_path in strategy_name_ts_csv.items():
 df_ab = pd.DataFrame(l)
 path_ab = 'C:/f_data/random/alpha_beta_merge.csv'
 df_ab.to_csv(path_ab,index=False)
-#
-#
+
+
 """
 scale
 """
