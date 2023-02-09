@@ -477,3 +477,14 @@ after adjust upper profit cap and lower start loss bound
 ->in general loss less and gain more, when swing signal got it right at the beginning of the year
 ->but, if the swing signal got it wrong at the beginning of the year, you will loss more and gain less
 
+2023/02/08
+spy single op strategy
+on long side, enter condition, short side is reverse
+1.df.loc[i, 'ema8']>df.loc[i, 'ema21'] and 
+3.df.loc[i, 'ema8_ema21_MACD'] > 0 and 
+4.stable: # sell put
+
+set up:
+1.strike = 2.5%
+2.1 dollar spread
+3. 0.12-0.07   profit = 5%, loss = 95%
