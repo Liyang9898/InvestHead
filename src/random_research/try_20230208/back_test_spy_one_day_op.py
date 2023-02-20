@@ -65,18 +65,30 @@ for i in range(0, len(df)):
         # check stable
         stable = True
         if i > 4:
-            if abs(df.loc[i-2, 'close_to_close_delta']) > threshold_stable or abs(df.loc[i-3, 'close_to_close_delta']) > threshold_stable or abs(df.loc[i-4, 'close_to_close_delta']) > threshold_stable:
+            # if abs(df.loc[i-2, 'close_to_close_delta']) > threshold_stable or abs(df.loc[i-3, 'close_to_close_delta']) > threshold_stable or abs(df.loc[i-4, 'close_to_close_delta']) > threshold_stable:
+            if abs(df.loc[i-2, 'close_to_close_delta']) > threshold_stable:
+                
                 stable = False
-                # print(date)
+
         
-        
+        sell_put_green_light = False
+        # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0 and stable:
+        # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and stable:
+        # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0:
+            # sell_put_green_light = True
+            
+        sell_call_green_light = False
+        # if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0  and stable:
+        # if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and stable:
+        if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and stable:
+            sell_call_green_light = True
         
         # strategy
         pnl = 0
         cur_price = df.loc[i, 'open']
         end_price = df.loc[i + 1, 'close']  
         
-        if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0 and stable: # sell put
+        if sell_put_green_light: # sell put
             strike = cur_price * (1-threshold)
             if end_price < strike: # lose case
                 pnl = -(strike - end_price)
@@ -89,7 +101,7 @@ for i in range(0, len(df)):
                 
             trade_cnt = trade_cnt + 1
             
-        elif df.loc[i, 'ema8']<df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0  and stable: # sell call
+        elif sell_call_green_light: # sell call
             strike = cur_price * (1+threshold)
             if end_price > strike: # lose case
                 pnl = -(end_price - strike)
