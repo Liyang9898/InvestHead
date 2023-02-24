@@ -34,21 +34,20 @@ df['weekday'] = 0
 # print(df.columns)
 
 date_col = 'date'
-s = '2022-01-24'
+# s = '2022-01-24'
+# e = '2023-01-15'
+
+
+s = '2022-01-01'
 e = '2023-01-15'
+
+
 threshold = 0.025
 threshold_stable = 0.01
-spread_on = False
-# spread_on = True
 
-# buyback = False
-buyback = True
-buyback_lose = -1
+buyback_lose = -0.5
 
 gain = 0.11
-if spread_on:
-    gain = 0.11-0.08 # key is spread cost, hope we can get 0.5
-
 
 
 df = df_filter_dy_date(df,date_col,s,e)
@@ -83,13 +82,13 @@ for i in range(0, len(df)):
         
         sell_put_green_light = False
         # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0 and stable:
-        # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and stable:
+        if df.loc[i, 'ema8']>df.loc[i, 'ema21']:
         # if df.loc[i, 'ema8']>df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] > 0:
-            # sell_put_green_light = True
+            sell_put_green_light = True
             
         sell_call_green_light = False
-        if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] < 0 and stable:
-        # if df.loc[i, 'ema8']<df.loc[i, 'ema21']:
+        # if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and df.loc[i, 'ema8_ema21_MACD'] < 0 and stable:
+        if df.loc[i, 'ema8']<df.loc[i, 'ema21']:
         # if df.loc[i, 'ema8']<df.loc[i, 'ema21'] and stable:
             sell_call_green_light = True
         
@@ -101,11 +100,7 @@ for i in range(0, len(df)):
         if sell_put_green_light: # sell put
             strike = cur_price * (1-threshold)
             if end_price < strike: # lose case
-                pnl = -(strike - end_price)
-                if spread_on:
-                    pnl=-(1-gain)
-                if buyback:
-                    pnl = buyback_lose
+                pnl = buyback_lose
                 loss_point[date] = end_price # lose
             else:
                 win_point[date] = end_price # it will mark UI on the time of the cash in
@@ -116,11 +111,7 @@ for i in range(0, len(df)):
         elif sell_call_green_light: # sell call
             strike = cur_price * (1+threshold)
             if end_price > strike: # lose case
-                pnl = -(end_price - strike)
-                if spread_on:
-                    pnl=-(1-gain)
-                if buyback:
-                    pnl = buyback_lose
+                pnl = buyback_lose
                 loss_point[date] = end_price # lose
             else:
                 win_point[date] = end_price # it will mark UI on the time of the cash in
@@ -147,9 +138,9 @@ plot_trades_simple_base(
 print(trade_cnt)
 
 print('win')
-print(win_point)
+print(len(win_point))
 print('lose')
-print(loss_point)
+print(len(loss_point))
 # path = 'C:/f_data/random/spy_single_day_op.csv'
 # df.to_csv(path, index=False)
 #

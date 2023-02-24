@@ -53,10 +53,10 @@ from util.util_time import df_filter_dy_date
 
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
-file_name = "SPY_1W_fmt"  # 1993.3 start
+# file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
-# file_name = "BTC_1D_fmt"   # 2017.1 start
+file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "BTC_4H_fmt" # 2017.1 start
 # file_name = "BTC_2H_fmt" # 2017.1 start
 # file_name = "FX_USDCAD_1D_fmt"
