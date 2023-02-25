@@ -29,9 +29,9 @@ for ticker in tickers:
     sector_clean_path = "C:/f_data/sector/clean/{ticker}_1W_fmt.csv".format(ticker=ticker)
     print(sector_raw_path)
     sector_df = pd.read_csv(sector_raw_path)
-    sector_df_trimmed = sector_df.iloc[:, [0,1,2,3,4,   5,6,  7,9,11,13]]
+    sector_df_trimmed = sector_df.iloc[:, [0,1,2,3,4,   7,9,11,13]]
     dict_col = {
-        'Volume MA': 'volume_ma',
+        # 'Volume MA': 'volume_ma',
         'MA': 'ma200',
         'MA.1': 'ma50',
         'EMA': 'ema21',

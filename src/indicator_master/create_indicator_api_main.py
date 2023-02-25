@@ -30,7 +30,8 @@ def price_csv_append_indicator(input_file_path, output_file_path, start_time, en
     
     # read price csv to df
     df = load_df_from_csv(input_file_path)
-    # print(df)
+    # print(df.columns)
+    # print(df.head(1))
     df = df_unixtime_filter(df, 'time', unix_s, unix_e)
     
 
