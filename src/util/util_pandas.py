@@ -16,12 +16,12 @@ def df_general_time_filter(df, date_col, s, e):
     return df
 
 
-def df_normalize(df, normalize_col):
+def df_normalize(df, normalize_col, initial_val=1):
     # normalize_col must be numerical and not null
     df.reset_index(drop=True,inplace=True)
     factor = df.loc[0, normalize_col]
     for i in range(0, len(df)):
-        df.loc[i, normalize_col] = df.loc[i, normalize_col] / factor
+        df.loc[i, normalize_col] = df.loc[i, normalize_col] / factor * initial_val
     return df
         
         
@@ -89,4 +89,21 @@ def insert_missing_date_val_to_df_cols(
     '''
     df = insert_missing_date_to_df_col(df, date_col, start_date, end_date)
     df[val_col].interpolate(method=method, limit_direction=limit_direction, inplace=True)
+    return df
+
+
+def df_to_dict(df, key_col, val_col):
+    res = {}
+    record = df.to_dict('records')
+    for r in record:
+        res[r[key_col]] = r[val_col]
+    return res
+
+
+def dict_to_df(dic, key_col, val_col):
+    res = []
+    for k, v in dic.items():
+        d = {key_col:k, val_col:v}
+        res.append(d)
+    df = pd.DataFrame(res)
     return df
