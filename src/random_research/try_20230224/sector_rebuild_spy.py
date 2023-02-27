@@ -11,7 +11,7 @@ from util.util_pandas import df_to_dict
 
 
 
-years = [2019,2020,2021]
+years = [2016,2017,2018,2019,2020,2021]
 post_fix = '-01-01'
 
 path = 'C:/f_data/sector/spy_sector_history_clean.csv'

@@ -14,7 +14,7 @@ from util.util_pandas import df_general_time_filter, df_normalize
 spy_path = "C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv"
 df_spy = pd.read_csv(spy_path)
 
-start_date = '2019-04-01'
+start_date = '2016-01-01'
 end_date = '2022-01-01'
 
 df_spy = df_general_time_filter(df_spy, 'date', start_date, end_date)

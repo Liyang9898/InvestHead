@@ -41,7 +41,7 @@ def remix(ticker_list, spy_allocation, signal):
 # get signal file
 path = "C:/f_data/sector/feature/allocation_signal_ema21_below_ma50.csv"
 df_signal = pd.read_csv(path)
-start_date = '2019-01-01'
+start_date = '2016-01-01'
 end_date = '2022-01-01'
 ticker_list = ['XLC', 'XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLK', 'XLB', 'XLRE', 'XLU']
 
