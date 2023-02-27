@@ -6,33 +6,36 @@ Created on Feb 24, 2023
 import pandas as pd
 import plotly.express as px
 from random_research.try_20230224.sector_lib import get_one_sector_ts_scaled, \
-    aggregate_ts, rebuild_etf
+    aggregate_ts, rebuild_etf, connect_ts_df_list
 from util.util_pandas import df_to_dict
 
 
-tickers = []
 
-path = 'C:/f_data/sector/spy_sector_history.csv'
+years = [2019,2020,2021]
+post_fix = '-01-01'
+
+path = 'C:/f_data/sector/spy_sector_history_clean.csv'
 df = pd.read_csv(path)
-print(df)
-allo = df_to_dict(df, 'ticker', '2020')
 
-allo2 = {}
-for k, v in allo.items():
-    v_f = float(v.replace("%", ""))*0.01
-    allo2[k]=v_f
+allocation = {}
+ts_dict = {}
+ts_list = []
+
+for year in years:
+    allocation[year] = df_to_dict(df, 'ticker', str(year))
+    print(allocation[year])
     
-    
-print(allo2)
+    start_date = str(year) + post_fix
+    end_date = str(year + 1) + post_fix
+
+    ts_dict[year] = rebuild_etf(allocation[year], start_date, end_date)
+    ts_list.append(ts_dict[year])
 
 
-start_date = '2020-01-01'
-end_date = '2021-01-01'
+df_all = connect_ts_df_list(ts_list)
+path_out = 'C:/f_data/sector/result/spy_rebuild.csv'
+df_all.to_csv(path_out, index=False)
 
 
-ts_agg = rebuild_etf(allo2, start_date, end_date)
-
-fig = px.line(ts_agg, x="date", y="ts", title='hhh')
-fig.show()
-
-
+fig = px.line(df_all, x="date", y="ts", title='spy_rebuild')
+fig.show()  

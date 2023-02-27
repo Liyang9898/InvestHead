@@ -62,6 +62,30 @@ def rebuild_etf(allocation, start_date, end_date):
     ts_agg = aggregate_ts(ts_list)
     return ts_agg
 
+
+def connect_ts_df_list(df_list):
+    '''
+    df_list: a list of df with col 'date' and 'ts'
+    !!! the df are already ordered in chrological order
+    '''
+    pre_e = 1
+    l = []
+    
+    for df in df_list:
+        val_s = df.loc[0, 'ts']
+        
+        # re scale
+        factor = pre_e / val_s
+        df_cp = df.copy()
+        
+        df_cp['ts'] = df_cp['ts'] * factor
+        l.append(df_cp)
+        
+        # done
+        pre_e = df_cp.loc[len(df_cp) - 1, 'ts']
+        
+    df_all = pd.concat(l, axis=0, ignore_index=True)  
+    return df_all
 ########## test
 # start_date = '2020-01-01'
 # end_date = '2021-01-01'
