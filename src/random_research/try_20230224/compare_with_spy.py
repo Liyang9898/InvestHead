@@ -14,7 +14,7 @@ from util.util_pandas import df_general_time_filter, df_normalize
 spy_path = "C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv"
 df_spy = pd.read_csv(spy_path)
 
-start_date = '2019-01-01'
+start_date = '2019-04-01'
 end_date = '2022-01-01'
 
 df_spy = df_general_time_filter(df_spy, 'date', start_date, end_date)
@@ -24,8 +24,10 @@ df_spy_normalize = df_spy_normalize[['date', 'spy']]
 df_spy_normalize = df_spy_normalize.copy()
 
 # test set
-test_path = 'C:/f_data/sector/result/spy_rebuild.csv'
+# test_path = 'C:/f_data/sector/result/spy_rebuild.csv'
+test_path = 'C:/f_data/sector/result/spy_remix1.csv'
 df_test = pd.read_csv(test_path)
+df_test = df_normalize(df_test, 'ts', initial_val=1)
 
 # plot
 df_merge = reduce(lambda df1,df2: pd.merge(df1,df2,on='date'), [df_spy_normalize, df_test])
