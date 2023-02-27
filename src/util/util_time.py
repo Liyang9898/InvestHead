@@ -174,3 +174,9 @@ def extract_period_start_from_df(df, date_col, period):
     df_res = pd.DataFrame(serieses)
     df_res.reset_index(inplace=True, drop=True)
     return df_res
+
+
+def get_year_str(date_obj):
+    date_str = str(date_obj)
+    year = int(date_str.split('-')[0])
+    return year

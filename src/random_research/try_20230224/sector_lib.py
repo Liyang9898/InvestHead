@@ -86,6 +86,15 @@ def connect_ts_df_list(df_list):
         
     df_all = pd.concat(l, axis=0, ignore_index=True)  
     return df_all
+
+
+def extract_allocation_by_year(year):
+    path = 'C:/f_data/sector/spy_sector_history_clean.csv'
+    df = pd.read_csv(path)
+    allocation = df_to_dict(df, 'ticker', str(year))
+    return allocation
+
+
 ########## test
 # start_date = '2020-01-01'
 # end_date = '2021-01-01'
