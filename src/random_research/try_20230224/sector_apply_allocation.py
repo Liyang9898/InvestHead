@@ -25,6 +25,11 @@ for row in df_allo_list:
     print(allocation)
     
     ts = rebuild_etf(allocation, start_date, end_date)
+    
+    title = start_date + '  ' + end_date
+    path_debug = """C:/f_data/sector/debug/{title}.csv""".format(title=title)
+    ts.to_csv(path_debug, index=False)
+    
     ts_list.append(ts)
 
 ts_connected = connect_ts_df_list(ts_list)

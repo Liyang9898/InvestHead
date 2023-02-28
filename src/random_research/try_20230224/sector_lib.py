@@ -53,7 +53,7 @@ def rebuild_etf(allocation, start_date, end_date):
     '''
     ts_list = []
     for ticker, initial_aum in allocation.items():
-        ticker_path = "C:/f_data/sector/indicator/{ticker}_1W_fmt_idc.csv".format(ticker=ticker)  
+        ticker_path = "C:/f_data/sector/indicator_day/{ticker}_1D_fmt_idc.csv".format(ticker=ticker)  
         df_ticker = pd.read_csv(ticker_path)
     
         df_scaled = get_one_sector_ts_scaled(start_date, end_date, df_ticker, initial_aum)

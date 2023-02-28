@@ -1,2 +1,21 @@
-covid flat bug
+
 need to change strategy, adjust ratio, re rank, not just delete
+
+2/27/2023
+operation step
+
+data collection:
+-run clean_section_date(_day).py
+-run sector_add_indicator(_day).py
+-run sector_plot_idc(_day).py
+
+
+to rebuild spy:
+-run sector_rebuild_spy.py
+-compare_with_spy.py
+
+to rebuild a new allocation:
+-sector_feature.py
+-sector_remix_allocation.py
+-sector_apply_allocation.py
+-compare_with_spy.py
