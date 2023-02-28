@@ -42,4 +42,5 @@ y_list_map = {'test': df_merge['ts'].to_list(), 'spy': df_merge['spy'].to_list()
 
 plot_lines_from_xy_list(x_list, y_list_map, title='default', path=None)
 
-       
+ppp = 'C:/f_data/sector/result/merge.csv'
+df_merge.to_csv(ppp, index=False)

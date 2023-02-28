@@ -180,3 +180,15 @@ def get_year_str(date_obj):
     date_str = str(date_obj)
     year = int(date_str.split('-')[0])
     return year
+
+
+def get_year_from_dt(dt):
+    date_str = str(dt)
+    dt = date_to_datetime_obj(date_str)
+    return dt.year
+
+
+def get_month_from_dt(dt):
+    date_str = str(dt)
+    dt = date_to_datetime_obj(date_str)
+    return dt.month

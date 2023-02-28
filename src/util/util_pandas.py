@@ -1,7 +1,8 @@
 # import numpy as np
 import pandas as pd
 from util.util_math import percentile
-from util.util_time import df_filter_dy_date
+from util.util_time import df_filter_dy_date, get_year_from_dt, \
+    get_month_from_dt
 
 
 def df_unixtime_filter(df, date_col, s, e):
@@ -107,3 +108,60 @@ def dict_to_df(dic, key_col, val_col):
         res.append(d)
     df = pd.DataFrame(res)
     return df
+
+
+def get_year_begin_rows(df):
+    '''
+    df must has a 'date' column
+    get the first record of each year
+    '''
+    df['year']=df.apply(lambda row : get_year_from_dt(row['date']), axis = 1)
+    rows_pick = []
+    rows = df.to_dict('records')
+    
+    pre_year = rows[0]['year']
+    for row in rows:
+        year = row['year']
+        if year != pre_year:
+            rows_pick.append(row)
+        pre_year = year
+    
+    df_res = pd.DataFrame(rows_pick)
+    return df_res
+
+
+def get_month_begin_rows(df):
+    '''
+    df must has a 'date' column
+    get the first record of each month
+    '''
+    df['month']=df.apply(lambda row : get_month_from_dt(row['date']), axis = 1)
+    rows_pick = []
+    rows = df.to_dict('records')
+    
+    pre_month = rows[0]['month']
+    for row in rows:
+        month = row['month']
+        if month != pre_month:
+            rows_pick.append(row)
+        pre_month = month
+    
+    df_res = pd.DataFrame(rows_pick)
+    return df_res
+
+
+def get_pnl_between_rows(df, benchmark_col, exp_col):
+    '''
+    df must has 'date', benchmark_col and exp_col columns
+    it's computing the percent diff of benchmark and exp. then compute their diff
+    '''
+    rows = []
+    for i in range(0, len(df) - 1):
+        date = df.loc[i, 'date']
+        benchmark_pnl = df.loc[i + 1, benchmark_col] / df.loc[i, benchmark_col] - 1
+        exp_pnl = df.loc[i + 1, exp_col] / df.loc[i, exp_col] - 1
+        diff_pnl = exp_pnl - benchmark_pnl
+        row = {'date': date, benchmark_col: benchmark_pnl, exp_col: exp_pnl, 'diff_pnl': diff_pnl}
+        rows.append(row)
+    df_pnl = pd.DataFrame(rows)
+    return df_pnl
