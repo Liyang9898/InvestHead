@@ -35,14 +35,14 @@ def pickcolumn(file, path_out, input_column):
     print('csv output done')
 
 ############################################source region start#############################################
-# raw_price_file_name = "BATS_SPY, 1D"
-# path_out_file_name = """SPY_1D_fmt"""  
+raw_price_file_name = "BATS_SPY, 1D"
+path_out_file_name = """SPY_1D_fmt"""  
 
 # raw_price_file_name = "BATS_ZM, 1D"
 # path_out_file_name = """ZM_1D_fmt"""  
 
-raw_price_file_name = "BATS_SPY, 1W"
-path_out_file_name = """SPY_1W_fmt"""  
+# raw_price_file_name = "BATS_SPY, 1W"
+# path_out_file_name = """SPY_1W_fmt"""  
 # 
 # raw_price_file_name = "BATS_GHSI, 1D"
 # path_out_file_name = """GHSI_1D_fmt"""  

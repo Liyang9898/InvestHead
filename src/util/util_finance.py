@@ -618,3 +618,66 @@ def get_trade_perf_from_trades_csv(trades_csv, output_perf_csv):
     df_stat.to_csv(output_perf_csv, index=False)
     
     
+
+def get_period_pnl_in_range(df, val_col, period, start_date, end_date):
+    '''
+    this function cut the df into given time rangem and compute percent pnl every [period] of rows
+    df must has 'date' column
+    '''
+    df_filter = df_filter_dy_date(df,'date',start_date,end_date)
+    
+    df_filter['index'] = df_filter.index
+    df_filter['mod'] = df_filter['index'].mod(period)
+    
+    df_mod = df_filter[df_filter['mod']==0]
+    df_mod = df_mod.copy()
+    df_mod.reset_index(drop=True, inplace=True)
+    
+    df_mod['pnl_p'] = 0
+    
+    for i in range(1, len(df_mod)-1):
+        pre = df_mod.loc[i-1, val_col]
+        val = df_mod.loc[i, val_col]
+        pnl_p = val / pre - 1
+        df_mod.loc[i, 'pnl_p'] = pnl_p
+    
+    df_mod = df_mod[['date', 'pnl_p']]
+    df_mod = df_mod.iloc[1: , :]
+    df_mod = df_mod.copy()
+    
+    return df_mod
+    
+
+def get_alpha_beta(df, df_benchmark, val_col, period, start_date, end_date):
+    '''
+    this function computes alpha-beta
+    based on the val_col in dataframe df and df_benchmark in given time range, the gap of 2 record is [peirod] bars
+    '''
+    df_pnl_p = get_period_pnl_in_range(df, val_col, period, start_date, end_date)
+    df_pnl_p_benchmark = get_period_pnl_in_range(df_benchmark, val_col, period, start_date, end_date)
+    
+    return_exp = df_pnl_p['pnl_p'].to_list()
+    return_base = df_pnl_p_benchmark['pnl_p'].to_list()
+        
+    x = np.array(return_base).reshape(-1, 1)
+    y = np.array(return_exp).reshape(-1, 1)
+    
+    # Create linear regression object
+    regr = linear_model.LinearRegression()
+    # Train the model using the training sets
+    regr.fit(x, y)
+    # The coefficients
+    r_sq = regr.score(x, y)
+    alpha = regr.intercept_[0]
+    beta = regr.coef_[0][0]
+    
+    
+    beta2 = get_beta_from_list(return_base, return_exp)
+    
+    res = {
+        'alpha':round(alpha,4),
+        'beta':round(beta,4),
+        'beta2':round(beta2,4),
+        'r_sq':round(r_sq,4)
+    }
+    return res
