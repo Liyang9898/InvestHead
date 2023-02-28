@@ -22,7 +22,5 @@ period = 20
 val_col = 'close'
 
 
-        
-
 ab = get_alpha_beta(df, df_benchmark, val_col, period, start_date, end_date)
 print(ab)

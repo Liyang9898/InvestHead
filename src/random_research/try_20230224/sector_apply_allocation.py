@@ -10,7 +10,10 @@ from random_research.try_20230224.sector_lib import rebuild_etf, \
 
 
 # get allocation
-path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50.csv"
+# path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50.csv"
+# path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_ranked.csv"
+path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv"
+
 df_allo = pd.read_csv(path_allocation)
 df_allo_list = df_allo.to_dict('records')
 
@@ -33,10 +36,12 @@ for row in df_allo_list:
     ts_list.append(ts)
 
 ts_connected = connect_ts_df_list(ts_list)
-path_out = 'C:/f_data/sector/result/spy_remix1.csv'
+# path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50.csv'
+# path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_ranked.csv'
+path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
 ts_connected.to_csv(path_out, index=False)
     
-fig = px.line(ts_connected, x="date", y="ts", title='spy_rebuild')
+fig = px.line(ts_connected, x="date", y="ts", title='sector_remix')
 fig.show()      
 
 

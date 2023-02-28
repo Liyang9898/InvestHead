@@ -14,7 +14,7 @@ from util.util_pandas import df_general_time_filter, df_normalize
 spy_path = "C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv"
 df_spy = pd.read_csv(spy_path)
 
-start_date = '2016-01-01'
+start_date = '2016-06-01'
 end_date = '2022-01-01'
 
 df_spy = df_general_time_filter(df_spy, 'date', start_date, end_date)
@@ -25,7 +25,13 @@ df_spy_normalize = df_spy_normalize.copy()
 
 # test set
 # test_path = 'C:/f_data/sector/result/spy_rebuild.csv'
-test_path = 'C:/f_data/sector/result/spy_remix1.csv'
+
+
+# test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50.csv'
+# test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_ranked.csv'
+test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
+
+
 df_test = pd.read_csv(test_path)
 df_test = df_normalize(df_test, 'ts', initial_val=1)
 
