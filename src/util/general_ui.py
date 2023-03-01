@@ -8,6 +8,80 @@ from plotly.io import write_image
 from version_master.version import imagine_folder
 
 
+def plot_candle_stick_generic(
+    df, 
+    traces_map_external = {}, 
+    trace_map_df ={},
+    traces_style_map = {}, 
+    image_path=None,
+    title = 'default' # chart title
+):
+    '''
+    2023-03-01
+    
+    This function plot candle stick, you can add extra trace externally or from df. You can also apply style
+    traces_map_external = {}, # dict<name, dict<x,y>>
+    trace_map_df ={}, # dict<df_col_name, x_name>
+    traces_style_map = {}, # dict<name, dict<style_filed, style>> 
+    
+    # plotly reference:https://plotly.com/python/marker-style/, mode = markerrs/lines
+    '''
+    price_traces =go.Candlestick(
+        x=df['est_datetime'],
+        open=df['open'],
+        high=df['high'],
+        low=df['low'],
+        close=df['close'],
+    )
+    traces_map = {'ticket': price_traces}
+    
+    # add external trace
+    for trace_name, trace in traces_map_external.items():
+        x_list = list(trace.keys())
+        y_list = list(trace.values())
+        trace={
+            "mode": "markers", 
+            "name": trace_name, 
+            "type": "scatter", 
+            "x":x_list,
+            "y":y_list,
+            # "line_color":"purple",
+            "line":{
+                "width":1
+            }
+        }
+        traces_map[trace_name]=trace
+    
+    # add df trace
+    for y_col, x_col in trace_map_df.items():
+        trace_from_df={
+            "mode": "lines", 
+            "name": y_col, 
+            "type": "scatter", 
+            "x":df[x_col],
+            "y":df[y_col],
+            "line_color":"royalblue",
+            "line":{
+                "width":1
+            }
+        }
+        traces_map[y_col]=trace_from_df
+        
+    # apply all styles
+    for trace_name, style in traces_style_map.items():
+        for style_field, style_val in style.items():
+            traces_map[trace_name][style_field] = style_val
+    
+    
+    fig = go.Figure(data=list(traces_map.values()))
+    fig.update_layout(title=title)
+    fig.show()
+    
+    # save image if necessary
+    if image_path != None:
+        fig.write_html(image_path)
+        
+        
 def plot_candle_stick(df, date_marker=[], date_marker2=[], ticker='default', path=None):
     price_traces =go.Candlestick(
         x=df['est_datetime'],

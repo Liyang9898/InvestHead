@@ -3,6 +3,7 @@ Created on Mar 1, 2023
 
 @author: spark
 '''
+import pandas as pd
 
 
 STATUS_LONG = 'long'
@@ -145,5 +146,5 @@ def run_trading_strategy(df):
         }
         action_list.append(exit_info)
     
-    
-    return action_list
+    df_action = pd.DataFrame(action_list)
+    return df_action
