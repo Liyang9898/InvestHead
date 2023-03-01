@@ -1,0 +1,1 @@
+strat_param_swing_2150in_2150out_plain

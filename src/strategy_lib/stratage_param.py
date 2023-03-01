@@ -491,6 +491,20 @@ strat_param_swing_2150in_2150out_plain = {
     "enable_channel_exit":0,
 }
 
+strat_param_swing_2150in_2150out_plain_neutral_out = {
+    "enter_ma_signal": "21_50",
+    "exit_ma_signal":"21_50",
+    "exit_duration_threshiold": 4, # after x bar, allow neutral exit
+    "exit_profit_threshiold": 0.001, # no specific meaning
+    "neutual_exit_enable":1,
+    "profit_management_enable":0,
+    "profit_management_enable_threshold":0.04,
+    "take_profit_above_x":0,
+    "take_profit_above_x_threshold":0.04,    
+    "enable_channel_enter":0,
+    "enable_channel_exit":0,
+}
+
 # for spy, usually, exit on 21 cross 50 is too late because the drop is fast
 strat_param_long_8_21_50_only = {
     "enter_ma_signal": "21_50",
