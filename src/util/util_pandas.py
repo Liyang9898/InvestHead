@@ -19,6 +19,9 @@ def df_general_time_filter(df, date_col, s, e):
 
 def df_normalize(df, normalize_col, initial_val=1):
     # normalize_col must be numerical and not null
+    '''
+    This function normalize the entire df with first row's value = initial_val
+    '''
     df.reset_index(drop=True,inplace=True)
     factor = df.loc[0, normalize_col]
     for i in range(0, len(df)):
@@ -165,3 +168,28 @@ def get_pnl_between_rows(df, benchmark_col, exp_col):
         rows.append(row)
     df_pnl = pd.DataFrame(rows)
     return df_pnl
+
+
+def connect_a_list_of_time_series_df(df_list, ts_col, val_col, initial_val):
+    '''
+    df_list: a list of dataframe, which must have ts_col and val_col
+    ts_col: time col
+    val_col: val col
+    
+    this function scale each time series, make sure the head and tail of 2 adjecent frame are the same
+    then connect all df, with initial_val as start
+    
+    assumption!!!!
+    each input df is already in chronological order
+    '''
+    df_nor_list = []
+    for df in df_list:
+        # scale
+        df_nor = df_normalize(df, val_col, initial_val)
+        df_nor_list.append(df_nor)
+        # get initial_val for next
+        initial_val = df_nor.loc[len(df_nor) - 1, val_col]
+        
+    df_all = pd.concat(df_nor_list, axis=0, ignore_index=True)  
+    df_all.reset_index(drop=True, inplace=True)
+    return df_all

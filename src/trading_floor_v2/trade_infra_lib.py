@@ -147,4 +147,30 @@ def run_trading_strategy(df):
         action_list.append(exit_info)
     
     df_action = pd.DataFrame(action_list)
-    return df_action
+    df_trade_pair = pair_enter_exit(df_action)
+    
+    return df_trade_pair
+
+
+def pair_enter_exit(df_actions):
+    '''
+    This function take df_actions, which is a list of buy and sell action. And pair each buy and sell into one row
+    and reduce number of rows by half
+    '''
+    trade_pair_list = []
+    for i in range(0, len(df_actions), 2):
+        assert df_actions.loc[i, 'action'] == ACTION_ENTER
+        assert df_actions.loc[i + 1, 'action'] == ACTION_EXIT
+        assert df_actions.loc[i, 'type'] == df_actions.loc[i + 1, 'type']
+        
+        res = {
+            'type': df_actions.loc[i, 'type'],
+            'ts_enter': df_actions.loc[i, 'ts'],
+            'ts_exit': df_actions.loc[i + 1, 'ts'],
+            'price_enter': df_actions.loc[i, 'price'],
+            'price_exit': df_actions.loc[i + 1, 'price'],
+            
+        }
+        trade_pair_list.append(res)
+    df = pd.DataFrame(trade_pair_list)
+    return df
