@@ -170,11 +170,12 @@ def get_pnl_between_rows(df, benchmark_col, exp_col):
     return df_pnl
 
 
-def connect_a_list_of_time_series_df(df_list, ts_col, val_col, initial_val):
+def connect_a_list_of_time_series_df(df_list, ts_col, val_col, initial_val, start_end_only=False):
     '''
     df_list: a list of dataframe, which must have ts_col and val_col
     ts_col: time col
     val_col: val col
+    start_end_only: ts will only has start and end point
     
     this function scale each time series, make sure the head and tail of 2 adjecent frame are the same
     then connect all df, with initial_val as start
@@ -183,13 +184,35 @@ def connect_a_list_of_time_series_df(df_list, ts_col, val_col, initial_val):
     each input df is already in chronological order
     '''
     df_nor_list = []
-    for df in df_list:
+    df_nor_list_start_end = []
+    for i in range(0, len(df_list)):
+        df = df_list[i]
+
         # scale
         df_nor = df_normalize(df, val_col, initial_val)
-        df_nor_list.append(df_nor)
+        
         # get initial_val for next
         initial_val = df_nor.loc[len(df_nor) - 1, val_col]
+        
+        df_nor_list.append(df_nor)
+        
+        df_nor_s_e = df_nor.head(1)
+        df_nor_list_start_end.append(df_nor_s_e)
+        if i == (len(df_list) - 1):
+            df_nor_s_e_tail = df_nor.tail(1)
+            df_nor_list_start_end.append(df_nor_s_e_tail)
+    
+    if start_end_only:
+        df_nor_list = df_nor_list_start_end
         
     df_all = pd.concat(df_nor_list, axis=0, ignore_index=True)  
     df_all.reset_index(drop=True, inplace=True)
     return df_all
+
+
+def reverse_ts_by_horizontal_line(df, value_col, pivot):
+    df = df.copy()
+    for i in range(0, len(df)):
+        y = df.loc[i, value_col]
+        df.loc[i, value_col] = 2.0 * pivot - y
+    return df

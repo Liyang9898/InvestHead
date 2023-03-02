@@ -28,6 +28,19 @@ def plot_trades(df_ticker, df_trades, img_path=None):
         'ma50': {'mode':'lines', 'line_color':'blue','type':'scatter'}
     }
          
+         
+
+    # traces = {}
+    # for i in range(0, len(df_trades)):
+    #     t1 = df_trades.loc[i, 'ts_enter']
+    #     t2 = df_trades.loc[i, 'ts_exit']
+    #     p1 = df_trades.loc[i, 'price_enter']
+    #     p2 = df_trades.loc[i, 'price_exit']
+    #     trace = {t1:p1, t2:p2}
+    #     traces[t1] = trace
+    # traces_map_external = traces 
+    
+         
     plot_candle_stick_generic(
         df=df_ticker, 
         traces_map_external=traces_map_external, 
@@ -36,5 +49,8 @@ def plot_trades(df_ticker, df_trades, img_path=None):
         image_path=img_path,
         title = 'Trades'
     )
+    
+
+
     
     

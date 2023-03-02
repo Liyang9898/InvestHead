@@ -23,9 +23,9 @@ from indicator_master.create_indicator_api_main import price_csv_append_indicato
 # file_name = "IWF_1W_fmt"
 # file_name = "BTC_1W_fmt"
 
-# file_name = "BTC_1D_fmt"
+file_name = "BTC_1D_fmt"
 # file_name = "ETH_1D_fmt"
-file_name = "BNB_1D_fmt"
+# file_name = "BNB_1D_fmt"
 
 # file_name = "BTC_4H_fmt"
 # file_name = "BTC_2H_fmt"

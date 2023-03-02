@@ -40,7 +40,7 @@ def plot_candle_stick_generic(
         x_list = list(trace.keys())
         y_list = list(trace.values())
         trace={
-            "mode": "markers", 
+            "mode": "lines", 
             "name": trace_name, 
             "type": "scatter", 
             "x":x_list,
