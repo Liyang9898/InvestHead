@@ -14,11 +14,14 @@ from random_research.try_20230224.sector_lib import rebuild_etf, \
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_ranked.csv"
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv"
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv"
-path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked.csv"
+# path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked.csv"
+# path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv"
+path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
 
 
 
 df_allo = pd.read_csv(path_allocation)
+df_allo = df_allo.fillna(0)
 df_allo_list = df_allo.to_dict('records')
 
 
@@ -44,7 +47,9 @@ ts_connected = connect_ts_df_list(ts_list)
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_ranked.csv'
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv'
-path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
+# path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
+# path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv'
+path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
 
 
 

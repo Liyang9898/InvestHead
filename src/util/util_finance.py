@@ -681,3 +681,29 @@ def get_alpha_beta(df, df_benchmark, val_col, period, start_date, end_date):
         'r_sq':round(r_sq,4)
     }
     return res
+
+
+def get_alpha_beta_from_list(list_test, list_benchmark):
+    x = np.array(list_benchmark).reshape(-1, 1)
+    y = np.array(list_test).reshape(-1, 1)
+    
+    # Create linear regression object
+    regr = linear_model.LinearRegression()
+    # Train the model using the training sets
+    regr.fit(x, y)
+    # The coefficients
+    r_sq = regr.score(x, y)
+    alpha = regr.intercept_[0]
+    beta = regr.coef_[0][0]
+    
+    
+    beta2 = get_beta_from_list(list_benchmark, list_test)
+    
+    res = {
+        'alpha':round(alpha,4),
+        'beta':round(beta,4),
+        'beta2':round(beta2,4),
+        'r_sq':round(r_sq,4)
+    }
+    return res
+    

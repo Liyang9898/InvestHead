@@ -15,7 +15,14 @@ to rebuild spy:
 -compare_with_spy.py
 
 to rebuild a new allocation:
--sector_feature.py
--sector_remix_allocation.py
+-sector_feature.py   [a hack to remove real estate]
+
+-sector_remix_allocation.py [a hack to remove real estate]
 -sector_apply_allocation.py
 -compare_with_spy.py
+
+
+2/4
+we tried:
+rank based on alpha, alpha/beta, pure percent increase
+pure percent increase is the best
