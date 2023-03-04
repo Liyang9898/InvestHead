@@ -56,11 +56,11 @@ def pickcolumn(file, path_out, input_column):
 # raw_price_file_name ="BINANCE_ETHUSD, 1D" 
 # path_out_file_name = "ETH_1D_fmt"  
 
-raw_price_file_name ="BINANCE_BNBUSD, 1D" 
-path_out_file_name = "BNB_1D_fmt"  
+# raw_price_file_name ="BINANCE_BNBUSD, 1D" 
+# path_out_file_name = "BNB_1D_fmt"  
 
-# raw_price_file_name ="BITSTAMP_BTCUSD, 4H" 
-# path_out_file_name = "BTC_4H_fmt"  
+raw_price_file_name ="BITSTAMP_BTCUSD, 4H" 
+path_out_file_name = "BTC_4H_fmt"  
 
 # raw_price_file_name ="BITSTAMP_BTCUSD, 2H" 
 # path_out_file_name = "BTC_2H_fmt"  

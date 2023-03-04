@@ -41,7 +41,7 @@ def price_csv_append_indicator(input_file_path, output_file_path, start_time, en
     
     # add indicator
     add_indicator(df)
-    
+
     # filter time
     df_range = tsfilter(df,start_time,end_time)
     

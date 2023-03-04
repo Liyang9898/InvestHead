@@ -17,6 +17,11 @@ from util.util_time import df_filter_dy_date
 
 # path_ticker = "C:/f_data/sector/indicator_day/XLF_1D_fmt_idc.csv"
 path_ticker = "C:/f_data/price_with_indicator/BTC_1D_fmt_idc.csv"
+# path_ticker = "C:/f_data/price_with_indicator/BTC_2H_fmt_idc.csv"
+# path_ticker = "C:/f_data/price_with_indicator/BTC_4H_0718_fmt_idc.csv"
+# path_ticker = "C:/f_data/price_with_indicator/BTC_1W_fmt_idc.csv"
+# path_ticker = "C:/f_data/price_with_indicator/BTC_4H_fmt_idc.csv"
+
 path_trades = "C:/f_data/sector/debug2/trades.csv"
 path_ts = "C:/f_data/sector/debug2/protafolio_time_series.csv"
 

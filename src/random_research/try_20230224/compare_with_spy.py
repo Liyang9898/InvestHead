@@ -29,7 +29,8 @@ df_spy_normalize = df_spy_normalize.copy()
 
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50.csv'
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_ranked.csv'
-test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
+# test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
+test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv'
 
 
 df_test = pd.read_csv(test_path)

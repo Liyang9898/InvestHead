@@ -20,6 +20,7 @@ from strategy_lib.strategy_util.signal import all_ma_upwards, macd, \
 
 # This library add indicator to each bar, input df should has the following interface: see global_constant file
 def add_indicator(df):
+
     # meta info
     df['est_datetime']=df.apply(lambda row : datetime.fromtimestamp(int(row['time'])).strftime('%Y-%m-%d %H:%M:%S'), axis = 1)
     df['date']=df.apply(lambda row : str(datetime.fromtimestamp(int(row['time'])).strftime('%Y-%m-%d')), axis = 1)
@@ -241,7 +242,7 @@ def add_indicator(df):
     df['barlow_2_ema21_percent_oneyear_channel_25'] = np.nan
     df['barlow_2_ema21_percent_oneyear_channel_0'] = np.nan
     # pan jian
- 
+    
  
     queue_dt = []
     queue_val = []
@@ -392,7 +393,6 @@ def add_indicator(df):
 #         df.loc[i, 'ma21_local_min_in_past_6days'] = 0
 #         if df.loc[i-1, 'ema21_local_min'] == 1 or df.loc[i-2, 'ema21_local_min'] == 1 or df.loc[i-3, 'ema21_local_min'] == 1 or df.loc[i-4, 'ema21_local_min'] == 1 or df.loc[i-5, 'ema21_local_min'] == 1 or df.loc[i-6, 'ema21_local_min'] == 1:
 #             df.loc[i, 'ma21_local_min_in_past_6days'] = 1
-
 
     #drop price bar without MA or incomplete price bar
     df.dropna(subset=['ema8'], inplace=True)
