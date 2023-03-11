@@ -13,6 +13,7 @@ def df_unixtime_filter(df, date_col, s, e):
 
 def df_general_time_filter(df, date_col, s, e):
     df = df[(df[date_col] >= s) & (df[date_col] <= e)]
+    df = df.copy()
     df.reset_index(drop=True,inplace=True)
     return df
 

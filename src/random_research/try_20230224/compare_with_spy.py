@@ -38,7 +38,7 @@ df_spy_normalize = df_spy_normalize.copy()
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv'
 test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
-
+# test_path = "C:/f_data/sector/debug/ts_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
 
 
 df_test = pd.read_csv(test_path)
