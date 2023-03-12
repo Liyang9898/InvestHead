@@ -37,8 +37,9 @@ df_spy_normalize = df_spy_normalize.copy()
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv'
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
 # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv'
-test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
+# test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
 # test_path = "C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+test_path = "C:/f_data/sector/result/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
 # test_path = "C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 
 

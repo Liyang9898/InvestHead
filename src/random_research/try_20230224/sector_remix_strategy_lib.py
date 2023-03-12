@@ -459,7 +459,7 @@ def remix6_5(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     
     res_allo['start_date'] = signal['start_date']
     res_allo['end_date'] = signal['end_date']    
-    print(res_allo)    
+    
     return res_allo
 
 

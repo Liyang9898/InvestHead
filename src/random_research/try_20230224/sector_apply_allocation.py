@@ -8,6 +8,7 @@ import plotly.express as px
 from random_research.try_20230224.helper.validate_allocation_lib import validation_allocation
 from random_research.try_20230224.sector_lib import rebuild_etf, \
     connect_ts_df_list
+from util.util_pandas import df_general_time_filter
 
 
 # get allocation
@@ -18,11 +19,15 @@ from random_research.try_20230224.sector_lib import rebuild_etf, \
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked.csv"
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv"
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
-path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+# path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+path_allocation = "C:/f_data/sector/allocation/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
 # path_allocation = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 
+start_date = '2005-06-01'
+end_date = '2023-02-15'
 
 df_allo = pd.read_csv(path_allocation)
+df_allo = df_general_time_filter(df_allo, 'start_date', start_date, end_date)
 df_allo = df_allo.fillna(0)
 
 ticker_list = ['XLC', 'XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLK', 'XLB', 'XLU']
@@ -39,6 +44,7 @@ for row in df_allo_list:
     allocation = row
     del allocation['start_date']
     del allocation['end_date']
+    print(start_date)
     print(allocation)
     
     ts = rebuild_etf(allocation, start_date, end_date)
@@ -57,7 +63,8 @@ ts_connected = connect_ts_df_list(ts_list)
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv'
 # path_out = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
-path_out = "C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+# path_out = "C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+path_out = "C:/f_data/sector/result/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
 # path_out = "C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 
 

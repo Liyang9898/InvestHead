@@ -29,10 +29,31 @@ from util.util_time import date_add_days, df_filter_dy_date
 
 
 start_date = '2005-06-01'
-end_date = '2024-01-01'
+# start_date = '2023-01-01'
+end_date = '2023-02-15'
 ticker_list = ['XLC', 'XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLK', 'XLB', 'XLU']
 # get signal file
-path = "C:/f_data/sector/feature/allocation_signal_ema21_below_ma50.csv"
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+'''
+# for using swing segment
+'''
+# path = "C:/f_data/sector/feature/allocation_signal_ema21_below_ma50.csv"
+
+####################################################################################################
+#######################################  choose one   ##############################################
+####################################################################################################
+
+'''
+# for using weekly update
+'''
+path = "C:/f_data/sector/feature/allocation_signal_ema21_below_ma50_weekly.csv"
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
 df_signal = pd.read_csv(path)
 if 'XLRE' in df_signal.columns:
     df_signal.drop(['XLRE'], axis=1)
@@ -50,11 +71,14 @@ df_signal = df_general_time_filter(df_signal, 'date', start_date, end_date)
 signals = df_signal.to_dict('records')
 
 allocation_list = []
-for signal in signals:
+for signal in signals:   
+    # signal is a dict with cols (date, start_date,end_date,year, changed, xlk,xlf.....)  date = start_date
+    # only 3 columns works (start_date,end_date,year)
     log = 'processing:' + signal['start_date']
     print(log)
     spy_allocation = extract_allocation_by_year(signal['year'])
     allocation = remix6_5(ticker_list, spy_allocation, signal)
+    print(allocation)
     
     if len(allocation) <= 2: # check if there are zero allocations, there are only 2 date cols if there is 0 allocaiton
         continue
@@ -70,7 +94,8 @@ print(res_allo)
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
-path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+# path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+path_out = "C:/f_data/sector/allocation/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 res_allo.to_csv(path_out, index=False)
 
