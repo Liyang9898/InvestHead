@@ -371,3 +371,73 @@ def remix6(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     res_allo['end_date'] = signal['end_date']    
     print(res_allo)    
     return res_allo
+
+
+def remix7(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
+    '''
+    1.get the percent increase of the 1 month of time
+    2.rank by 1(1)
+    3.reorder the ticker but use same allocation. only keep top 3 ticker  
+    4. unify bucket total sum to 1
+    '''
+    duration = 1*20
+    period = 5
+    top=3
+    '''
+    this convert a spy allocation dict<key=ticker,val=allocation> into a new one based on signal
+    '''
+    res_allo = {}
+    sum = 0
+    # select
+    end_date = signal['end_date']
+    
+    
+    info_list = []
+    for ticker in ticker_list:
+        pnl_pct = recent_delta_percent(ticker, end_date, duration)
+
+        x={}
+        x['ticker'] = ticker
+        x['pnl_pct'] = pnl_pct
+        
+        info_list.append(x)
+    df = pd.DataFrame(info_list)
+    df = df.sort_values(by=[order_by], ascending=False)
+    df.reset_index(drop=True, inplace=True)
+
+
+    # get allocation bucket and attach to the ranked ticker, ranked by past pnl
+    spy_allocation_keys = list(spy_allocation.keys()).copy()
+    for t in spy_allocation_keys:
+        if t not in ticker_list:
+            del spy_allocation[t]
+    allo_l = list(spy_allocation.values())
+    allo_l.sort(reverse = True)
+    df['allocation'] = allo_l
+    
+    # get top x
+    df = df.iloc[:top]
+    df = df.copy()
+    df = df[df['pnl_pct']>0]
+    df = df.copy()
+    print(df)
+    sum = df['allocation'].sum()
+
+    # print(sum)
+    
+    res_allo = df_to_dict(df, 'ticker', 'allocation')  
+    
+    # re scale
+    ticker_list = df['ticker'].to_list()
+    
+    if sum != 0:
+        factor = 1 / sum
+        for ticker in ticker_list:
+            res_allo[ticker] = res_allo[ticker] * factor
+    else:
+        return {}
+    
+    res_allo['start_date'] = signal['start_date']
+    res_allo['end_date'] = signal['end_date']    
+   
+    return res_allo

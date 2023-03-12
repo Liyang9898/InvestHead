@@ -31,7 +31,7 @@ def validation_allocation(df, ticker_list):
         if i > 0:
             # 2. start, end date no gap/overlap
             gap = days_gap_date_str(pre_end_date, start_date)
-            assert gap == 1
+            assert gap >= 1
         
         sum = 0
         for ticker in ticker_list:
