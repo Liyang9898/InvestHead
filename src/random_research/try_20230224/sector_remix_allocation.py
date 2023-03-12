@@ -22,7 +22,7 @@ since real estate is around 1-3% all the time, we ignore it
 import pandas as pd
 from random_research.try_20230224.sector_lib import extract_allocation_by_year
 from random_research.try_20230224.sector_remix_strategy_lib import remix5, \
-    remix6, remix7
+    remix6, remix7, remix6_5
 from util.util_finance import get_alpha_beta
 from util.util_pandas import df_general_time_filter, dict_to_df, df_to_dict
 from util.util_time import date_add_days, df_filter_dy_date
@@ -54,7 +54,7 @@ for signal in signals:
     log = 'processing:' + signal['start_date']
     print(log)
     spy_allocation = extract_allocation_by_year(signal['year'])
-    allocation = remix7(ticker_list, spy_allocation, signal)
+    allocation = remix6_5(ticker_list, spy_allocation, signal)
     
     if len(allocation) <= 2: # check if there are zero allocations, there are only 2 date cols if there is 0 allocaiton
         continue
@@ -70,7 +70,8 @@ print(res_allo)
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
-path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
+path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+# path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 res_allo.to_csv(path_out, index=False)
 
     

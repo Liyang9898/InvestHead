@@ -8,6 +8,7 @@ import bisect
 from datetime import datetime, timedelta
 
 from indicator_master.feature_lib.max_drawdown import get_down_from_peak
+from indicator_master.feature_lib.pnl_pct import get_pnl_pct_on_metric
 from indicator_master.feature_lib.velocity import get_velocity_one_bar_on_close, \
     get_velocity_pct_on_metric
 from indicator_master.raw_stock_reader_lib import load_df_from_csv 
@@ -406,6 +407,7 @@ def add_indicator(df):
     get_down_from_peak(df)
     # experiment indicator 20220227 - delete after run
     get_velocity_pct_on_metric(df=df, metric='ema21', bar_range=3, feature_col='v_ema21_3')
+    get_pnl_pct_on_metric(df=df, feature_name='close_pnl_pct_20_bar', window_size=20, base_col='close')
     
     
 def datefilter(df,s,e):
