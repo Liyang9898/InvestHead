@@ -15,7 +15,7 @@ from util.util_pandas import get_year_begin_rows, get_pnl_between_rows, get_mont
 
 
 # spy benchmark
-spy_path = "C:/f_data/price_with_indicator/SPY_1W_fmt_idc.csv"
+spy_path = "C:/f_data/price_with_indicator/SPY_1D_fmt_idc.csv"
 df_spy_base = pd.read_csv(spy_path)
 
 for year in range(2006,2023):

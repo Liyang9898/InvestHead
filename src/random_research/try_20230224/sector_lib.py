@@ -43,7 +43,7 @@ def aggregate_ts(df_sector_list):
     return df
 
 
-def rebuild_etf(allocation, start_date, end_date):
+def rebuild_etf(allocation, start_date, end_date, sector_ts_list=[]):
     '''
     allocation: a dict key=ticker, val=allocaiton between 0-1 = initial aum of each ticker of time series
     start/end_date: range of time series
@@ -57,21 +57,31 @@ def rebuild_etf(allocation, start_date, end_date):
         df_ticker = pd.read_csv(ticker_path)
     
         df_scaled = get_one_sector_ts_scaled(start_date, end_date, df_ticker, initial_aum)
+        
         ts_list.append(df_scaled)
+        
+        ##### for debug ######
+        df_scaled['ticker'] = ticker
+        sector_ts_list.append(df_scaled)
+        ##### for debug ######
 
     ts_agg = aggregate_ts(ts_list)
     return ts_agg
 
 
-def connect_ts_df_list(df_list):
+def connect_ts_df_list(df_list, sector_ts_list_list):
     '''
     df_list: a list of df with col 'date' and 'ts'
     !!! the df are already ordered in chrological order
     '''
     pre_e = 1
     l = []
+    sector_ts_list_scaled = []
     
-    for df in df_list:
+    for i in range(0, len(df_list)):
+        df = df_list[i]
+        
+
         val_s = df.loc[0, 'ts']
         
         # re scale
@@ -84,7 +94,29 @@ def connect_ts_df_list(df_list):
         # done
         pre_e = df_cp.loc[len(df_cp) - 1, 'ts']
         
+        ##### debug ######
+        #need to scale secotr_df_list as well
+        sector_df_list = sector_ts_list_list[i]
+        sector_df_list_scaled = []
+        for sector_df in sector_df_list:
+            val_s = sector_df.loc[0, 'ts']
+            
+            if val_s == 0: ### sector not in hold
+                continue
+            
+            initial_aum = val_s * factor
+            print(initial_aum)
+            df_sector_scaled = df_normalize(sector_df, 'ts', initial_aum)
+            sector_df_list_scaled.append(df_sector_scaled)
+        
+        
+        ##### debug ######
+        sector_ts_list_scaled.append(sector_df_list_scaled)
+        
     df_all = pd.concat(l, axis=0, ignore_index=True)  
+    ##### debug ######
+    sector_ts_list_list = sector_ts_list_scaled
+    ##### debug ######
     return df_all
 
 
