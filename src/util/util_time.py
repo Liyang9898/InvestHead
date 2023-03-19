@@ -192,3 +192,18 @@ def get_month_from_dt(dt):
     date_str = str(dt)
     dt = date_to_datetime_obj(date_str)
     return dt.month
+
+
+def count_weekday(start_date, end_date):
+    res = 0
+    s = datetime.strptime(start_date, '%Y-%m-%d')
+    e = datetime.strptime(end_date, '%Y-%m-%d')
+    cur = s
+    
+    while cur<e:
+        weekday = cur.weekday()
+        if weekday < 5:
+            res = res + 1
+        cur = cur + timedelta(days=1)
+    return res
+

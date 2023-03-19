@@ -4,6 +4,7 @@ Created on Feb 26, 2023
 @author: spark
 '''
 from functools import reduce
+import plotly.express as px
 
 import pandas as pd
 from random_research.try_20230224.perf_lib import plot
@@ -39,17 +40,21 @@ for year in range(2006,2023):
     # test_path = 'C:/f_data/sector/result/spy_rebuild.csv'
     
     
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50.csv'
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_ranked.csv'
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv'
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv'
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked.csv'
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv'
-    
-    # test_path = 'C:/f_data/sector/result/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv'
-    
-    test_path = "C:/f_data/sector/result/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
-    
+    # experiment_name
+    # experiment_name = "allocation_ema21_below_ma50"
+    # experiment_name = "allocation_ema21_below_ma50_alpha_ranked"
+    # experiment_name = "allocation_ema21_below_ma50_alpha_calibrated_ranked"
+    # experiment_name = "allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg"
+    # experiment_name = "allocation/allocation_ema21_below_ma50_recent_pnl_ranked"
+    # experiment_name = "allocation_ema21_below_ma50_recent_pnl_ranked_top3"
+    # experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3"
+    # experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"
+    # experiment_name = "weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"
+    experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only"
+
+    test_path = "C:/f_data/sector/result/{experiment_name}.csv".format(experiment_name=experiment_name)
+    test_path_sector = "C:/f_data/sector/result_sector/{experiment_name}.csv".format(experiment_name=experiment_name)
+
     
     
     df_test = pd.read_csv(test_path)
@@ -67,3 +72,21 @@ for year in range(2006,2023):
     df_merge.to_csv(ppp, index=False)
 
 
+    ### sector
+    df_test2 = pd.read_csv(test_path)
+    df_test2 = df_general_time_filter(df_test2, 'date', start_date, end_date)
+    
+    # sector_aum_path = 'C:/f_data/sector/debug/sector_line.csv'
+    df_sector_aum = pd.read_csv(test_path_sector)
+    df_sector_aum = df_general_time_filter(df_sector_aum, 'date', start_date, end_date)
+    
+    # join df_test2 & df_sector_aum
+    df_test2['ticker'] = 'AUM total'
+    print(df_test2.columns)
+    print(df_sector_aum.columns)
+    
+    df_pic = pd.concat([df_test2, df_sector_aum], axis=0, ignore_index=True)
+    
+    # df_test = df_normalize(df_test, 'ts', initial_val=1)
+    fig_sector = px.scatter(df_pic, x="date", y="ts", color='ticker', title='sector_remix')
+    fig_sector.show()      

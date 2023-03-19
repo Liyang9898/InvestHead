@@ -111,6 +111,7 @@ def dict_to_df(dic, key_col, val_col):
         d = {key_col:k, val_col:v}
         res.append(d)
     df = pd.DataFrame(res)
+    df.reset_index(inplace=True, drop=True)
     return df
 
 
