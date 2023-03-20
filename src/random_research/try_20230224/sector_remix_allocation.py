@@ -23,7 +23,7 @@ from random_research.try_20230224.helper.memory_data_asset import prepare_ticker
     prepare_ticker_idc_df_dict
 from random_research.try_20230224.sector_lib import extract_allocation_by_year
 from random_research.try_20230224.sector_remix_strategy_lib import remix5, \
-    remix6, remix7, remix6_5
+    remix6, remix7, remix6_5, remix4, remix
 from util.util_finance import get_alpha_beta
 from util.util_pandas import df_general_time_filter, dict_to_df, df_to_dict
 from util.util_time import date_add_days, df_filter_dy_date
@@ -73,6 +73,7 @@ ticker_df_dict = prepare_ticker_idc_df_dict(ticker_list)
 df_signal = df_general_time_filter(df_signal, 'date', start_date, end_date)
 
 signals = df_signal.to_dict('records')
+log_df = pd.DataFrame(columns = ['ticker', 'date', 'signal'])
 
 allocation_list = []
 for signal in signals:   
@@ -82,9 +83,9 @@ for signal in signals:
     print(log)
     spy_allocation = extract_allocation_by_year(signal['year'])
     
-    # allocation = remix6_5(ticker_list, spy_allocation, signal) # for version besides 6_5
+    allocation = remix(ticker_list, spy_allocation, signal) # for version besides 6_5
     
-    allocation = remix6_5(ticker_list=ticker_list, spy_allocation=spy_allocation, signal=signal, order_by='pnl_pct', ticker_df_dict=ticker_df_dict)
+    # allocation = remix6_5(ticker_list=ticker_list, spy_allocation=spy_allocation, signal=signal, order_by='pnl_pct', ticker_df_dict=ticker_df_dict, log_df=log_df)
     
     print(allocation)
     
@@ -95,7 +96,7 @@ for signal in signals:
 
 res_allo = pd.DataFrame(allocation_list)
 print(res_allo)
-# path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50.csv"
+path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_ranked.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_calibrated_ranked.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg.csv"
@@ -103,7 +104,7 @@ print(res_allo)
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_ranked_top3.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
-path_out = "C:/f_data/sector/allocation/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
+# path_out = "C:/f_data/sector/allocation/weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute.csv"
 # path_out = "C:/f_data/sector/allocation/allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only.csv"
 res_allo.to_csv(path_out, index=False)
 

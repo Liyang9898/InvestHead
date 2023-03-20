@@ -44,7 +44,7 @@ def recent_delta_percent(ticker, end_date, duration):
     return pnl_pct
 
 
-def recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict):
+def recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict, log_df):
     '''
     this gives you the percent change in past [duration] trading days
     '''
@@ -66,6 +66,9 @@ def recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict)
     assert len(df) == 1
     df.reset_index(inplace=True, drop=True)
     pnl_pct = df.loc[0, 'close_pnl_pct_20_bar']
+    
+    
+    # log ticker, end_date, pnl_pct
     
     
     return pnl_pct
@@ -112,7 +115,7 @@ def remix2(ticker_list, spy_allocation, signal, order_by='alpha_calibrated'):
     sum = 0
     # select
     end_date = signal['end_date']
-    
+    start_date = signal['start_date']
     
     ab_info_list = []
     for ticker in ticker_list:
@@ -161,6 +164,7 @@ def remix3(ticker_list, spy_allocation, signal, order_by='alpha_calibrated'):
     sum = 0
     # select
     end_date = signal['end_date']
+    start_date = signal['start_date']
     
     
     ab_info_list = []
@@ -242,6 +246,7 @@ def remix4(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     sum = 0
     # select
     end_date = signal['end_date']
+    start_date = signal['start_date']
     
     
     info_list = []
@@ -291,11 +296,12 @@ def remix5(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     sum = 0
     # select
     end_date = signal['end_date']
+    start_date = signal['start_date']
     
     
     info_list = []
     for ticker in ticker_list:
-        pnl_pct = recent_delta_percent(ticker, end_date, duration)
+        pnl_pct = recent_delta_percent(ticker, start_date, duration)
 
         x={}
         x['ticker'] = ticker
@@ -354,6 +360,7 @@ def remix6(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     sum = 0
     # select
     end_date = signal['end_date']
+    start_date = signal['start_date']
     
     
     info_list = []
@@ -402,7 +409,7 @@ def remix6(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     return res_allo
 
 
-def remix6_5(ticker_list, spy_allocation, signal, order_by, ticker_df_dict):
+def remix6_5(ticker_list, spy_allocation, signal, order_by, ticker_df_dict, log_df):
     '''
     weekly version of 6
     1.get the percent increase of the 1 month of time
@@ -419,12 +426,13 @@ def remix6_5(ticker_list, spy_allocation, signal, order_by, ticker_df_dict):
     res_allo = {}
     sum = 0
     # select
+    start_date = signal['start_date']
     end_date = signal['end_date']
     
     
     info_list = []
     for ticker in ticker_list:
-        pnl_pct = recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict)
+        pnl_pct = recent_delta_percent_pre_compute(ticker, start_date, duration, ticker_df_dict, log_df)
 
         x={}
         x['ticker'] = ticker
@@ -486,11 +494,12 @@ def remix7(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     sum = 0
     # select
     end_date = signal['end_date']
+    start_date = signal['start_date']
     
     
     info_list = []
     for ticker in ticker_list:
-        pnl_pct = recent_delta_percent(ticker, end_date, duration)
+        pnl_pct = recent_delta_percent(ticker, start_date, duration)
 
         x={}
         x['ticker'] = ticker
