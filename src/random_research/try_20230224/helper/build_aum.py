@@ -10,21 +10,7 @@ from util.util_pandas import df_normalize, dict_to_df
 from util.util_time import df_filter_dy_date, days_gap_date_str, count_weekday
 
 
-def prepare_ticker_df_dict(allo_df):
-    ticker_df_dict = {}
-    for ticker in allo_df.columns:
-        if 'date' in ticker:
-            continue    
-        ticker_path = "C:/f_data/sector/indicator_day/{ticker}_1D_fmt_idc.csv".format(ticker=ticker)
-        ticker_df = pd.read_csv(ticker_path)
-        
-        # reformat
-        ticker_df['ts'] = ticker_df['close']
-        ticker_df = ticker_df[['date', 'ts']]
-        ticker_df = ticker_df.copy()
-        ticker_df_dict[ticker] = ticker_df
-    return ticker_df_dict
-        
+
         
 def build_aum(allo_df, ticker_df_dict):
     '''

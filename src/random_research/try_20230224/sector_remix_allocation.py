@@ -3,7 +3,6 @@ Created on Feb 26, 2023
 
 @author: spark
 '''
-
 ####################################################################################################
 ####################################################################################################
 ####################################################################################################
@@ -20,6 +19,8 @@ since real estate is around 1-3% all the time, we ignore it
 '''
 
 import pandas as pd
+from random_research.try_20230224.helper.memory_data_asset import prepare_ticker_df_dict, \
+    prepare_ticker_idc_df_dict
 from random_research.try_20230224.sector_lib import extract_allocation_by_year
 from random_research.try_20230224.sector_remix_strategy_lib import remix5, \
     remix6, remix7, remix6_5
@@ -62,9 +63,12 @@ if 'XLRE' in df_signal.columns:
 ####################################################################################################
 ####################################################################################################
 
+################### in memory data asset ###################
+   
+# get start aum of each ticket
+ticker_df_dict = prepare_ticker_idc_df_dict(ticker_list)
 
-
-
+################### in memory data asset ###################
 
 df_signal = df_general_time_filter(df_signal, 'date', start_date, end_date)
 
@@ -77,7 +81,11 @@ for signal in signals:
     log = 'processing:' + signal['start_date']
     print(log)
     spy_allocation = extract_allocation_by_year(signal['year'])
-    allocation = remix6_5(ticker_list, spy_allocation, signal)
+    
+    # allocation = remix6_5(ticker_list, spy_allocation, signal) # for version besides 6_5
+    
+    allocation = remix6_5(ticker_list=ticker_list, spy_allocation=spy_allocation, signal=signal, order_by='pnl_pct', ticker_df_dict=ticker_df_dict)
+    
     print(allocation)
     
     if len(allocation) <= 2: # check if there are zero allocations, there are only 2 date cols if there is 0 allocaiton

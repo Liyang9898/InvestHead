@@ -49,8 +49,8 @@ for year in range(2006,2023):
     # experiment_name = "allocation_ema21_below_ma50_recent_pnl_ranked_top3"
     # experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3"
     # experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"
-    # experiment_name = "weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"
-    experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only"
+    experiment_name = "weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"
+    # experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only"
 
     test_path = "C:/f_data/sector/result/{experiment_name}.csv".format(experiment_name=experiment_name)
     test_path_sector = "C:/f_data/sector/result_sector/{experiment_name}.csv".format(experiment_name=experiment_name)

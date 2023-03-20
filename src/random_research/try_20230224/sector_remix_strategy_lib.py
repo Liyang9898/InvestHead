@@ -44,15 +44,17 @@ def recent_delta_percent(ticker, end_date, duration):
     return pnl_pct
 
 
-def recent_delta_percent_pre_compute(ticker, end_date, duration):
+def recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict):
     '''
     this gives you the percent change in past [duration] trading days
     '''
 
-    path_test = """C:/f_data/sector/indicator_day/{ticker}_1D_fmt_idc.csv""".format(ticker=ticker)
-    df = pd.read_csv(path_test)
-    # print(end_date)
-    # print(df['date'])
+    # path_test = """C:/f_data/sector/indicator_day/{ticker}_1D_fmt_idc.csv""".format(ticker=ticker)
+    # df = pd.read_csv(path_test)
+
+    
+    df = ticker_df_dict[ticker]
+    
     df = df[df['date'] <= end_date]
     df = df.copy()
     trade_date_max = df['date'].max()
@@ -226,6 +228,7 @@ def remix3(ticker_list, spy_allocation, signal, order_by='alpha_calibrated'):
 
 def remix4(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     '''
+    past 3 month, rank by pnl, not alpha-beta
     1.get the percent increase of the past [duration] of time
     2.rank by 1(1)
     3.reorder the ticker but use same allocation. keep all ticker
@@ -339,6 +342,7 @@ def remix6(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     2.rank by 1(1)
     3.reorder the ticker but use same allocation. only keep top 3 ticker  
     4. unify bucket total sum to 1
+    5. could have negative 1 month ticker
     '''
     duration = 1*20
     period = 5
@@ -398,8 +402,9 @@ def remix6(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     return res_allo
 
 
-def remix6_5(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
+def remix6_5(ticker_list, spy_allocation, signal, order_by, ticker_df_dict):
     '''
+    weekly version of 6
     1.get the percent increase of the 1 month of time
     2.rank by 1(1)
     3.reorder the ticker but use same allocation. only keep top 3 ticker  
@@ -419,7 +424,7 @@ def remix6_5(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     
     info_list = []
     for ticker in ticker_list:
-        pnl_pct = recent_delta_percent_pre_compute(ticker, end_date, duration)
+        pnl_pct = recent_delta_percent_pre_compute(ticker, end_date, duration, ticker_df_dict)
 
         x={}
         x['ticker'] = ticker
@@ -469,6 +474,7 @@ def remix7(ticker_list, spy_allocation, signal, order_by='pnl_pct'):
     2.rank by 1(1)
     3.reorder the ticker but use same allocation. only keep top 3 ticker  
     4. unify bucket total sum to 1
+    5. df = df[df['pnl_pct']>0]
     '''
     duration = 1*20
     period = 5

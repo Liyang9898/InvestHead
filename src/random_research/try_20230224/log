@@ -26,3 +26,16 @@ to rebuild a new allocation:
 we tried:
 rank based on alpha, alpha/beta, pure percent increase
 pure percent increase is the best
+
+
+experiment:
+# experiment_name = "allocation_ema21_below_ma50" remix
+# experiment_name = "allocation_ema21_below_ma50_alpha_ranked"  remix2
+# experiment_name = "allocation_ema21_below_ma50_alpha_calibrated_ranked"  remix2
+# experiment_name = "allocation_ema21_below_ma50_alpha_calibrated_ranked_delete_neg"  remix3 
+# experiment_name = "allocation_ema21_below_ma50_recent_pnl_ranked" remix4
+# experiment_name = "allocation_ema21_below_ma50_recent_pnl_ranked_top3" remix5  past 3 month
+# experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3" 
+# experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute" remix6
+# experiment_name = "weekly_allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_precompute"  remix6_5
+# experiment_name = "allocation_ema21_below_ma50_recent_pnl_past_1_month_ranked_top3_increase_only" remix7
