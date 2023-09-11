@@ -83,7 +83,10 @@ def remix(ticker_list, spy_allocation, signal):
     res_allo = {}
     sum = 0
     # select
+    
+    
     for ticker in ticker_list:
+
         delete = signal[ticker]
         allo = spy_allocation[ticker]
         if delete == 1:

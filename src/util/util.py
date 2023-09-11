@@ -55,6 +55,20 @@ def decode_dict(s):
         d[kv[0]]=kv[1]
     return d
 
+def merge_dict_by_key(d1, d2, d1_k, d2_k):
+    '''
+    dict d1 and d2 have the same key, 
+    the result will be {common_key_of,d1_d2, {d1_k: v1, d2_k: v2}} 
+    '''
+    d3 = {}
+    for k, v in d1.items():
+        d3[k] = {d1_k: v}
+    for k, v in d2.items():
+        if k not in d3.keys():
+            d3[k] = {}
+        d3[k][d2_k] = v
+    return d3
+
 def get_volume_map():
     path_out = """D:/f_data/volume_all_ticker.csv"""
     mmap = {}

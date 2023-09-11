@@ -706,4 +706,28 @@ def get_alpha_beta_from_list(list_test, list_benchmark):
         'r_sq':round(r_sq,4)
     }
     return res
+
+
+def yearly_return(dic):
+    '''
+    dic has {key=date, val = position}
+    this function compute yearly return in format {key=year, val=return}
+    '''
+    first_appear = {}
+    last_appear = {}
+    stat = {}
     
+    for date, v in dic.items():
+        year = date.split('-')[0]
+        if year not in first_appear.keys():
+            first_appear[year] = v
+        last_appear[year] = v
+    
+    
+    for year, v in first_appear.items():
+        start = v
+        last = last_appear[year]
+        ret = last/start - 1
+        stat[year] = ret
+
+    return stat

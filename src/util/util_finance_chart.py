@@ -1,10 +1,11 @@
 import pandas as pd
 import plotly.graph_objects as go
-from util.general_ui import plot_lines_from_xy_list, plot_bars_from_xy_list
+from util.general_ui import plot_lines_from_xy_list, plot_bars_from_xy_list, \
+    plot_bar_set_from_xy_list
 from util.util import extract_sub_df_single_st_based_on_period
 from util.util_finance import get_max_drop_from_position_df, \
-    compute_return_compared_with_previous_row
-from util.util_pandas import df_normalize, df_multiply_factor
+    compute_return_compared_with_previous_row, yearly_return
+from util.util_pandas import df_normalize, df_multiply_factor, df_to_dict
 from util.util_time import mark_year_month_week_start
 
 
@@ -238,3 +239,29 @@ def plot_chart_normalized_on_abs_return(df_pos, date_col, base_col, experiment_c
         title=f'Absolute Return Align, baseline initial={base_start_pos}, exp initial={exp_start_pos_round}',
         path=path 
     )
+
+
+def gen_yearly_return_plot(df, baseline_col, test_col, path=None):
+    dic_baseline = df_to_dict(df, 'date', baseline_col)
+    dic_test = df_to_dict(df, 'date', test_col)
+    dic_return_baseline = yearly_return(dic_baseline)
+    print(dic_return_baseline)
+    dic_return_test = yearly_return(dic_test)
+    
+    x_list = list(dic_return_baseline.keys())
+    y_list_map = {'baseline':list(dic_return_baseline.values()), 'test':list(dic_return_test.values())}
+    
+    '''
+    gen csv
+    '''
+    rows = []
+    for year, r_base in dic_return_baseline.items():
+        r_test = dic_return_test[year]
+        row = {'year': year, baseline_col: r_base, test_col: r_test}
+        rows.append(row)
+    df = pd.DataFrame(rows)
+    if path is not None:
+        df.to_csv(path,index=False)
+    # print(df)
+    
+    plot_bar_set_from_xy_list(x_list, y_list_map, title='Yearly Return Percent', path=None)

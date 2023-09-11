@@ -45,8 +45,10 @@ from strategy_lib.stratage_param import (
 from trade_analysis_lib.cash_position_tool import genPositionHistory
 from trading_floor.TradeInterface import merge_trade_summary, genTradingBundleFromCSV, merged_result_to_csv, print_merged_result
 from trading_floor.TradePlot import plot_trades, plot_win_lose_trade_size
-from util.util import plot_hist_from_df_col
+from util.util import plot_hist_from_df_col, merge_dict_by_key
 from util.util_finance import trade_distribution_plot
+from util.util_finance_chart import gen_yearly_return_plot
+from util.util_other import to_df_custome_1
 from util.util_temp import ts_position_dict_to_csv, \
     ts_position_dicts_to_dataframe
 from util.util_time import df_filter_dy_date
@@ -54,10 +56,10 @@ from util.util_time import df_filter_dy_date
 
 ############################################source region start#############################################
 # file_name = "SPY_1D_fmt"  # 1993.3 start
-# file_name = "SPY_1W_fmt"  # 1993.3 start
+file_name = "SPY_1W_fmt"  # 1993.3 start
 # file_name = "SPX_1W_fmt"  # 1970- 2022
 # file_name = "BTC_1W_fmt"   # 2017.1 start
-file_name = "BTC_1D_fmt"   # 2017.1 start
+# file_name = "BTC_1D_fmt"   # 2017.1 start
 # file_name = "ETH_1D_fmt"   # 2017.1 start
 # file_name = "BNB_1D_fmt"   # 2017.1 start
 
@@ -103,11 +105,11 @@ trades_csv_file = folder_path_trades_csv + file_name + "_trades.csv"
 
 
 # strategy_param_bundle=strat_param_swing_2150in_2150out_plain # same as strat_param_20211006
-strategy_param_bundle=strat_param_swing_2150in_2150out_plain_neutral_out
+# strategy_param_bundle=strat_param_swing_2150in_2150out_plain_neutral_out
 
 # 2021-10-06
 # strategy_param_bundle=strat_param_20211006 # same as strat_param_swing_2150in_2150out_plain
-# strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
+strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 # strategy_param_bundle=strat_param_20211006_ma_macd
 # strategy_param_bundle=strat_param_20220605_200ma_up_ma_macd
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut_neutral_out
@@ -119,7 +121,7 @@ strategy_param_bundle=strat_param_swing_2150in_2150out_plain_neutral_out
 # strategy_param_bundle=strat_param_swing_2150in_2150out_ma_gap_no_take_profit
 # strategy_param_bundle=strat_param_20211006_ma_max_drawdown_cut
 
-start_time="1970-01-01"
+start_time="1991-01-01"
 
 # start_time="2019-09-01 20:00:00"
 end_time="2023-01-31"
@@ -197,8 +199,21 @@ ts_position_dicts_to_dataframe(
 
 
 plotTimeSerisDic3(cash_position['price_position'],cash_position['cash_fixed_base_position'],cash_position['cash_rollover_position'])
- 
- 
+# print(cash_position) 
+# merge_dict = merge_dict_by_key(cash_position['price_position'], cash_position['cash_rollover_position'], 'baseline', 'test')
+# print(merge_dict) 
+
+
+'''
+generate a yearly return plot
+'''
+df_cash_position = to_df_custome_1(cash_position)
+# path_cash_position = f'C:/f_data/temp/cash_position_{strategy_name}.csv'
+# df_cash_position.to_csv(path_cash_position, index=False)
+path_cash_position_ret = f'C:/f_data/temp/cash_position_ret_{strategy_name}.csv'
+gen_yearly_return_plot(df_cash_position, 'baseline', 'test', path_cash_position_ret)
+# print(df_cash_position)
+
 # trades_consecutive
 # trades_all_entry
 plot_trades(price_with_indicator, '', trades_consecutive, entry_only=False,ticker=price_with_indicator_file)
