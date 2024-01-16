@@ -210,7 +210,7 @@ generate a yearly return plot
 df_cash_position = to_df_custome_1(cash_position)
 # path_cash_position = f'C:/f_data/temp/cash_position_{strategy_name}.csv'
 # df_cash_position.to_csv(path_cash_position, index=False)
-path_cash_position_ret = f'C:/f_data/temp/cash_position_ret_{strategy_name}.csv'
+path_cash_position_ret = f'C:/f_data/temp/cash_position_ret_{strategy_name}_20240601.csv'
 gen_yearly_return_plot(df_cash_position, 'baseline', 'test', path_cash_position_ret)
 # print(df_cash_position)
 
