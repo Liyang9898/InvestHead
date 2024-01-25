@@ -35,8 +35,8 @@ def pickcolumn(file, path_out, input_column):
     print('csv output done')
 
 ############################################source region start#############################################
-# raw_price_file_name = "BATS_SPY, 1D"
-# path_out_file_name = """SPY_1D_fmt"""  
+raw_price_file_name = "BATS_SPY, 1D"
+path_out_file_name = """SPY_1D_fmt"""  
 
 # raw_price_file_name = "BATS_ZM, 1D"
 # path_out_file_name = """ZM_1D_fmt"""  
@@ -59,8 +59,8 @@ def pickcolumn(file, path_out, input_column):
 # raw_price_file_name ="BINANCE_BNBUSD, 1D" 
 # path_out_file_name = "BNB_1D_fmt"  
 
-raw_price_file_name ="BITSTAMP_BTCUSD, 4H" 
-path_out_file_name = "BTC_4H_fmt"  
+# raw_price_file_name ="BITSTAMP_BTCUSD, 4H" 
+# path_out_file_name = "BTC_4H_fmt"  
 
 # raw_price_file_name ="BITSTAMP_BTCUSD, 2H" 
 # path_out_file_name = "BTC_2H_fmt"  

@@ -19,7 +19,7 @@ print(x_list)
 for i in range(len(df)):
     date = df.loc[i, "date"]
     x_list.append(date)
-    v = df.loc[i, "experiment"]
+    v = df.loc[i, "baseline"]
     if v > max:
         max = v
     down_from_max = v/max-1
