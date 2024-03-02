@@ -125,3 +125,8 @@ draw tradeble days
 # print(trade_days)
 plot_candle_stick(df, date_marker=[], date_marker2=[], ticker='spy')
 plot_candle_stick(df_daily, date_marker=[], date_marker2=[], ticker='spy')
+
+df_lose = df_final[df_final['label']<-0.02].copy()
+lose_date = list(df_lose['date'].to_list())
+plot_candle_stick(df, date_marker=lose_date, date_marker2=[], ticker='spy')
+# print(df_lose)
