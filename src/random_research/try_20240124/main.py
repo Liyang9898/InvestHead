@@ -18,7 +18,7 @@ df_w=pd.read_csv(path_position_record_w)
 
 
 '''
-small feature daily ema8>ema21
+
 '''
 df['feature'] = df['ema8'] - df['ema21']
 '''
@@ -39,27 +39,39 @@ for i in range(len(df)-1):
 
 
 '''
-feature region start
+feature compute region start
+'''
+#small feature daily ema8>ema21
+df['feature'] = df['ema8'] - df['ema21']
+# apply daily past 5 trading days max change < 0.02
+df = per_bar_change_max(df, 0.02, 10, 'breach_2_pst_10_bar')  
+df = per_bar_change_max(df, 0.025, 15, 'breach_25_pst_15_bar')  
+df = per_bar_change_max(df, 0.03, 15, 'breach_3_pst_15_bar')   
+# apply this weeks weekly ema21>ma50
+df = weekly_up(df, df_w)
+'''
+feature compute region end
 '''
 
 
-'''
-feature region end
-'''
 
 '''
-apply feature, get rid of the days that you don't trade
+apply feature start, get rid of the days that you don't trade
 '''
 # apply daily past 5 trading days max change < 0.02
-df = per_bar_change_max(df, 0.02, 5)    
-df= df[df['breach_in_pst_x_bar']==0].copy()
+df= df[df['breach_2_pst_10_bar']==0].copy()
+# df= df[df['breach_25_pst_15_bar']==0].copy()
+# df= df[df['breach_3_pst_15_bar']==0].copy()
 
 # apply daily ema8>ena21
 df = df[df['feature']>0].copy()
 
 # apply this weeks weekly ema21>ma50
-df = weekly_up(df, df_w)
 df= df[df['weekly_tradable']==1].copy()
+
+'''
+apply feature end, get rid of the days that you don't trade
+'''
 
 df_target = df.copy()
 
