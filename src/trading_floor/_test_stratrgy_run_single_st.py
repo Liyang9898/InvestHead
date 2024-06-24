@@ -89,6 +89,8 @@ ticker = 'SPY'
 indicator_file_postfix = "_idc"
 
 price_with_indicator_file=folder_path_price_with_indicator+file_name+indicator_file_postfix+"."+file_type_postfix
+print('input indicator')
+print(price_with_indicator_file)
 
 # price_with_indicator_file = 'D:/f_data/batch_20211116_strat_param_swing_2150in_2150out_ma_gap_4p_profit/step3_add_indicator/ABT.csv'
 
@@ -151,7 +153,8 @@ print('trades consecutive in: ', trade_result_consecutive_entry_path)
 print('getting generated trades')
 trades_all_entry = genTradingBundleFromCSV(trade_result_all_entry_path)
 trades_consecutive = genTradingBundleFromCSV(trade_result_consecutive_entry_path)
-
+print(trade_result_all_entry_path)
+print(trade_result_consecutive_entry_path)
 
 df = csv2df_indicator(price_with_indicator_file)
 price_with_indicator = df_filter_dy_date(df,'date', start_time,end_time)
